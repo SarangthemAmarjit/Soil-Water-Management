@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soilmoisturedetector/demo.dart';
 import 'package:soilmoisturedetector/pages/dashboard.dart';
 
 void main() {
@@ -15,6 +16,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(fontFamily: 'KulimPark'),
-        home: const Dashboard());
+        home: const HomePage());
   }
 }
