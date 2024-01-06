@@ -7,26 +7,47 @@ class MoisturePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double scrrenheight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            colorFilter: ColorFilter.mode(
-                Colors.white.withOpacity(0.4), BlendMode.dstATop),
-            image: const AssetImage(
-              "assets/images/soil01.png",
+      body: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              colorFilter: ColorFilter.mode(
+                  Colors.white.withOpacity(0.4), BlendMode.dstATop),
+              image: const AssetImage(
+                "assets/images/soil01.png",
+              ),
+              // opacity: .2,
+              fit: BoxFit.cover,
             ),
-            // opacity: .2,
-            fit: BoxFit.cover,
           ),
-        ),
-        child: Column(
-          children: [
-            Container(
-              color: Colors.amber,
-              height: 300,
-            )
-          ],
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Graphical view of Moisture level of soil",
+                  style: TextStyle(fontSize: 22),
+                ),
+                SizedBox(
+                  height: scrrenheight / 82,
+                ),
+                Container(
+                  color: Colors.amber,
+                  height: scrrenheight / 3,
+                  child: const Center(
+                    child: Text(
+                      "GRAPH",
+                      style: TextStyle(fontSize: 98),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
