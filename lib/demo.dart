@@ -263,6 +263,34 @@ class _HomePageState extends State<HomePage> {
                                                                 controller.updateSelectedVisualType(
                                                                     value: value
                                                                         as VisualType);
+                                                                showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) =>
+                                                                          AlertDialog(
+                                                                    title: const Text(
+                                                                        'Task Confirmation'),
+                                                                    content:
+                                                                        const Text(
+                                                                            'Are You Sure To Pump Water for 5 Minute?'),
+                                                                    actions: [
+                                                                      ElevatedButton(
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Navigator.of(context).pop(false),
+                                                                        child: const Text(
+                                                                            'No'),
+                                                                      ),
+                                                                      ElevatedButton(
+                                                                        onPressed:
+                                                                            () {},
+                                                                        child: const Text(
+                                                                            'Yes'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                );
                                                               }),
                                                         ),
                                                         const Text(
@@ -298,6 +326,34 @@ class _HomePageState extends State<HomePage> {
                                                                 controller.updateSelectedVisualType(
                                                                     value: value
                                                                         as VisualType);
+                                                                showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) =>
+                                                                          AlertDialog(
+                                                                    title: const Text(
+                                                                        'Task Confirmation'),
+                                                                    content:
+                                                                        const Text(
+                                                                            'Are You Sure To Pump Water for 10 Minute?'),
+                                                                    actions: [
+                                                                      ElevatedButton(
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Navigator.of(context).pop(false),
+                                                                        child: const Text(
+                                                                            'Cancel'),
+                                                                      ),
+                                                                      ElevatedButton(
+                                                                        onPressed:
+                                                                            () {},
+                                                                        child: const Text(
+                                                                            'OK'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                );
                                                               }),
                                                         ),
                                                         const Text(
@@ -332,6 +388,34 @@ class _HomePageState extends State<HomePage> {
                                                                 controller.updateSelectedVisualType(
                                                                     value: value
                                                                         as VisualType);
+                                                                showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) =>
+                                                                          AlertDialog(
+                                                                    title: const Text(
+                                                                        'Task Confirmation'),
+                                                                    content:
+                                                                        const Text(
+                                                                            'Are You Sure To Pump Water for 15 Minute?'),
+                                                                    actions: [
+                                                                      ElevatedButton(
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Navigator.of(context).pop(false),
+                                                                        child: const Text(
+                                                                            'No'),
+                                                                      ),
+                                                                      ElevatedButton(
+                                                                        onPressed:
+                                                                            () {},
+                                                                        child: const Text(
+                                                                            'Yes'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                );
                                                               }),
                                                         ),
                                                         const Text(
