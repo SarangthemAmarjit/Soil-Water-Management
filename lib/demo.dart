@@ -131,16 +131,24 @@ class _HomePageState extends State<HomePage> {
                                         children: [
                                           Row(
                                             children: [
-                                              Image.asset(
-                                                "assets/images/pump.png",
-                                                height: 40,
-                                              ), // Icon(
+                                              controller.pumpStatus
+                                                  ? Image.asset(
+                                                      "assets/images/pumpONgif.gif",
+                                                      height: 60,
+                                                    )
+                                                  : Image.asset(
+                                                      "assets/images/pumpOFF.png",
+                                                      height: 60,
+                                                    )
+
+                                              // Icon(
                                               //   Icons.electrical_services_outlined,
                                               //   size: 32,
                                               //   color: Colors.amber,
                                               // ),
+                                              ,
                                               const Text(
-                                                "   Water Pump",
+                                                "Water Pump",
                                                 style: TextStyle(
                                                     fontSize: 20,
                                                     fontWeight:
@@ -190,10 +198,15 @@ class _HomePageState extends State<HomePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  Image.asset(
-                                                    "assets/images/timer.png",
-                                                    height: 40,
-                                                  ),
+                                                  controller.pumpStatusmanually
+                                                      ? Image.asset(
+                                                          "assets/images/timer.png",
+                                                          height: 40,
+                                                        )
+                                                      : Image.asset(
+                                                          "assets/images/timerOFF.png",
+                                                          height: 40,
+                                                        ),
                                                   const Text(
                                                     "   Manual Timer",
                                                     style: TextStyle(
