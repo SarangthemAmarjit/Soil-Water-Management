@@ -16,8 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  VisualType _timer = VisualType.fiveMins;
-
   @override
   Widget build(BuildContext context) {
     GetxTapController controller = Get.put(GetxTapController());
@@ -262,14 +260,14 @@ class _HomePageState extends State<HomePage> {
                                                                   Colors.green,
                                                               value: VisualType
                                                                   .fiveMins,
-                                                              groupValue:
-                                                                  _timer,
+                                                              groupValue: controller
+                                                                  .selectedVisualType
+                                                                  .value,
                                                               onChanged:
                                                                   (value) {
-                                                                setState(() {
-                                                                  _timer =
-                                                                      value!;
-                                                                });
+                                                                controller.updateSelectedVisualType(
+                                                                    value: value
+                                                                        as VisualType);
                                                               }),
                                                         ),
                                                         const Text(
@@ -297,14 +295,14 @@ class _HomePageState extends State<HomePage> {
                                                               toggleable: true,
                                                               value: VisualType
                                                                   .tenMins,
-                                                              groupValue:
-                                                                  _timer,
+                                                              groupValue: controller
+                                                                  .selectedVisualType
+                                                                  .value,
                                                               onChanged:
                                                                   (value) {
-                                                                setState(() {
-                                                                  _timer =
-                                                                      value!;
-                                                                });
+                                                                controller.updateSelectedVisualType(
+                                                                    value: value
+                                                                        as VisualType);
                                                               }),
                                                         ),
                                                         const Text(
@@ -331,14 +329,14 @@ class _HomePageState extends State<HomePage> {
                                                                   Colors.green,
                                                               value: VisualType
                                                                   .fifteenMins,
-                                                              groupValue:
-                                                                  _timer,
+                                                              groupValue: controller
+                                                                  .selectedVisualType
+                                                                  .value,
                                                               onChanged:
                                                                   (value) {
-                                                                setState(() {
-                                                                  _timer =
-                                                                      value!;
-                                                                });
+                                                                controller.updateSelectedVisualType(
+                                                                    value: value
+                                                                        as VisualType);
                                                               }),
                                                         ),
                                                         const Text(

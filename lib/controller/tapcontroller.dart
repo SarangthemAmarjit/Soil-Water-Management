@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
+import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/model/soilmodel.dart';
 
 class GetxTapController extends GetxController {
@@ -31,8 +32,17 @@ class GetxTapController extends GetxController {
   @override
   void onClose() {}
 
+  Rx<VisualType?> selectedVisualType = Rx<VisualType?>(null);
+
+  void updateSelectedVisualType({required VisualType value}) {
+    selectedVisualType.value = value;
+    update();
+  }
+
   void setpumpmanually({required bool pumpstatus}) {
     _pumpStatusmanually = pumpstatus;
+    selectedVisualType.value = null;
+
     update();
   }
 
