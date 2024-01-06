@@ -16,25 +16,27 @@ class RadialData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<ChartData> chartData = [
-      ChartData(nitro.isEmpty ? 'N: N/A' : 'Nitro',
+      ChartData(nitro.isEmpty ? 'N/A' : 'Nitro',
           nitro.isEmpty ? 0 : int.parse(nitro)),
-      ChartData(phos.isEmpty ? 'P : N/A' : 'Phosph',
-          phos.isEmpty ? 0 : int.parse(phos)),
-      ChartData(potas.isEmpty ? 'P : N/A' : 'Potas',
+      ChartData(
+          phos.isEmpty ? 'N/A' : 'Phosph', phos.isEmpty ? 0 : int.parse(phos)),
+      ChartData(potas.isEmpty ? 'N/A' : 'Potas',
           potas.isEmpty ? 0 : int.parse(potas)),
     ];
-    return Scaffold(
-        body: Card(
-      elevation: 10,
-      child: Center(
-          child: Container(
-              child: SfCircularChart(
-                  legend: const Legend(
-                    isResponsive: true,
-                    position: LegendPosition.bottom,
-                    isVisible: true,
-                  ),
-                  series: <CircularSeries>[
+    return Transform.scale(
+      scale: 1,
+      child: SfCircularChart(
+          legend: const Legend(
+            itemPadding: 1,
+            iconHeight: 0,
+            offset: Offset.zero,
+            borderColor: Colors.amber,
+            backgroundColor: Colors.white,
+            isResponsive: true,
+            position: LegendPosition.bottom,
+            isVisible: true,
+          ),
+          series: <CircularSeries>[
             // Renders radial bar chart
             RadialBarSeries<ChartData, String>(
                 dataLabelSettings: const DataLabelSettings(
@@ -45,16 +47,16 @@ class RadialData extends StatelessWidget {
                     // Renders the data label
                     isVisible: true),
                 enableTooltip: true,
-                radius: '100%',
+                radius: '130%',
                 trackOpacity: 0.2,
-                trackColor: Colors.grey,
-                gap: '12%',
+                trackColor: Colors.red,
+                gap: '5%',
                 cornerStyle: CornerStyle.bothCurve,
                 dataSource: chartData,
                 xValueMapper: (ChartData data, _) => data.x,
                 yValueMapper: (ChartData data, _) => data.y)
-          ]))),
-    ));
+          ]),
+    );
   }
 }
 

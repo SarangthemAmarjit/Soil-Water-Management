@@ -38,38 +38,47 @@ class _HomePageState extends State<HomePage> {
                 switch (index) {
                   case 0:
                     return GestureDetector(
-                      child: CardWidgetforSoil(
-                          bgimagepath: "assets/images/soilHumidity.png",
-                          title: "Soil Humidity",
-                          iconpath: "assets/images/humidity.png"),
+                      child: const CardWidgetforSoil(
+                        bgimagepath: "assets/images/soilHumidity.png",
+                        title: "Soil Humidity",
+                        iconpath: "assets/images/humidity.png",
+                        index: 0,
+                      ),
                       onTap: () {},
                     );
                   case 1:
                     return GestureDetector(
-                      child: CardWidgetforSoil(
-                          bgimagepath: "assets/images/soilTemperature.png",
-                          title: "Soil Temperature",
-                          iconpath: "assets/images/temp.png"),
+                      child: const CardWidgetforSoil(
+                        bgimagepath: "assets/images/soilTemperature.png",
+                        title: "Soil Temperature",
+                        iconpath: "assets/images/temp.png",
+                        index: 1,
+                      ),
                       onTap: () {},
                     );
                   case 2:
                     return GestureDetector(
-                      child: CardWidgetforSoil(
-                          bgimagepath: "assets/images/soilPhLevel.png",
-                          title: "Soil PH Level",
-                          iconpath: "assets/images/ph.png"),
+                      child: const CardWidgetforSoil(
+                        bgimagepath: "assets/images/soilPhLevel.png",
+                        title: "Soil PH Level",
+                        iconpath: "assets/images/ph.png",
+                        index: 2,
+                      ),
                       onTap: () {},
                     );
                   case 3:
                     return GestureDetector(
-                      child: CardWidgetforSoil(
-                          bgimagepath: "assets/images/soilNPK.png",
-                          title: "Soil NPK",
-                          iconpath: "assets/images/npk.png"),
+                      child: const CardWidgetforSoil(
+                        bgimagepath: "assets/images/soilNPK.png",
+                        title: "Soil NPK",
+                        iconpath: "assets/images/npk.png",
+                        index: 3,
+                      ),
                       onTap: () {},
                     );
                   default:
                 }
+                return null;
               },
             ),
 
