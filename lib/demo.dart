@@ -1,10 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
+import 'package:soilmoisturedetector/router/router.gr.dart';
 import 'package:soilmoisturedetector/widget/cardwidget.dart';
 
+@RoutePage()
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -51,7 +54,9 @@ class _HomePageState extends State<HomePage> {
                                   index: 0,
                                   value: controller.latestfeeddata!.field3,
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  context.router.push(const MoisturePage());
+                                },
                               );
                             case 1:
                               return GestureDetector(
