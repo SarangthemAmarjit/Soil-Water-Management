@@ -3,10 +3,11 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class RadialIndicatorSoil extends StatelessWidget {
   final String value;
-
+  final int index;
   const RadialIndicatorSoil({
     super.key,
     required this.value,
+    required this.index,
   });
 
   @override
@@ -17,7 +18,13 @@ class RadialIndicatorSoil extends StatelessWidget {
           annotations: [
             GaugeAnnotation(
                 widget: Text(
-              value.isEmpty ? 'N/A' : '$value%',
+              value.isEmpty
+                  ? 'N/A'
+                  : index == 0
+                      ? '$value%'
+                      : index == 1
+                          ? '$value°C'
+                          : value,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             ))
           ],

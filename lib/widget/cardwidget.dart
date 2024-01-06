@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
-import 'package:soilmoisturedetector/model/radialindicator.dart';
+import 'package:soilmoisturedetector/widget/radialindicator.dart';
 import 'package:soilmoisturedetector/widget/chartdata.dart';
 
 class CardWidgetforSoil extends StatelessWidget {
@@ -59,11 +59,12 @@ class CardWidgetforSoil extends StatelessWidget {
               Flexible(
                 child: index == 3
                     ? RadialData(
-                        nitro: controller.latestfeeddata!.field5,
-                        phos: controller.latestfeeddata!.field6,
-                        potas: controller.latestfeeddata!.field7)
+                        nitro: controller.latestfeeddata!.field4,
+                        phos: controller.latestfeeddata!.field5,
+                        potas: controller.latestfeeddata!.field6)
                     : RadialIndicatorSoil(
                         value: value,
+                        index: index,
                       ),
               ),
               Padding(
