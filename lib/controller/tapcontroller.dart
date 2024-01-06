@@ -8,8 +8,14 @@ class GetxTapController extends GetxController {
   Getallsoildetails? alldata;
   final List _allfeed = [];
   Feed? _latestfeeddata;
+
+  var isDataLoading = false.obs;
+  bool _pumpStatusmanually = false;
+  bool _pumpStatus = false;
   List get allfeed => _allfeed;
   Feed? get latestfeeddata => _latestfeeddata;
+  bool get pumpStatusmanually => _pumpStatusmanually;
+  bool get pumpStatus => _pumpStatus;
 
   @override
   Future<void> onInit() async {
@@ -24,8 +30,20 @@ class GetxTapController extends GetxController {
 
   @override
   void onClose() {}
+
+  void setpumpmanually({required bool pumpstatus}) {
+    _pumpStatusmanually = pumpstatus;
+    update();
+  }
+
+  void setpump({required bool pumpstatus}) {
+    _pumpStatus = pumpstatus;
+    update();
+  }
+
   Future getalldata() async {
     try {
+      isDataLoading(true);
       final queryParameters = {
         "api_key": "330F3444455D4923",
         "interval": "10",
@@ -50,6 +68,8 @@ class GetxTapController extends GetxController {
       return null;
     } catch (e) {
       print(e.toString());
+    } finally {
+      isDataLoading(false);
     }
   }
 }

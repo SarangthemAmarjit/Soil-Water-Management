@@ -23,8 +23,8 @@ class RadialIndicatorSoil extends StatelessWidget {
           ],
           showLabels: false,
           showTicks: false,
-          useRangeColorForAxis: true,
-          ranges: [GaugeRange(startValue: double.parse(value), endValue: 100)],
+          // useRangeColorForAxis: true,
+          // ranges: [GaugeRange(startValue: double.parse(value), endValue: 100)],
           pointers: <GaugePointer>[
             RangePointer(
                 enableAnimation: true,

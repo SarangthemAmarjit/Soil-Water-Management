@@ -23,40 +23,38 @@ class RadialData extends StatelessWidget {
       ChartData(potas.isEmpty ? 'N/A' : 'Potas',
           potas.isEmpty ? 0 : int.parse(potas)),
     ];
-    return Transform.scale(
-      scale: 1,
-      child: SfCircularChart(
-          legend: const Legend(
-            itemPadding: 1,
-            iconHeight: 0,
-            offset: Offset.zero,
-            borderColor: Colors.amber,
-            backgroundColor: Colors.white,
-            isResponsive: true,
-            position: LegendPosition.bottom,
-            isVisible: true,
-          ),
-          series: <CircularSeries>[
-            // Renders radial bar chart
-            RadialBarSeries<ChartData, String>(
-                dataLabelSettings: const DataLabelSettings(
-                    labelPosition: ChartDataLabelPosition.inside,
-                    useSeriesColor: true,
-                    showZeroValue: false,
+    return SfCircularChart(
+        legend: const Legend(
+          itemPadding: 1,
+          height: '22',
+          iconHeight: 0,
+          offset: Offset.zero,
+          borderColor: Colors.amber,
+          backgroundColor: Colors.white,
+          isResponsive: true,
+          position: LegendPosition.bottom,
+          isVisible: true,
+        ),
+        series: <CircularSeries>[
+          // Renders radial bar chart
+          RadialBarSeries<ChartData, String>(
+              dataLabelSettings: const DataLabelSettings(
+                  labelPosition: ChartDataLabelPosition.inside,
+                  useSeriesColor: true,
+                  showZeroValue: false,
 
-                    // Renders the data label
-                    isVisible: true),
-                enableTooltip: true,
-                radius: '130%',
-                trackOpacity: 0.2,
-                trackColor: Colors.red,
-                gap: '5%',
-                cornerStyle: CornerStyle.bothCurve,
-                dataSource: chartData,
-                xValueMapper: (ChartData data, _) => data.x,
-                yValueMapper: (ChartData data, _) => data.y)
-          ]),
-    );
+                  // Renders the data label
+                  isVisible: true),
+              enableTooltip: true,
+              radius: '115%',
+              trackOpacity: 0.2,
+              trackColor: Colors.grey,
+              gap: '5%',
+              cornerStyle: CornerStyle.bothCurve,
+              dataSource: chartData,
+              xValueMapper: (ChartData data, _) => data.x,
+              yValueMapper: (ChartData data, _) => data.y)
+        ]);
   }
 }
 
