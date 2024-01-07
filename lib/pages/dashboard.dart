@@ -5,6 +5,7 @@ import 'package:sliding_switch/sliding_switch.dart';
 import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:soilmoisturedetector/widget/cardwidget.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -157,31 +158,35 @@ class _HomePageState extends State<HomePage> {
                                           ),
 
                                           //! using dafault switch
-                                          SlidingSwitch(
-                                            contentSize: 14,
-                                            value: false,
-                                            width: 100,
-                                            onChanged: (bool value) {
+                                          ToggleSwitch(
+                                            minWidth: 55,
+                                            minHeight: 40,
+                                            cornerRadius: 20.0,
+                                            activeBgColors: const [
+                                              [
+                                                Color(0xffdc6c73),
+                                              ],
+                                              [
+                                                Color.fromARGB(
+                                                    255, 60, 205, 130),
+                                              ]
+                                            ],
+                                            activeFgColor: Colors.white,
+                                            inactiveBgColor:
+                                                const Color.fromARGB(
+                                                    255, 58, 60, 62),
+                                            inactiveFgColor: Colors.white,
+                                            initialLabelIndex:
+                                                controller.pumpStatus ? 1 : 0,
+                                            totalSwitches: 2,
+                                            labels: const ['OFF', 'ON'],
+                                            radiusStyle: true,
+                                            onToggle: (index) {
                                               controller.setpump(
-                                                  pumpstatus: value);
+                                                  pumpstatus: index == 0
+                                                      ? false
+                                                      : true);
                                             },
-                                            height: 35,
-                                            animationDuration: const Duration(
-                                                milliseconds: 20),
-                                            onTap: () {},
-                                            onDoubleTap: () {},
-                                            onSwipe: () {},
-                                            textOff: "OFF",
-                                            textOn: "ON",
-                                            colorOn: const Color.fromARGB(
-                                                255, 60, 205, 130),
-                                            colorOff: const Color(0xffdc6c73),
-                                            background: const Color.fromARGB(
-                                                255, 113, 113, 114),
-                                            buttonColor:
-                                                const Color(0xfff7f5f7),
-                                            inactiveColor: const Color.fromARGB(
-                                                255, 58, 60, 62),
                                           ),
                                         ],
                                       ),
@@ -222,14 +227,59 @@ class _HomePageState extends State<HomePage> {
                                                 value: controller
                                                     .pumpStatusmanually,
                                                 activeColor: Colors.blue,
-                                                onChanged: (bool value) {
-                                                  // This is called when the user toggles the switch.
-                                                  controller.setpumpmanually(
-                                                      pumpstatus: value);
-                                                },
+                                                onChanged: controller.pumpStatus
+                                                    ? null
+                                                    : (bool value) {
+                                                        // This is called when the user toggles the switch.
+                                                        controller
+                                                            .setpumpmanually(
+                                                                pumpstatus:
+                                                                    value);
+                                                      },
                                               )
                                             ],
                                           ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+
+                                          controller.iswatermanualconfirm
+                                              ? Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    const Text(
+                                                      "Time remaining : ",
+                                                      style: TextStyle(
+                                                          fontSize: 18),
+                                                    ),
+                                                    controller.min > 0
+                                                        ? Text(
+                                                            '${controller.min}min : ${controller.sec < 10 ? '0${controller.sec}sec' : '${controller.sec}sec'}',
+                                                            style: const TextStyle(
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color:
+                                                                    Colors.red),
+                                                          )
+                                                        : Text(
+                                                            controller.sec < 10
+                                                                ? '0${controller.sec}sec'
+                                                                : '${controller.sec}sec',
+                                                            style: const TextStyle(
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color:
+                                                                    Colors.red),
+                                                          )
+                                                  ],
+                                                )
+                                              : const SizedBox(),
                                           const SizedBox(
                                             height: 12,
                                           ),
@@ -259,56 +309,66 @@ class _HomePageState extends State<HomePage> {
                                                               groupValue: controller
                                                                   .selectedVisualType
                                                                   .value,
-                                                              onChanged:
-                                                                  (value) {
-                                                                controller.updateSelectedVisualType(
-                                                                    value: value
-                                                                        as VisualType);
-                                                                showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (context) =>
-                                                                          AlertDialog(
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    title: const Text(
-                                                                        'Task Confirmation'),
-                                                                    content:
-                                                                        const Text(
-                                                                            'Are You Sure To Pump Water for 5 Minute?'),
-                                                                    actions: [
-                                                                      Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.end,
-                                                                        children: [
-                                                                          ElevatedButton(
-                                                                              style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.grey[200], side: BorderSide(color: Colors.grey[700]!)),
-                                                                              onPressed: () {
-                                                                                context.router.pop();
-                                                                              },
-                                                                              child: Text(
-                                                                                "CANCEL",
-                                                                                style: TextStyle(color: Colors.red[300]!, fontWeight: FontWeight.bold),
-                                                                              )),
-                                                                          Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.only(left: 10),
-                                                                            child: ElevatedButton(
-                                                                                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.green[200], side: BorderSide(color: Colors.green[700]!)),
-                                                                                onPressed: () {},
-                                                                                child: const Text(
-                                                                                  "OK",
-                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-                                                                                )),
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                );
-                                                              }),
+                                                              onChanged: controller
+                                                                      .iswatermanualconfirm
+                                                                  ? null
+                                                                  : (value) {
+                                                                      controller.updateSelectedVisualType(
+                                                                          value: value
+                                                                              as VisualType,
+                                                                          timerforpump:
+                                                                              5);
+                                                                      showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (context) =>
+                                                                                AlertDialog(
+                                                                          backgroundColor:
+                                                                              Colors.white,
+                                                                          title:
+                                                                              const Text('Task Confirmation'),
+                                                                          content:
+                                                                              const Text('Are You Sure To Pump Water for 5 Minute?'),
+                                                                          actions: [
+                                                                            Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                                              children: [
+                                                                                ElevatedButton(
+                                                                                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.grey[200], side: BorderSide(color: Colors.grey[700]!)),
+                                                                                    onPressed: () {
+                                                                                      context.router.pop();
+                                                                                    },
+                                                                                    child: Text(
+                                                                                      "CANCEL",
+                                                                                      style: TextStyle(color: Colors.red[300]!, fontWeight: FontWeight.bold),
+                                                                                    )),
+                                                                                Padding(
+                                                                                  padding: const EdgeInsets.only(left: 10),
+                                                                                  child: ElevatedButton(
+                                                                                      style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.green[200], side: BorderSide(color: Colors.green[700]!)),
+                                                                                      onPressed: () {
+                                                                                        controller.startTimer();
+                                                                                        context.router.pop();
+                                                                                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                                                                          behavior: SnackBarBehavior.fixed,
+                                                                                          backgroundColor: Colors.green,
+
+                                                                                          content: Text('Water Pump Activated For 5 Min'),
+                                                                                          duration: Duration(seconds: 3), // Adjust the duration as needed
+                                                                                        ));
+                                                                                      },
+                                                                                      child: const Text(
+                                                                                        "OK",
+                                                                                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                                                                      )),
+                                                                                )
+                                                                              ],
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      );
+                                                                    }),
                                                         ),
                                                         const Text(
                                                           '05 mins',
@@ -338,56 +398,59 @@ class _HomePageState extends State<HomePage> {
                                                               groupValue: controller
                                                                   .selectedVisualType
                                                                   .value,
-                                                              onChanged:
-                                                                  (value) {
-                                                                controller.updateSelectedVisualType(
-                                                                    value: value
-                                                                        as VisualType);
-                                                                showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (context) =>
-                                                                          AlertDialog(
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    title: const Text(
-                                                                        'Task Confirmation'),
-                                                                    content:
-                                                                        const Text(
-                                                                            'Are You Sure To Pump Water for 10 Minute?'),
-                                                                    actions: [
-                                                                      Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.end,
-                                                                        children: [
-                                                                          ElevatedButton(
-                                                                              style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.grey[200], side: BorderSide(color: Colors.grey[700]!)),
-                                                                              onPressed: () {
-                                                                                context.router.pop();
-                                                                              },
-                                                                              child: Text(
-                                                                                "CANCEL",
-                                                                                style: TextStyle(color: Colors.red[300]!, fontWeight: FontWeight.bold),
-                                                                              )),
-                                                                          Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.only(left: 10),
-                                                                            child: ElevatedButton(
-                                                                                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.green[200], side: BorderSide(color: Colors.green[700]!)),
-                                                                                onPressed: () {},
-                                                                                child: const Text(
-                                                                                  "OK",
-                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-                                                                                )),
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                );
-                                                              }),
+                                                              onChanged: controller
+                                                                      .iswatermanualconfirm
+                                                                  ? null
+                                                                  : (value) {
+                                                                      controller.updateSelectedVisualType(
+                                                                          value: value
+                                                                              as VisualType,
+                                                                          timerforpump:
+                                                                              10);
+                                                                      showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (context) =>
+                                                                                AlertDialog(
+                                                                          backgroundColor:
+                                                                              Colors.white,
+                                                                          title:
+                                                                              const Text('Task Confirmation'),
+                                                                          content:
+                                                                              const Text('Are You Sure To Pump Water for 10 Minute?'),
+                                                                          actions: [
+                                                                            Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                                              children: [
+                                                                                ElevatedButton(
+                                                                                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.grey[200], side: BorderSide(color: Colors.grey[700]!)),
+                                                                                    onPressed: () {
+                                                                                      context.router.pop();
+                                                                                    },
+                                                                                    child: Text(
+                                                                                      "CANCEL",
+                                                                                      style: TextStyle(color: Colors.red[300]!, fontWeight: FontWeight.bold),
+                                                                                    )),
+                                                                                Padding(
+                                                                                  padding: const EdgeInsets.only(left: 10),
+                                                                                  child: ElevatedButton(
+                                                                                      style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.green[200], side: BorderSide(color: Colors.green[700]!)),
+                                                                                      onPressed: () {
+                                                                                        controller.startTimer();
+                                                                                        context.router.pop();
+                                                                                      },
+                                                                                      child: const Text(
+                                                                                        "OK",
+                                                                                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                                                                      )),
+                                                                                )
+                                                                              ],
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      );
+                                                                    }),
                                                         ),
                                                         const Text(
                                                           '10 mins',
@@ -416,56 +479,59 @@ class _HomePageState extends State<HomePage> {
                                                               groupValue: controller
                                                                   .selectedVisualType
                                                                   .value,
-                                                              onChanged:
-                                                                  (value) {
-                                                                controller.updateSelectedVisualType(
-                                                                    value: value
-                                                                        as VisualType);
-                                                                showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (context) =>
-                                                                          AlertDialog(
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    title: const Text(
-                                                                        'Task Confirmation'),
-                                                                    content:
-                                                                        const Text(
-                                                                            'Are You Sure To Pump Water for 15 Minute?'),
-                                                                    actions: [
-                                                                      Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.end,
-                                                                        children: [
-                                                                          ElevatedButton(
-                                                                              style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.grey[200], side: BorderSide(color: Colors.grey[700]!)),
-                                                                              onPressed: () {
-                                                                                context.router.pop();
-                                                                              },
-                                                                              child: Text(
-                                                                                "CANCEL",
-                                                                                style: TextStyle(color: Colors.red[300]!, fontWeight: FontWeight.bold),
-                                                                              )),
-                                                                          Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.only(left: 10),
-                                                                            child: ElevatedButton(
-                                                                                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.green[200], side: BorderSide(color: Colors.green[700]!)),
-                                                                                onPressed: () {},
-                                                                                child: const Text(
-                                                                                  "OK",
-                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-                                                                                )),
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                );
-                                                              }),
+                                                              onChanged: controller
+                                                                      .iswatermanualconfirm
+                                                                  ? null
+                                                                  : (value) {
+                                                                      controller.updateSelectedVisualType(
+                                                                          value: value
+                                                                              as VisualType,
+                                                                          timerforpump:
+                                                                              15);
+                                                                      showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (context) =>
+                                                                                AlertDialog(
+                                                                          backgroundColor:
+                                                                              Colors.white,
+                                                                          title:
+                                                                              const Text('Task Confirmation'),
+                                                                          content:
+                                                                              const Text('Are You Sure To Pump Water for 15 Minute?'),
+                                                                          actions: [
+                                                                            Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                                              children: [
+                                                                                ElevatedButton(
+                                                                                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.grey[200], side: BorderSide(color: Colors.grey[700]!)),
+                                                                                    onPressed: () {
+                                                                                      context.router.pop();
+                                                                                    },
+                                                                                    child: Text(
+                                                                                      "CANCEL",
+                                                                                      style: TextStyle(color: Colors.red[300]!, fontWeight: FontWeight.bold),
+                                                                                    )),
+                                                                                Padding(
+                                                                                  padding: const EdgeInsets.only(left: 10),
+                                                                                  child: ElevatedButton(
+                                                                                      style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.green[200], side: BorderSide(color: Colors.green[700]!)),
+                                                                                      onPressed: () {
+                                                                                        controller.startTimer();
+                                                                                        context.router.pop();
+                                                                                      },
+                                                                                      child: const Text(
+                                                                                        "OK",
+                                                                                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                                                                      )),
+                                                                                )
+                                                                              ],
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      );
+                                                                    }),
                                                         ),
                                                         const Text(
                                                           '15 mins',

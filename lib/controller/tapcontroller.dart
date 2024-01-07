@@ -1,27 +1,41 @@
+import 'dart:async';
 import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/model/soilmodel.dart';
+import 'package:soilmoisturedetector/widget/localnotification.dart';
 
 class GetxTapController extends GetxController {
   Getallsoildetails? alldata;
   final List _allfeed = [];
   Feed? _latestfeeddata;
-
+  // 5 minutes in seconds
+  Timer? _timer;
+  int pumptimer = 0;
+  int _min = 0;
+  int _sec = 0;
+  bool _ismanualwaterconfirm = false;
   var isDataLoading = false.obs;
   bool _pumpStatusmanually = false;
   bool _pumpStatus = false;
+
+  bool get iswatermanualconfirm => _ismanualwaterconfirm;
   List get allfeed => _allfeed;
   Feed? get latestfeeddata => _latestfeeddata;
   bool get pumpStatusmanually => _pumpStatusmanually;
   bool get pumpStatus => _pumpStatus;
+  int get min => _min;
+  int get sec => _sec;
 
   @override
   Future<void> onInit() async {
     super.onInit();
-    getalldata();
+    // getalldata();
   }
 
   @override
@@ -34,20 +48,42 @@ class GetxTapController extends GetxController {
 
   Rx<VisualType?> selectedVisualType = Rx<VisualType?>(null);
 
-  void updateSelectedVisualType({required VisualType value}) {
+  void updateSelectedVisualType(
+      {required VisualType value, required int timerforpump}) {
     selectedVisualType.value = value;
+    pumptimer = timerforpump * 60;
     update();
   }
 
-  void setpumpmanually({required bool pumpstatus}) {
+  void setpumpmanually({
+    required bool pumpstatus,
+  }) {
     _pumpStatusmanually = pumpstatus;
     selectedVisualType.value = null;
-
+    if (_timer != null) {
+      _timer!.cancel();
+      _ismanualwaterconfirm = false;
+      _pumpStatus = false;
+      _min = 0;
+      _sec = 0;
+      update();
+    }
     update();
   }
 
   void setpump({required bool pumpstatus}) {
     _pumpStatus = pumpstatus;
+    if (pumpStatus == false) {
+      if (_timer != null) {
+        _timer!.cancel();
+        _ismanualwaterconfirm = false;
+        _pumpStatus = false;
+        _min = 0;
+        _sec = 0;
+        selectedVisualType.value = null;
+        update();
+      }
+    }
     update();
   }
 
@@ -81,5 +117,56 @@ class GetxTapController extends GetxController {
     } finally {
       isDataLoading(false);
     }
+  }
+
+  Future setwaterpump({required int ispumpactivated}) async {
+    try {
+      final queryParameters = {
+        "api_key": "8D35B69579284707",
+        "status": ispumpactivated,
+      };
+      final response = await http.post(
+        Uri.http('10.10.1.139:88', '/api/channel-data/update', queryParameters),
+      );
+      log(response.statusCode.toString());
+
+      if (response.statusCode == 200) {
+        log('Successfully switch water pump');
+      } else {
+        print('Failedrerer to Getdata.');
+      }
+      return null;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void startTimer() {
+    _pumpStatus = true;
+    NotificationService().showNotification(
+        title: 'Water Pump Activated',
+        body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (pumptimer > 0) {
+        pumptimer--;
+        _min = (pumptimer / 60).floor();
+        _sec = pumptimer % 60;
+        update();
+      } else {
+        _timer!.cancel(); // Stop the timer when it reaches 0
+        // Add your desired action when the countdown reaches 0 here
+
+        _ismanualwaterconfirm = false;
+        _pumpStatus = false;
+        _min = 0;
+        _sec = 0;
+        selectedVisualType.value = null;
+        update();
+        NotificationService().showNotification(
+            title: 'Done', body: 'Water Pump Completed 🚰 Successfully');
+      }
+    });
+    _ismanualwaterconfirm = true;
+    update();
   }
 }

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:soilmoisturedetector/pages/demo.dart';
 // import 'package:soilmoisturedetector/demo.dart';
 // import 'package:soilmoisturedetector/pages/dashboard.dart';
 import 'package:soilmoisturedetector/router/router.dart';
+import 'package:soilmoisturedetector/widget/localnotification.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().initNotification();
   runApp(const MyApp());
 }
 
@@ -19,8 +24,8 @@ class MyApp extends StatelessWidget {
       routerConfig: _appRouter.config(),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      builder: EasyLoading.init(),
       theme: ThemeData(fontFamily: 'KulimPark'),
-      // home: const HomePage()
     );
   }
 }
