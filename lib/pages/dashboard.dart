@@ -21,6 +21,87 @@ class _HomePageState extends State<HomePage> {
 
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey[200],
+        title: const Text("Smart Irrigation System",
+            style: TextStyle(
+                wordSpacing: 2,
+                letterSpacing: 2,
+                fontSize: 26,
+                fontWeight: FontWeight.bold)),
+        centerTitle: true,
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                  color: Colors.blue,
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/drawer.jpg"),
+                      fit: BoxFit.cover)),
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              // color: Theme.of(context).primaryColor,
+              child: Center(
+                child: Column(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      margin: const EdgeInsets.only(top: 30, bottom: 10),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: AssetImage("assets/images/logo.jpg"),
+                            fit: BoxFit.fill),
+                      ),
+                    ),
+                    const Material(
+                      color: Colors.transparent,
+                      elevation: 5,
+                      child: Text(
+                        "Smart Irrigation System",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(2.0, 2.0),
+                              blurRadius: 2.0,
+                              color: Colors.red,
+                            ),
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 3.0,
+                              color: Colors.yellow,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.alternate_email),
+              title: const Text("Contact us"),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.thumb_up_alt_outlined),
+              title: const Text("Special Thanks"),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text("About"),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
       body: GetBuilder<GetxTapController>(builder: (_) {
         return SingleChildScrollView(
           child: Obx(
@@ -28,9 +109,9 @@ class _HomePageState extends State<HomePage> {
                 ? const Center(child: CircularProgressIndicator())
                 : Column(
                     children: [
-                      SizedBox(
-                        height: height / 16,
-                      ),
+                      // SizedBox(
+                      //   height: height / 16,
+                      // ),
                       GridView.builder(
                         shrinkWrap: true,
                         primary: false,
