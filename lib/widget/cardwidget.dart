@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_null_aware_operators
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
@@ -8,7 +10,7 @@ class CardWidgetforSoil extends StatelessWidget {
   final String bgimagepath;
   final String title;
   final String iconpath;
-  final String value;
+  final String? value;
   final int index;
   const CardWidgetforSoil({
     super.key,
@@ -16,7 +18,7 @@ class CardWidgetforSoil extends StatelessWidget {
     required this.title,
     required this.iconpath,
     required this.index,
-    required this.value,
+    this.value,
   });
 
   @override
@@ -59,9 +61,15 @@ class CardWidgetforSoil extends StatelessWidget {
               Flexible(
                 child: index == 3
                     ? RadialData(
-                        nitro: controller.latestfeeddata!.field4,
-                        phos: controller.latestfeeddata!.field5,
-                        potas: controller.latestfeeddata!.field6)
+                        nitro: controller.latestfeeddata == null
+                            ? null
+                            : controller.latestfeeddata!.field4,
+                        phos: controller.latestfeeddata == null
+                            ? null
+                            : controller.latestfeeddata!.field5,
+                        potas: controller.latestfeeddata == null
+                            ? null
+                            : controller.latestfeeddata!.field6)
                     : RadialIndicatorSoil(
                         value: value,
                         index: index,

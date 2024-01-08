@@ -1,28 +1,29 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class RadialData extends StatelessWidget {
-  final String nitro;
-  final String phos;
-  final String potas;
-  const RadialData(
-      {super.key,
-      required this.nitro,
-      required this.phos,
-      required this.potas});
+  final String? nitro;
+  final String? phos;
+  final String? potas;
+  const RadialData({super.key, this.nitro, this.phos, this.potas});
 
   @override
   Widget build(BuildContext context) {
+    GetxTapController controller = Get.put(GetxTapController());
+
     final List<ChartData> chartData = [
-      ChartData(nitro.isEmpty ? 'N/A' : 'Nitro',
-          nitro.isEmpty ? 0 : int.parse(nitro)),
       ChartData(
-          phos.isEmpty ? 'N/A' : 'Phosph', phos.isEmpty ? 0 : int.parse(phos)),
-      ChartData(potas.isEmpty ? 'N/A' : 'Potas',
-          potas.isEmpty ? 0 : int.parse(potas)),
+          nitro == null ? 'N/A' : 'Nitro', nitro == null ? 0 : int.parse('4')),
+      ChartData(
+          phos == null ? 'N/A' : 'Phosph', phos == null ? 0 : int.parse('9')),
+      ChartData(
+          potas == null ? 'N/A' : 'Potas', potas == null ? 0 : int.parse('12')),
     ];
+    log(nitro.toString());
     return SfCircularChart(
         legend: const Legend(
           itemPadding: 1,
@@ -37,7 +38,7 @@ class RadialData extends StatelessWidget {
         ),
         series: <CircularSeries>[
           // Renders radial bar chart
-          RadialBarSeries<ChartData, String>(
+          RadialBarSeries<ChartData, String?>(
               dataLabelSettings: const DataLabelSettings(
                   labelPosition: ChartDataLabelPosition.inside,
                   useSeriesColor: true,
@@ -60,6 +61,6 @@ class RadialData extends StatelessWidget {
 
 class ChartData {
   ChartData(this.x, this.y);
-  final String x;
+  final String? x;
   final int y;
 }

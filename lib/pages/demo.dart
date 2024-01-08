@@ -14,7 +14,7 @@ class MyCountdownTimer extends StatefulWidget {
 }
 
 class _MyCountdownTimerState extends State<MyCountdownTimer> {
-  final int _secondsRemaining = 300; // 5 minutes in seconds
+  // 5 minutes in seconds
   Timer? _timer;
 
   @override

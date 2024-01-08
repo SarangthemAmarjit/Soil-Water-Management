@@ -23,6 +23,7 @@ class GetxTapController extends GetxController {
   var isDataLoading = false.obs;
   bool _pumpStatusmanually = false;
   bool _pumpStatus = false;
+  String _soiltitle = '';
 
   bool get iswatermanualconfirm => _ismanualwaterconfirm;
   List get allfeed => _allfeed;
@@ -31,7 +32,8 @@ class GetxTapController extends GetxController {
   bool get pumpStatus => _pumpStatus;
   int get min => _min;
   int get sec => _sec;
-
+  String get soiltitle => _soiltitle;
+  var data = <Feed>[].obs;
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -47,6 +49,28 @@ class GetxTapController extends GetxController {
   void onClose() {}
 
   Rx<VisualType?> selectedVisualType = Rx<VisualType?>(null);
+
+  void getsoildetailaccordingtoindex({required int index}) {
+    switch (index) {
+      case 0:
+        _soiltitle = 'Soil Humidity';
+        update();
+        break;
+      case 1:
+        _soiltitle = 'Soil Temperature';
+        update();
+        break;
+      case 2:
+        _soiltitle = 'Soil PH Level';
+        update();
+        break;
+      default:
+    }
+  }
+
+  void setradiobuttoncancellationhandle() {
+    selectedVisualType.value = null;
+  }
 
   void updateSelectedVisualType(
       {required VisualType value, required int timerforpump}) {
@@ -92,7 +116,7 @@ class GetxTapController extends GetxController {
       isDataLoading(true);
       final queryParameters = {
         "api_key": "330F3444455D4923",
-        "interval": "10",
+        "interval": "0.5",
       };
       final response = await http.get(
         Uri.http('10.10.1.139:88', '/api/channel-data/698633/feeds',
@@ -119,11 +143,25 @@ class GetxTapController extends GetxController {
     }
   }
 
-  Future setwaterpump({required int ispumpactivated}) async {
+  Future setwaterpump({
+    required String status,
+    required String field2,
+    required String field3,
+    required String field4,
+    required String field5,
+    required String field6,
+    required String field7,
+  }) async {
     try {
       final queryParameters = {
         "api_key": "8D35B69579284707",
-        "status": ispumpactivated,
+        "status": status,
+        "field2": field2,
+        "field3": field3,
+        "field4": field4,
+        "field5": field5,
+        "field6": field6,
+        "field7": field7,
       };
       final response = await http.post(
         Uri.http('10.10.1.139:88', '/api/channel-data/update', queryParameters),
@@ -143,12 +181,22 @@ class GetxTapController extends GetxController {
 
   void startTimer() {
     _pumpStatus = true;
-    NotificationService().showNotification(
-        title: 'Water Pump Activated',
-        body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
+    setwaterpump(
+        status: '1',
+        field2: _latestfeeddata!.field2,
+        field3: _latestfeeddata!.field3,
+        field4: _latestfeeddata!.field4,
+        field5: _latestfeeddata!.field5,
+        field6: _latestfeeddata!.field6,
+        field7: _latestfeeddata!.field7);
+    // NotificationService().showNotification(
+    //     title: 'Water Pump Activated',
+    //     body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (pumptimer > 0) {
         pumptimer--;
+        // Future.delayed(const Duration(seconds: 20))
+        //     .whenComplete(() => getalldata());
         _min = (pumptimer / 60).floor();
         _sec = pumptimer % 60;
         update();
@@ -157,13 +205,21 @@ class GetxTapController extends GetxController {
         // Add your desired action when the countdown reaches 0 here
 
         _ismanualwaterconfirm = false;
+        setwaterpump(
+            status: '0',
+            field2: _latestfeeddata!.field2,
+            field3: _latestfeeddata!.field3,
+            field4: _latestfeeddata!.field4,
+            field5: _latestfeeddata!.field5,
+            field6: _latestfeeddata!.field6,
+            field7: _latestfeeddata!.field7);
         _pumpStatus = false;
         _min = 0;
         _sec = 0;
         selectedVisualType.value = null;
         update();
         NotificationService().showNotification(
-            title: 'Done', body: 'Water Pump Completed 🚰 Successfully');
+            title: 'Done', body: '🚰 Water Pump Completed  Successfully');
       }
     });
     _ismanualwaterconfirm = true;
