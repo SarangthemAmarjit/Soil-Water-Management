@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:soilmoisturedetector/widget/drawerWidget.dart';
 
 //TODO: to change the page name
 
@@ -42,85 +43,14 @@ class MoisturePage extends StatelessWidget {
           ),
         ],
       ),
-      drawer: Drawer(
-        child: Column(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                  color: Colors.blue,
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/drawer.jpg"),
-                      opacity: .68,
-                      fit: BoxFit.cover)),
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              // color: Theme.of(context).primaryColor,
-              child: Center(
-                child: Column(
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      margin: const EdgeInsets.only(top: 30, bottom: 10),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: AssetImage("assets/images/logo.jpg"),
-                            fit: BoxFit.fill),
-                      ),
-                    ),
-                    const Material(
-                      color: Colors.transparent,
-                      elevation: 5,
-                      child: Text(
-                        "Smart Irrigation System",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(2.0, 2.0),
-                              blurRadius: 2.0,
-                              color: Colors.red,
-                            ),
-                            Shadow(
-                              offset: Offset(3.0, 3.0),
-                              blurRadius: 3.0,
-                              color: Colors.yellow,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.alternate_email),
-              title: const Text("Contact us"),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.thumb_up_alt_outlined),
-              title: const Text("Special Thanks"),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.info_outline),
-              title: const Text("About"),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
+      drawer: const drawerWidget(),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
                 colorFilter: ColorFilter.mode(
-                    Colors.white.withOpacity(0.5), BlendMode.dstATop),
+                    Colors.white.withOpacity(0.7), BlendMode.dstATop),
                 image: const AssetImage(
                   "assets/images/BGspray.png",
                 ),
@@ -237,17 +167,22 @@ class MoisturePage extends StatelessWidget {
                                           return ListTile(
                                               leading:
                                                   const Icon(Icons.av_timer),
-                                              trailing: const Padding(
-                                                padding: EdgeInsets.only(
+                                              trailing: Padding(
+                                                padding: const EdgeInsets.only(
                                                     right: 28.0),
                                                 child: Text(
-                                                  "sample",
-                                                  style: TextStyle(
+                                                  "sample $index",
+                                                  style: const TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 24),
                                                 ),
                                               ),
-                                              title: Text("List item $index"));
+                                              title: Text(
+                                                "List item $index",
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 24),
+                                              ));
                                         }),
                                   ],
                                 ),
