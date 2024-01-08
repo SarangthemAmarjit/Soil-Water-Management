@@ -27,10 +27,11 @@ class CardWidgetforSoil extends StatelessWidget {
 
     return GetBuilder<GetxTapController>(builder: (_) {
       return Card(
-        elevation: 10,
+        elevation: 5,
         shadowColor: Colors.black,
         child: Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
               colorFilter: ColorFilter.mode(
                   Colors.white.withOpacity(0.1), BlendMode.dstATop),
@@ -45,7 +46,10 @@ class CardWidgetforSoil extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                  color: Colors.teal[100],
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: Colors.teal[100],
+                  ),
                   padding: const EdgeInsets.all(8.0),
                   margin: const EdgeInsets.all(8),
                   child: SizedBox(
