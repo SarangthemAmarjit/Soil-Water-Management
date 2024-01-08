@@ -35,7 +35,7 @@ class GetxTapController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    // getalldata();
+    getalldata();
   }
 
   @override
