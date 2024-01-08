@@ -8,13 +8,13 @@ class AppRouter extends $AppRouter {
   List<AutoRoute> get routes => [
         //HomeScreen is generated as HomeRoute because
         //of the replaceInRouteName property
+        //Todo-->
         AutoRoute(
           path: '/',
           page: HomePage.page,
         ),
-
+        //todo-->
         AutoRoute(path: '/moisturePage', page: MoisturePage.page),
-        // AutoRoute(path: 'posts', page: PostsRoute.page),
-        // AutoRoute(path: 'settings', page: SettingsRoute.page),
+        // AutoRoute(path: '/', page: MoisturePage.page),
       ];
 }
