@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
+import 'package:soilmoisturedetector/router/router.gr.dart';
 import 'package:soilmoisturedetector/widget/cardwidget.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
@@ -39,6 +40,7 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.blue,
                   image: DecorationImage(
                       image: AssetImage("assets/images/drawer.jpg"),
+                      opacity: .68,
                       fit: BoxFit.cover)),
               width: double.infinity,
               padding: const EdgeInsets.all(20),
@@ -134,7 +136,9 @@ class _HomePageState extends State<HomePage> {
                                   index: 0,
                                   value: controller.latestfeeddata!.field3,
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  context.router.push(const MoisturePage());
+                                },
                               );
                             case 1:
                               return GestureDetector(
