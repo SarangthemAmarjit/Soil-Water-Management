@@ -14,7 +14,8 @@ class AppRouter extends $AppRouter {
           page: HomePage.page,
         ),
         //todo-->
-        AutoRoute(path: '/moisturePage', page: MoisturePage.page),
         // AutoRoute(path: '/', page: MoisturePage.page),
+        AutoRoute(path: '/moisturePage', page: MoisturePage.page),
+        AutoRoute(path: '/npkPage', page: SoilNpkPage.page),
       ];
 }

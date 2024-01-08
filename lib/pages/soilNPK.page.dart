@@ -1,11 +1,9 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
-//TODO: to change the page name
-
 @RoutePage()
-class MoisturePage extends StatelessWidget {
-  const MoisturePage({super.key});
+class SoilNpkPage extends StatelessWidget {
+  const SoilNpkPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +13,7 @@ class MoisturePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[200],
         title: const Text(
-          "Soil Moisture",
+          "Soil N P K",
           style: TextStyle(
             color: Colors.white,
             fontSize: 36,
@@ -155,6 +153,7 @@ class MoisturePage extends StatelessWidget {
                   Opacity(
                     opacity: .5,
                     child: Container(
+                      width: MediaQuery.of(context).size.width,
                       decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -207,25 +206,78 @@ class MoisturePage extends StatelessWidget {
                                     SizedBox(
                                       height: screenheight / 82,
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsets.symmetric(
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 32.0),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
+                                          const Text(
                                             "Time",
                                             style: TextStyle(
-                                                fontSize: 28,
+                                                fontSize: 20,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          Text(
-                                            "Moisture Level",
-                                            style: TextStyle(
-                                                fontSize: 28,
-                                                fontWeight: FontWeight.bold),
-                                          )
+                                          RichText(
+                                            text: TextSpan(
+                                              text: '',
+                                              style:
+                                                  DefaultTextStyle.of(context)
+                                                      .style,
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                    text: 'N',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20,
+                                                        color:
+                                                            Colors.red[900])),
+                                                const TextSpan(text: 'itrogen'),
+                                              ],
+                                            ),
+                                          ),
+                                          RichText(
+                                            text: TextSpan(
+                                              text: '',
+                                              style:
+                                                  DefaultTextStyle.of(context)
+                                                      .style,
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                    text: 'P',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20,
+                                                        color:
+                                                            Colors.red[900])),
+                                                const TextSpan(
+                                                    text: 'hosporous'),
+                                              ],
+                                            ),
+                                          ),
+                                          RichText(
+                                            text: TextSpan(
+                                              text: '',
+                                              style:
+                                                  DefaultTextStyle.of(context)
+                                                      .style,
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                    text: 'P',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20,
+                                                        color:
+                                                            Colors.red[900])),
+                                                const TextSpan(
+                                                    text: 'otassium'),
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -234,20 +286,83 @@ class MoisturePage extends StatelessWidget {
                                         shrinkWrap: true,
                                         itemBuilder:
                                             (BuildContext context, int index) {
-                                          return ListTile(
-                                              leading:
-                                                  const Icon(Icons.av_timer),
-                                              trailing: const Padding(
-                                                padding: EdgeInsets.only(
-                                                    right: 28.0),
-                                                child: Text(
-                                                  "sample",
+                                          return const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 6, horizontal: 32.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "00.00",
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 24),
                                                 ),
-                                              ),
-                                              title: Text("List item $index"));
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 16.0),
+                                                  child: Text(
+                                                    "Nitro",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 24),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 16.0),
+                                                  child: Text(
+                                                    "Phos",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 24),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "Potas",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 24),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+
+                                          // ListTile(
+                                          //     leading:
+                                          //         const Icon(Icons.av_timer),
+                                          //     trailing: const Padding(
+                                          //       padding: EdgeInsets.only(
+                                          //           right: 28.0),
+                                          //       child: Row(
+                                          //         mainAxisAlignment:
+                                          //             MainAxisAlignment
+                                          //                 .spaceEvenly,
+                                          //         children: [
+                                          //           Text(
+                                          //             "Nitro",
+                                          //             style: TextStyle(
+                                          //                 color: Colors.black,
+                                          //                 fontSize: 15),
+                                          //           ),
+                                          //           Text(
+                                          //             "Phos",
+                                          //             style: TextStyle(
+                                          //                 color: Colors.black,
+                                          //                 fontSize: 15),
+                                          //           ),
+                                          //           Text(
+                                          //             "Potas",
+                                          //             style: TextStyle(
+                                          //                 color: Colors.black,
+                                          //                 fontSize: 15),
+                                          //           ),
+                                          //         ],
+                                          //       ),
+                                          //     ),
+                                          //     title: Text("List item $index"));
                                         }),
                                   ],
                                 ),
