@@ -181,6 +181,7 @@ class GetxTapController extends GetxController {
 
   void startTimer() {
     _pumpStatus = true;
+    scheduleTask();
     setwaterpump(
         status: '1',
         field2: _latestfeeddata!.field2,
@@ -224,5 +225,23 @@ class GetxTapController extends GetxController {
     });
     _ismanualwaterconfirm = true;
     update();
+  }
+
+  void scheduleTask() {
+    const Duration interval = Duration(seconds: 30);
+    int repeatCount =
+        pumptimer ~/ 30; // 5 minutes in seconds divided by 30 seconds interval
+
+    int executionCount = 0;
+
+    Timer.periodic(interval, (Timer timer) {
+      if (executionCount < repeatCount) {
+        getalldata();
+
+        executionCount++;
+      } else {
+        timer.cancel();
+      }
+    });
   }
 }
