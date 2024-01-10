@@ -152,7 +152,6 @@ class SoilNpkPage extends StatelessWidget {
                                           ),
                                           RichText(
                                             text: TextSpan(
-                                              text: '',
                                               style:
                                                   DefaultTextStyle.of(context)
                                                       .style,
@@ -172,7 +171,6 @@ class SoilNpkPage extends StatelessWidget {
                                           ),
                                           RichText(
                                             text: TextSpan(
-                                              text: '',
                                               style:
                                                   DefaultTextStyle.of(context)
                                                       .style,
@@ -193,7 +191,6 @@ class SoilNpkPage extends StatelessWidget {
                                           ),
                                           RichText(
                                             text: TextSpan(
-                                              text: '',
                                               style:
                                                   DefaultTextStyle.of(context)
                                                       .style,
