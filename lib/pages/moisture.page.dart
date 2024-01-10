@@ -15,13 +15,13 @@ class MoisturePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 219, 242, 226),
-        title: const Text(
+        title: Text(
           "Soil Moisture",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 36,
+            fontSize: MediaQuery.of(context).size.width / 20,
             fontWeight: FontWeight.bold,
-            shadows: <Shadow>[
+            shadows: const <Shadow>[
               Shadow(
                 offset: Offset(2.0, 2.0),
                 blurRadius: 2.0,
@@ -36,14 +36,8 @@ class MoisturePage extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 8.0),
-            child: BackButton(),
-          ),
-        ],
       ),
-      drawer: const drawerWidget(),
+      // drawer: const drawerWidget(),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(

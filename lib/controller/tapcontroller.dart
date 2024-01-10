@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
@@ -37,6 +40,7 @@ class GetxTapController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+
     getalldata();
   }
 
@@ -112,6 +116,8 @@ class GetxTapController extends GetxController {
   }
 
   Future getalldata() async {
+    _latestfeeddata = null;
+    update();
     try {
       isDataLoading(true);
       final queryParameters = {
@@ -190,9 +196,9 @@ class GetxTapController extends GetxController {
         field5: _latestfeeddata!.field5,
         field6: _latestfeeddata!.field6,
         field7: _latestfeeddata!.field7);
-    // NotificationService().showNotification(
-    //     title: 'Water Pump Activated',
-    //     body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
+    NotificationService().showNotification(
+        title: 'Water Pump Activated',
+        body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (pumptimer > 0) {
         pumptimer--;
@@ -244,4 +250,6 @@ class GetxTapController extends GetxController {
       }
     });
   }
+
+  //BACKGROUND SERVICES
 }
