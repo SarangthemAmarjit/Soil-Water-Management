@@ -11,17 +11,18 @@ class MoisturePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenheight = MediaQuery.of(context).size.height;
+    double screenwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 219, 242, 226),
-        title: const Text(
+        title: Text(
           "Soil Moisture",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 36,
+            fontSize: screenwidth / 20,
             fontWeight: FontWeight.bold,
-            shadows: <Shadow>[
+            shadows: const <Shadow>[
               Shadow(
                 offset: Offset(2.0, 2.0),
                 blurRadius: 2.0,
@@ -96,22 +97,22 @@ class MoisturePage extends StatelessWidget {
                             SizedBox(
                               height: screenheight / 82,
                             ),
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.history,
-                                  size: 52,
+                                  size: screenwidth / 12,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 8,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(right: 8.0),
+                                  padding: const EdgeInsets.only(right: 8.0),
                                   child: Text(
                                     "HISTORY",
                                     style: TextStyle(
-                                        fontSize: 52,
+                                        fontSize: screenwidth / 12,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -137,8 +138,8 @@ class MoisturePage extends StatelessWidget {
                                     SizedBox(
                                       height: screenheight / 82,
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsets.symmetric(
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 32.0),
                                       child: Row(
                                         mainAxisAlignment:
@@ -147,13 +148,13 @@ class MoisturePage extends StatelessWidget {
                                           Text(
                                             "Time",
                                             style: TextStyle(
-                                                fontSize: 28,
+                                                fontSize: screenwidth / 18,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
                                             "Moisture Level",
                                             style: TextStyle(
-                                                fontSize: 28,
+                                                fontSize: screenwidth / 18,
                                                 fontWeight: FontWeight.bold),
                                           )
                                         ],
@@ -172,16 +173,17 @@ class MoisturePage extends StatelessWidget {
                                                     right: 28.0),
                                                 child: Text(
                                                   "sample $index",
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 24),
+                                                      fontSize:
+                                                          screenwidth / 20),
                                                 ),
                                               ),
                                               title: Text(
-                                                "List item $index",
-                                                style: const TextStyle(
+                                                "00.0$index",
+                                                style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 24),
+                                                    fontSize: screenwidth / 20),
                                               ));
                                         }),
                                   ],
