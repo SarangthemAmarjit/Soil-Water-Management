@@ -5,6 +5,7 @@ import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:soilmoisturedetector/router/router.gr.dart';
 import 'package:soilmoisturedetector/widget/cardwidget.dart';
+import 'package:soilmoisturedetector/widget/drawerWidget.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class HomePage extends StatefulWidget {
@@ -78,7 +79,9 @@ class _HomePageState extends State<HomePage> {
                                   index: 1,
                                   value: controller.latestfeeddata!.field2,
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  context.router.push(const MoisturePage());
+                                },
                               );
                             case 2:
                               return GestureDetector(
@@ -89,7 +92,9 @@ class _HomePageState extends State<HomePage> {
                                   index: 2,
                                   value: controller.latestfeeddata!.field7,
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  context.router.push(const MoisturePage());
+                                },
                               );
                             case 3:
                               return GestureDetector(
@@ -100,7 +105,9 @@ class _HomePageState extends State<HomePage> {
                                   index: 3,
                                   value: controller.latestfeeddata!.field7,
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  context.router.push(const SoilNpkPage());
+                                },
                               );
                             default:
                           }
