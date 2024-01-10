@@ -14,7 +14,7 @@ class MoisturePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey[200],
+        backgroundColor: const Color.fromARGB(255, 219, 242, 226),
         title: const Text(
           "Soil Moisture",
           style: TextStyle(
@@ -25,13 +25,13 @@ class MoisturePage extends StatelessWidget {
               Shadow(
                 offset: Offset(2.0, 2.0),
                 blurRadius: 2.0,
-                color: Colors.green,
-              ),
-              Shadow(
-                offset: Offset(3.0, 3.0),
-                blurRadius: 3.0,
                 color: Colors.black,
               ),
+              // Shadow(
+              //   offset: Offset(3.0, 3.0),
+              //   blurRadius: 3.0,
+              //   color: Colors.black,
+              // ),
             ],
           ),
         ),
