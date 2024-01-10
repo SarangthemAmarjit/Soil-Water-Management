@@ -231,7 +231,9 @@ class SoilNpkPage extends StatelessWidget {
                                                 Text(
                                                   "00.0$index",
                                                   style: TextStyle(
-                                                      color: Colors.black,
+                                                      color: index % 2 == 1
+                                                          ? Colors.black
+                                                          : Colors.blueGrey,
                                                       fontSize:
                                                           screenWidth / 20),
                                                 ),
@@ -242,7 +244,9 @@ class SoilNpkPage extends StatelessWidget {
                                                   child: Text(
                                                     "Nitro$index",
                                                     style: TextStyle(
-                                                        color: Colors.black,
+                                                        color: index % 2 == 1
+                                                            ? Colors.black
+                                                            : Colors.blueGrey,
                                                         fontSize:
                                                             screenWidth / 20),
                                                   ),
@@ -254,7 +258,9 @@ class SoilNpkPage extends StatelessWidget {
                                                   child: Text(
                                                     "Phos$index",
                                                     style: TextStyle(
-                                                        color: Colors.black,
+                                                        color: index % 2 == 1
+                                                            ? Colors.black
+                                                            : Colors.blueGrey,
                                                         fontSize:
                                                             screenWidth / 20),
                                                   ),
@@ -262,7 +268,9 @@ class SoilNpkPage extends StatelessWidget {
                                                 Text(
                                                   "Potas$index",
                                                   style: TextStyle(
-                                                      color: Colors.black,
+                                                      color: index % 2 == 1
+                                                          ? Colors.black
+                                                          : Colors.blueGrey,
                                                       fontSize:
                                                           screenWidth / 20),
                                                 ),
