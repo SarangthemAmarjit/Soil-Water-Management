@@ -9,17 +9,18 @@ class SoilNpkPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenheight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[200],
-        title: Text(
+        title: const Text(
           "Soil N P K",
           style: TextStyle(
             color: Colors.white,
-            fontSize: MediaQuery.of(context).size.width / 20,
+            fontSize: 36,
             fontWeight: FontWeight.bold,
-            shadows: const <Shadow>[
+            shadows: <Shadow>[
               Shadow(
                 offset: Offset(2.0, 2.0),
                 blurRadius: 2.0,
@@ -89,22 +90,22 @@ class SoilNpkPage extends StatelessWidget {
                             SizedBox(
                               height: screenheight / 82,
                             ),
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.history,
-                                  size: 52,
+                                  size: screenWidth / 12,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 8,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(right: 8.0),
+                                  padding: const EdgeInsets.only(right: 8.0),
                                   child: Text(
                                     "HISTORY",
                                     style: TextStyle(
-                                        fontSize: 52,
+                                        fontSize: screenWidth / 12,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -137,15 +138,14 @@ class SoilNpkPage extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          const Text(
+                                          Text(
                                             "Time",
                                             style: TextStyle(
-                                                fontSize: 20,
+                                                fontSize: screenWidth / 20,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           RichText(
                                             text: TextSpan(
-                                              text: '',
                                               style:
                                                   DefaultTextStyle.of(context)
                                                       .style,
@@ -155,7 +155,8 @@ class SoilNpkPage extends StatelessWidget {
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 20,
+                                                        fontSize:
+                                                            screenWidth / 20,
                                                         color:
                                                             Colors.red[900])),
                                                 const TextSpan(text: 'itrogen'),
@@ -164,7 +165,6 @@ class SoilNpkPage extends StatelessWidget {
                                           ),
                                           RichText(
                                             text: TextSpan(
-                                              text: '',
                                               style:
                                                   DefaultTextStyle.of(context)
                                                       .style,
@@ -174,7 +174,8 @@ class SoilNpkPage extends StatelessWidget {
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 20,
+                                                        fontSize:
+                                                            screenWidth / 20,
                                                         color:
                                                             Colors.red[900])),
                                                 const TextSpan(
@@ -184,7 +185,6 @@ class SoilNpkPage extends StatelessWidget {
                                           ),
                                           RichText(
                                             text: TextSpan(
-                                              text: '',
                                               style:
                                                   DefaultTextStyle.of(context)
                                                       .style,
@@ -194,7 +194,8 @@ class SoilNpkPage extends StatelessWidget {
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 20,
+                                                        fontSize:
+                                                            screenWidth / 20,
                                                         color:
                                                             Colors.red[900])),
                                                 const TextSpan(
@@ -220,9 +221,12 @@ class SoilNpkPage extends StatelessWidget {
                                               children: [
                                                 Text(
                                                   "00.0$index",
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 24),
+                                                  style: TextStyle(
+                                                      color: index % 2 == 1
+                                                          ? Colors.black
+                                                          : Colors.blueGrey,
+                                                      fontSize:
+                                                          screenWidth / 20),
                                                 ),
                                                 Padding(
                                                   padding:
@@ -230,9 +234,12 @@ class SoilNpkPage extends StatelessWidget {
                                                           right: 16.0),
                                                   child: Text(
                                                     "Nitro$index",
-                                                    style: const TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 24),
+                                                    style: TextStyle(
+                                                        color: index % 2 == 1
+                                                            ? Colors.black
+                                                            : Colors.blueGrey,
+                                                        fontSize:
+                                                            screenWidth / 20),
                                                   ),
                                                 ),
                                                 Padding(
@@ -241,16 +248,22 @@ class SoilNpkPage extends StatelessWidget {
                                                           right: 16.0),
                                                   child: Text(
                                                     "Phos$index",
-                                                    style: const TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 24),
+                                                    style: TextStyle(
+                                                        color: index % 2 == 1
+                                                            ? Colors.black
+                                                            : Colors.blueGrey,
+                                                        fontSize:
+                                                            screenWidth / 20),
                                                   ),
                                                 ),
                                                 Text(
                                                   "Potas$index",
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 24),
+                                                  style: TextStyle(
+                                                      color: index % 2 == 1
+                                                          ? Colors.black
+                                                          : Colors.blueGrey,
+                                                      fontSize:
+                                                          screenWidth / 20),
                                                 ),
                                               ],
                                             ),

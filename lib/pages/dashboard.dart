@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                 //!
                 Container(
                   decoration: const BoxDecoration(),
-                  height: height / 3,
+                  height: height / 2.5,
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),

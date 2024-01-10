@@ -38,7 +38,7 @@ dependencies:
   get: ^4.6.6
   syncfusion_flutter_gauges: ^24.1.44
   http: ^1.1.2
-  syncfusion_flutter_charts: ^24.1.44+1
+  syncfusion_flutter_charts: ^24.1.45
   sliding_switch: ^1.1.0
   auto_route: ^7.8.4
   toggle_switch: ^2.1.0

@@ -1,6 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:soilmoisturedetector/widget/drawerWidget.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 //TODO: to change the page name
 
@@ -11,17 +13,25 @@ class MoisturePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenheight = MediaQuery.of(context).size.height;
+    double screenwidth = MediaQuery.of(context).size.width;
+    List<_SalesData> data = [
+      _SalesData('Jan', 35),
+      _SalesData('Feb', 28),
+      _SalesData('Mar', 34),
+      _SalesData('Apr', 32),
+      _SalesData('May', 40)
+    ];
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 219, 242, 226),
-        title: Text(
+        title: const Text(
           "Soil Moisture",
           style: TextStyle(
             color: Colors.white,
-            fontSize: MediaQuery.of(context).size.width / 20,
+            fontSize: 36,
             fontWeight: FontWeight.bold,
-            shadows: const <Shadow>[
+            shadows: <Shadow>[
               Shadow(
                 offset: Offset(2.0, 2.0),
                 blurRadius: 2.0,
@@ -61,15 +71,65 @@ class MoisturePage extends StatelessWidget {
                     height: screenheight / 82,
                   ),
                   Opacity(
-                    opacity: .4,
+                    opacity: .7,
                     child: Container(
-                      color: Colors.amber,
-                      height: screenheight / 2.5,
-                      child: const Center(
-                        child: Text(
-                          "GRAPH",
-                          style: TextStyle(fontSize: 98),
-                        ),
+                      color: Colors.white,
+                      height: screenheight,
+                      child: Center(
+                        child: Column(children: [
+                          //Initialize the chart widget
+                          SfCartesianChart(
+                              enableAxisAnimation: false,
+                              primaryXAxis: const CategoryAxis(),
+
+                              // Chart title
+                              title: const ChartTitle(
+                                  text: 'Moisture Level Chart'),
+                              // Enable legend
+                              legend: const Legend(isVisible: true),
+                              // Enable tooltip
+                              tooltipBehavior: TooltipBehavior(enable: true),
+                              series: <CartesianSeries<_SalesData, String>>[
+                                LineSeries<_SalesData, String>(
+                                    dataSource: data,
+                                    xValueMapper: (_SalesData sales, _) =>
+                                        sales.year,
+                                    yValueMapper: (_SalesData sales, _) =>
+                                        sales.sales,
+                                    name: 'Sales',
+                                    // Enable data label
+                                    dataLabelSettings: const DataLabelSettings(
+                                        isVisible: true))
+                              ]),
+
+                          //todo-->
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              //Initialize the spark charts widget
+                              child: SfSparkLineChart.custom(
+                                //Enable the trackball
+                                trackball: const SparkChartTrackball(
+                                    activationMode:
+                                        SparkChartActivationMode.tap),
+                                //Enable marker
+                                marker: const SparkChartMarker(
+                                    displayMode:
+                                        SparkChartMarkerDisplayMode.all),
+                                //Enable data label
+                                labelDisplayMode:
+                                    SparkChartLabelDisplayMode.all,
+                                xValueMapper: (int index) => data[index].year,
+                                yValueMapper: (int index) => data[index].sales,
+                                dataCount: 5,
+                              ),
+                            ),
+                          )
+                        ]),
+                        // child: Text(
+                        //   "GRAPH",
+                        //   style: TextStyle(fontSize: 98),
+                        // ),
                       ),
                     ),
                   ),
@@ -90,22 +150,22 @@ class MoisturePage extends StatelessWidget {
                             SizedBox(
                               height: screenheight / 82,
                             ),
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.history,
-                                  size: 52,
+                                  size: screenwidth / 12,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 8,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(right: 8.0),
+                                  padding: const EdgeInsets.only(right: 8.0),
                                   child: Text(
                                     "HISTORY",
                                     style: TextStyle(
-                                        fontSize: 52,
+                                        fontSize: screenwidth / 12,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -131,8 +191,8 @@ class MoisturePage extends StatelessWidget {
                                     SizedBox(
                                       height: screenheight / 82,
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsets.symmetric(
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 32.0),
                                       child: Row(
                                         mainAxisAlignment:
@@ -141,13 +201,13 @@ class MoisturePage extends StatelessWidget {
                                           Text(
                                             "Time",
                                             style: TextStyle(
-                                                fontSize: 28,
+                                                fontSize: screenwidth / 18,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
                                             "Moisture Level",
                                             style: TextStyle(
-                                                fontSize: 28,
+                                                fontSize: screenwidth / 18,
                                                 fontWeight: FontWeight.bold),
                                           )
                                         ],
@@ -166,16 +226,21 @@ class MoisturePage extends StatelessWidget {
                                                     right: 28.0),
                                                 child: Text(
                                                   "sample $index",
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 24),
+                                                  style: TextStyle(
+                                                      color: index % 2 == 1
+                                                          ? Colors.black
+                                                          : Colors.blueGrey,
+                                                      fontSize:
+                                                          screenwidth / 20),
                                                 ),
                                               ),
                                               title: Text(
-                                                "List item $index",
-                                                style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 24),
+                                                "00.0$index",
+                                                style: TextStyle(
+                                                    color: index % 2 == 1
+                                                        ? Colors.black
+                                                        : Colors.blueGrey,
+                                                    fontSize: screenwidth / 20),
                                               ));
                                         }),
                                   ],
@@ -195,4 +260,11 @@ class MoisturePage extends StatelessWidget {
       ),
     );
   }
+}
+
+class _SalesData {
+  _SalesData(this.year, this.sales);
+
+  final String year;
+  final double sales;
 }
