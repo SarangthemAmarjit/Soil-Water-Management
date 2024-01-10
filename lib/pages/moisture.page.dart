@@ -15,23 +15,23 @@ class MoisturePage extends StatelessWidget {
     double screenheight = MediaQuery.of(context).size.height;
     double screenwidth = MediaQuery.of(context).size.width;
     List<_SalesData> data = [
-      _SalesData('Jan', 35),
-      _SalesData('Feb', 28),
-      _SalesData('Mar', 34),
-      _SalesData('Apr', 32),
-      _SalesData('May', 40)
+      _SalesData('Mon', 35),
+      _SalesData('Tue', 28),
+      _SalesData('Wed', 34),
+      _SalesData('Thu', 32),
+      _SalesData('Fri', 40)
     ];
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 219, 242, 226),
-        title: const Text(
+        title: Text(
           "Soil Moisture",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 36,
+            fontSize: screenwidth / 20,
             fontWeight: FontWeight.bold,
-            shadows: <Shadow>[
+            shadows: const <Shadow>[
               Shadow(
                 offset: Offset(2.0, 2.0),
                 blurRadius: 2.0,
@@ -46,15 +46,21 @@ class MoisturePage extends StatelessWidget {
           ),
         ),
         centerTitle: true,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: BackButton(),
+          ),
+        ],
       ),
-      // drawer: const drawerWidget(),
+      drawer: const drawerWidget(),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
                 colorFilter: ColorFilter.mode(
-                    Colors.white.withOpacity(0.7), BlendMode.dstATop),
+                    Colors.black.withOpacity(1), BlendMode.dstATop),
                 image: const AssetImage(
                   "assets/images/BGspray.png",
                 ),
@@ -71,10 +77,10 @@ class MoisturePage extends StatelessWidget {
                     height: screenheight / 82,
                   ),
                   Opacity(
-                    opacity: .7,
+                    opacity: .9,
                     child: Container(
                       color: Colors.white,
-                      height: screenheight,
+                      height: screenheight/2,
                       child: Center(
                         child: Column(children: [
                           //Initialize the chart widget
@@ -96,7 +102,7 @@ class MoisturePage extends StatelessWidget {
                                         sales.year,
                                     yValueMapper: (_SalesData sales, _) =>
                                         sales.sales,
-                                    name: 'Sales',
+                                    name: 'Moisture',
                                     // Enable data label
                                     dataLabelSettings: const DataLabelSettings(
                                         isVisible: true))
@@ -235,7 +241,7 @@ class MoisturePage extends StatelessWidget {
                                                 ),
                                               ),
                                               title: Text(
-                                                "00.0$index",
+                                                "00:0$index",
                                                 style: TextStyle(
                                                     color: index % 2 == 1
                                                         ? Colors.black
