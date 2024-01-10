@@ -80,15 +80,17 @@ class MoisturePage extends StatelessWidget {
                     opacity: .7,
                     child: Container(
                       color: Colors.white,
-                      height: screenheight / 2.5,
+                      height: screenheight,
                       child: Center(
                         child: Column(children: [
                           //Initialize the chart widget
                           SfCartesianChart(
+                              enableAxisAnimation: false,
                               primaryXAxis: const CategoryAxis(),
+
                               // Chart title
                               title: const ChartTitle(
-                                  text: 'Half yearly sales analysis'),
+                                  text: 'Moisture Level Chart'),
                               // Enable legend
                               legend: const Legend(isVisible: true),
                               // Enable tooltip
