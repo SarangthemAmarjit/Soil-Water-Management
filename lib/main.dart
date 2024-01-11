@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
+import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:soilmoisturedetector/pages/demo.dart';
 // import 'package:soilmoisturedetector/demo.dart';
 // import 'package:soilmoisturedetector/pages/dashboard.dart';
 import 'package:soilmoisturedetector/router/router.dart';
+import 'package:soilmoisturedetector/services/backgroundservoces.dart';
 import 'package:soilmoisturedetector/widget/localnotification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await NotificationService().initNotification();
+
+  await NotificationService().initNotification();
+  await initializeService();
   runApp(const MyApp());
 }
 

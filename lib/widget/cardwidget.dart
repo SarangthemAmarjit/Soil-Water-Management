@@ -66,13 +66,13 @@ class CardWidgetforSoil extends StatelessWidget {
                 child: index == 3
                     ? RadialData(
                         nitro: controller.latestfeeddata == null
-                            ? null
+                            ? ''
                             : controller.latestfeeddata!.field4,
                         phos: controller.latestfeeddata == null
-                            ? null
+                            ? ''
                             : controller.latestfeeddata!.field5,
                         potas: controller.latestfeeddata == null
-                            ? null
+                            ? ''
                             : controller.latestfeeddata!.field6)
                     : RadialIndicatorSoil(
                         value: value,

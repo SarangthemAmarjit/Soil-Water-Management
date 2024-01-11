@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
@@ -37,7 +40,7 @@ class GetxTapController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    // getalldata();
+    getalldata();
   }
 
   @override
@@ -112,6 +115,8 @@ class GetxTapController extends GetxController {
   }
 
   Future getalldata() async {
+    _latestfeeddata = null;
+    update();
     try {
       isDataLoading(true);
       final queryParameters = {
@@ -181,15 +186,14 @@ class GetxTapController extends GetxController {
 
   void startTimer() {
     _pumpStatus = true;
-
-    // setwaterpump(
-    //     status: '1',
-    //     field2: _latestfeeddata!.field2,
-    //     field3: _latestfeeddata!.field3,
-    //     field4: _latestfeeddata!.field4,
-    //     field5: _latestfeeddata!.field5,
-    //     field6: _latestfeeddata!.field6,
-    //     field7: _latestfeeddata!.field7);
+    setwaterpump(
+        status: '1',
+        field2: _latestfeeddata!.field2,
+        field3: _latestfeeddata!.field3,
+        field4: _latestfeeddata!.field4,
+        field5: _latestfeeddata!.field5,
+        field6: _latestfeeddata!.field6,
+        field7: _latestfeeddata!.field7);
     // NotificationService().showNotification(
     //     title: 'Water Pump Activated',
     //     body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
@@ -225,4 +229,24 @@ class GetxTapController extends GetxController {
     _ismanualwaterconfirm = true;
     update();
   }
+
+  void scheduleTask() {
+    const Duration interval = Duration(seconds: 30);
+    int repeatCount =
+        pumptimer ~/ 30; // 5 minutes in seconds divided by 30 seconds interval
+
+    int executionCount = 0;
+
+    Timer.periodic(interval, (Timer timer) {
+      if (executionCount < repeatCount) {
+        getalldata();
+
+        executionCount++;
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  //BACKGROUND SERVICES
 }
