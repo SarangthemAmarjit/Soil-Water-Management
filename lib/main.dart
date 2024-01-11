@@ -6,14 +6,16 @@ import 'package:soilmoisturedetector/pages/demo.dart';
 // import 'package:soilmoisturedetector/demo.dart';
 // import 'package:soilmoisturedetector/pages/dashboard.dart';
 import 'package:soilmoisturedetector/router/router.dart';
-import 'package:soilmoisturedetector/services/backgroundservoces.dart';
+
+import 'package:soilmoisturedetector/services/workmanager.dart';
 import 'package:soilmoisturedetector/widget/localnotification.dart';
+import 'package:workmanager/workmanager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await NotificationService().initNotification();
-  await initializeService();
+  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   runApp(const MyApp());
 }
 

@@ -28,7 +28,7 @@ class GetxTapController extends GetxController {
   bool _pumpStatus = false;
   String _soiltitle = '';
   Timer? _scheduletimer;
-
+  Timer get scheduletimer => _scheduletimer!;
   bool get iswatermanualconfirm => _ismanualwaterconfirm;
   List get allfeed => _allfeed;
   Feed? get latestfeeddata => _latestfeeddata;
@@ -42,7 +42,7 @@ class GetxTapController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     _startTimer();
-    getalldata();
+    getlatestfeeddata();
   }
 
   @override
@@ -64,8 +64,8 @@ class GetxTapController extends GetxController {
 
   void _startTimer() {
     // Create a periodic timer that executes the function every 5 seconds
-    _scheduletimer = Timer.periodic(const Duration(seconds: 30), (Timer timer) {
-      getalldata();
+    _scheduletimer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+      getlatestfeeddata();
       log('Executing your function periodically...');
     });
   }
@@ -131,12 +131,43 @@ class GetxTapController extends GetxController {
     update();
   }
 
+  Future getlatestfeeddata() async {
+    try {
+      isDataLoading(true);
+      final queryParameters = {
+        "api_key": "330F3444455D4923",
+      };
+      final response = await http.get(
+        Uri.http('10.10.1.139:88', '/api/channel-data/698633/latest-feeds',
+            queryParameters),
+      );
+      log(response.statusCode.toString());
+
+      if (response.statusCode == 200) {
+        var users = getallsoildetailsFromJson(response.body);
+        alldata = users;
+        _latestfeeddata = alldata!.feeds.last;
+
+        update();
+
+        print('Successfully get Data');
+      } else {
+        print('Failedrerer to Getdata.');
+      }
+      return null;
+    } catch (e) {
+      print(e.toString());
+    } finally {
+      isDataLoading(false);
+    }
+  }
+
   Future getalldata() async {
     try {
       isDataLoading(true);
       final queryParameters = {
         "api_key": "330F3444455D4923",
-        "interval": "0.5",
+        "interval": "2",
       };
       final response = await http.get(
         Uri.http('10.10.1.139:88', '/api/channel-data/698633/feeds',

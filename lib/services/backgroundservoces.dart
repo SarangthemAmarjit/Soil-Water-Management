@@ -21,10 +21,7 @@ Future<void> initializeService() async {
 
 @pragma('vm:entry-point')
 void onStart(ServiceInstance service) async {
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
   DartPluginRegistrant.ensureInitialized();
-  String s = 'hjg';
   GetxTapController controller = Get.put(GetxTapController());
 
   if (service is AndroidServiceInstance) {
@@ -42,19 +39,13 @@ void onStart(ServiceInstance service) async {
       print("service stop");
     });
 
-    Timer.periodic(const Duration(seconds: 30), (timer) async {
+    Timer.periodic(const Duration(seconds: 3), (timer) async {
       if (service is AndroidServiceInstance) {
-        try {} catch (e) {
-          print("no data:$e");
-        }
-
         if (await service.isForegroundService()) {
           if (controller.latestfeeddata != null) {
             if (int.parse(controller.latestfeeddata!.field3) < 50) {
               service.setForegroundNotificationInfo(
-                  title: 'Smart Irrigation System',
-                  content:
-                      'Current Soil Moisture Level : ${controller.latestfeeddata == null ? '' : controller.latestfeeddata!.field3}');
+                  title: 'ALERT ⚠️ ⚠️ ', content: 'Low Soil Moisture Level');
               NotificationService().showNotification(
                   title: '⚠️Critical Soil Moisture Level⚠️ ',
                   body: 'Tap Here Soon to Pump the Water');
