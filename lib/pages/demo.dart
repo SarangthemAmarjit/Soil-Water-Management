@@ -23,6 +23,22 @@ class _MyCountdownTimerState extends State<MyCountdownTimer> {
   }
 
   bool isselected = false;
+  void scheduleTask() {
+    const Duration interval = Duration(seconds: 30);
+    int repeatCount =
+        300 ~/ 30; // 5 minutes in seconds divided by 30 seconds interval
+
+    int executionCount = 0;
+
+    Timer.periodic(interval, (Timer timer) {
+      if (executionCount < repeatCount) {
+        log('testiing function');
+        executionCount++;
+      } else {
+        timer.cancel();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +78,7 @@ class _MyCountdownTimerState extends State<MyCountdownTimer> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  NotificationService().showNotification(
-                      title: 'Done',
-                      body: '5 min Water Pump Completed Successfully');
+                  scheduleTask();
                 },
                 child: const Text('check Notification'))
           ],

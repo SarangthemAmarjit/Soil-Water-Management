@@ -37,7 +37,7 @@ class GetxTapController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    getalldata();
+    // getalldata();
   }
 
   @override
@@ -181,22 +181,22 @@ class GetxTapController extends GetxController {
 
   void startTimer() {
     _pumpStatus = true;
-    setwaterpump(
-        status: '1',
-        field2: _latestfeeddata!.field2,
-        field3: _latestfeeddata!.field3,
-        field4: _latestfeeddata!.field4,
-        field5: _latestfeeddata!.field5,
-        field6: _latestfeeddata!.field6,
-        field7: _latestfeeddata!.field7);
+
+    // setwaterpump(
+    //     status: '1',
+    //     field2: _latestfeeddata!.field2,
+    //     field3: _latestfeeddata!.field3,
+    //     field4: _latestfeeddata!.field4,
+    //     field5: _latestfeeddata!.field5,
+    //     field6: _latestfeeddata!.field6,
+    //     field7: _latestfeeddata!.field7);
     // NotificationService().showNotification(
     //     title: 'Water Pump Activated',
     //     body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (pumptimer > 0) {
         pumptimer--;
-        // Future.delayed(const Duration(seconds: 20))
-        //     .whenComplete(() => getalldata());
+
         _min = (pumptimer / 60).floor();
         _sec = pumptimer % 60;
         update();
@@ -205,14 +205,14 @@ class GetxTapController extends GetxController {
         // Add your desired action when the countdown reaches 0 here
 
         _ismanualwaterconfirm = false;
-        setwaterpump(
-            status: '0',
-            field2: _latestfeeddata!.field2,
-            field3: _latestfeeddata!.field3,
-            field4: _latestfeeddata!.field4,
-            field5: _latestfeeddata!.field5,
-            field6: _latestfeeddata!.field6,
-            field7: _latestfeeddata!.field7);
+        // setwaterpump(
+        //     status: '0',
+        //     field2: _latestfeeddata!.field2,
+        //     field3: _latestfeeddata!.field3,
+        //     field4: _latestfeeddata!.field4,
+        //     field5: _latestfeeddata!.field5,
+        //     field6: _latestfeeddata!.field6,
+        //     field7: _latestfeeddata!.field7);
         _pumpStatus = false;
         _min = 0;
         _sec = 0;

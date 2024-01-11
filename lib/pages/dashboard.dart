@@ -5,6 +5,7 @@ import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:soilmoisturedetector/router/router.gr.dart';
 import 'package:soilmoisturedetector/widget/cardwidget.dart';
+import 'package:soilmoisturedetector/widget/drawerWidget.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class HomePage extends StatefulWidget {
