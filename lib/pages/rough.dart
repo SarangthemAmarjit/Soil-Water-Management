@@ -1,3 +1,5 @@
+//! string as axis
+
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:soilmoisturedetector/widget/drawerWidget.dart';
@@ -82,48 +84,70 @@ class MoisturePage extends StatelessWidget {
                     opacity: .9,
                     child: Container(
                       color: Colors.white,
-                      height: screenheight / 3,
+                      height: screenheight / 2,
                       child: Center(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              //Initialize the chart widget
-                              SfCartesianChart(
-                                  enableAxisAnimation: false,
-                                  primaryXAxis: const CategoryAxis(),
+                        child: Column(children: [
+                          //Initialize the chart widget
+                          SfCartesianChart(
+                              enableAxisAnimation: false,
+                              primaryXAxis: const CategoryAxis(),
 
-                                  // Chart title
-                                  title: const ChartTitle(
-                                      text: 'Moisture Level Chart'),
-                                  // Enable legend
-                                  legend: const Legend(isVisible: false),
-                                  // Enable tooltip
-                                  tooltipBehavior:
-                                      TooltipBehavior(enable: false),
+                              // Chart title
+                              title: const ChartTitle(
+                                  text: 'Moisture Level Chart'),
+                              // Enable legend
+                              legend: const Legend(isVisible: false),
+                              // Enable tooltip
+                              tooltipBehavior: TooltipBehavior(enable: false),
 
-                                  //todo marker:
-                                  annotations: const [
-                                    CartesianChartAnnotation(
-                                        widget: Icon(Icons.golf_course_sharp),
-                                        x: 460,
-                                        y: 40)
-                                  ],
-                                  series: <CartesianSeries<_SalesData, String>>[
-                                    LineSeries<_SalesData, String>(
-                                        dataSource: data,
-                                        xValueMapper: (_SalesData sales, _) =>
-                                            sales.year,
-                                        yValueMapper: (_SalesData sales, _) =>
-                                            sales.sales,
-                                        name: 'Moisture',
-                                        // Enable data label
-                                        dataLabelSettings:
-                                            const DataLabelSettings(
-                                                isVisible: true))
-                                  ]),
+                              //todo marker:
+                              annotations: const [
+                                CartesianChartAnnotation(
+                                    widget: Icon(Icons.golf_course_sharp),
+                                    x: 460,
+                                    y: 40)
+                              ],
+                              series: <CartesianSeries<_SalesData, String>>[
+                                LineSeries<_SalesData, String>(
+                                    dataSource: data,
+                                    xValueMapper: (_SalesData sales, _) =>
+                                        sales.year,
+                                    yValueMapper: (_SalesData sales, _) =>
+                                        sales.sales,
+                                    name: 'Moisture',
+                                    // Enable data label
+                                    dataLabelSettings: const DataLabelSettings(
+                                        isVisible: true))
+                              ]),
 
-                              //todo-->
-                            ]),
+                          //todo-->
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              //Initialize the spark charts widget
+                              child: SfSparkLineChart.custom(
+                                //Enable the trackball
+                                trackball: const SparkChartTrackball(
+                                    activationMode:
+                                        SparkChartActivationMode.tap),
+                                //Enable marker
+                                marker: const SparkChartMarker(
+                                    displayMode:
+                                        SparkChartMarkerDisplayMode.all),
+                                //Enable data label
+                                labelDisplayMode:
+                                    SparkChartLabelDisplayMode.all,
+                                xValueMapper: (int index) => data[index].year,
+                                yValueMapper: (int index) => data[index].sales,
+                                dataCount: 5,
+                              ),
+                            ),
+                          )
+                        ]),
+                        // child: Text(
+                        //   "GRAPH",
+                        //   style: TextStyle(fontSize: 98),
+                        // ),
                       ),
                     ),
                   ),
@@ -131,7 +155,7 @@ class MoisturePage extends StatelessWidget {
                     height: screenheight / 82,
                   ),
                   Opacity(
-                    opacity: .8,
+                    opacity: .5,
                     child: Container(
                       decoration: const BoxDecoration(
                           color: Colors.white,
@@ -149,7 +173,7 @@ class MoisturePage extends StatelessWidget {
                               children: [
                                 Icon(
                                   Icons.history,
-                                  size: screenwidth / 20,
+                                  size: screenwidth / 12,
                                 ),
                                 const SizedBox(
                                   width: 8,
@@ -159,7 +183,7 @@ class MoisturePage extends StatelessWidget {
                                   child: Text(
                                     "HISTORY",
                                     style: TextStyle(
-                                        fontSize: screenwidth / 20,
+                                        fontSize: screenwidth / 12,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -183,19 +207,11 @@ class MoisturePage extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: screenheight / 108,
+                                      height: screenheight / 82,
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 8),
-                                      decoration: BoxDecoration(
-                                          color: Colors.orange[200],
-                                          borderRadius:
-                                              const BorderRadius.vertical(
-                                                  top: Radius.circular(14))),
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: screenwidth / 20.0,
-                                          vertical: screenwidth / 30),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 32.0),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -203,63 +219,47 @@ class MoisturePage extends StatelessWidget {
                                           Text(
                                             "Time",
                                             style: TextStyle(
-                                                fontSize: screenwidth / 24,
+                                                fontSize: screenwidth / 18,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
                                             "Moisture Level",
                                             style: TextStyle(
-                                                fontSize: screenwidth / 24,
+                                                fontSize: screenwidth / 18,
                                                 fontWeight: FontWeight.bold),
                                           )
                                         ],
                                       ),
                                     ),
                                     ListView.builder(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
                                         itemCount: 5,
                                         shrinkWrap: true,
                                         itemBuilder:
                                             (BuildContext context, int index) {
-                                          return Container(
-                                            margin: const EdgeInsets.all(8),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: index % 2 == 0
-                                                  ? Colors.blueGrey[100]
-                                                  : Colors.grey[100],
-                                            ),
-                                            child: ListTile(
-                                                // leading: Icon(
-                                                //   Icons.av_timer,
-                                                //   size: screenwidth / 32,
-                                                // ),
-                                                trailing: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 6.0),
-                                                  child: Text(
-                                                    "sample $index",
-                                                    style: TextStyle(
-                                                        color: index % 2 == 1
-                                                            ? Colors.black
-                                                            : Colors.black,
-                                                        fontSize:
-                                                            screenwidth / 26),
-                                                  ),
-                                                ),
-                                                title: Text(
-                                                  "00:0$index",
+                                          return ListTile(
+                                              leading:
+                                                  const Icon(Icons.av_timer),
+                                              trailing: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 28.0),
+                                                child: Text(
+                                                  "sample $index",
                                                   style: TextStyle(
                                                       color: index % 2 == 1
                                                           ? Colors.black
-                                                          : Colors.black,
+                                                          : Colors.blueGrey,
                                                       fontSize:
-                                                          screenwidth / 26),
-                                                )),
-                                          );
+                                                          screenwidth / 20),
+                                                ),
+                                              ),
+                                              title: Text(
+                                                "00:0$index",
+                                                style: TextStyle(
+                                                    color: index % 2 == 1
+                                                        ? Colors.black
+                                                        : Colors.blueGrey,
+                                                    fontSize: screenwidth / 20),
+                                              ));
                                         }),
                                   ],
                                 ),
