@@ -2,26 +2,56 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:soilmoisturedetector/widget/drawerWidget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
-//TODO: to change the page name
+// TODO: to change the page name
 
 @RoutePage()
-class MoisturePage extends StatelessWidget {
+class MoisturePage extends StatefulWidget {
   const MoisturePage({super.key});
+
+  @override
+  State<MoisturePage> createState() => _MoisturePageState();
+}
+
+class _MoisturePageState extends State<MoisturePage> {
+  late ZoomPanBehavior _zoomPanBehavior;
+
+  @override
+  void initState() {
+    _zoomPanBehavior = ZoomPanBehavior(
+        enablePinching: true,
+        enablePanning: true,
+        zoomMode: ZoomMode.x,
+        enableSelectionZooming: true,
+        enableDoubleTapZooming: true);
+    //   _trackballBehavior = TrackballBehavior(
+    //   enable: true,
+    //   // Display mode of trackball tooltip
+    //   tooltipDisplayMode: TrackballDisplayMode.floatAllPoints
+    // );
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     double screenheight = MediaQuery.of(context).size.height;
     double screenwidth = MediaQuery.of(context).size.width;
-    List<_SalesData> data = [
-      _SalesData('Mon', 35),
-      _SalesData('Tue', 28),
-      _SalesData('Wed', 34),
-      _SalesData('Thu', 32),
-      _SalesData('Fri', 40),
-      _SalesData('Sat', 32),
-      _SalesData('Sun', 20)
+
+//!    from datetime import datetime
+//! sales_data = datetime(2019, 1, 1, 12, 34)  # Year: 2019, Month: 1, Day: 1, Hour: 12, Minute: 34
+
+    final List<SalesData> chartData = [
+      SalesData(DateTime(2024, 1, 1, 07, 00), 56),
+      SalesData(DateTime(2024, 1, 1, 08, 00), 87),
+      SalesData(DateTime(2024, 1, 1, 09, 00), 65),
+      SalesData(DateTime(2024, 1, 1, 10, 00), 34),
+      SalesData(DateTime(2024, 1, 1, 11, 00), 34),
+      SalesData(DateTime(2024, 1, 1, 12, 00), 67),
+      SalesData(DateTime(2024, 1, 2, 01, 00), 76),
+      SalesData(DateTime(2024, 1, 2, 02, 00), 56),
+      SalesData(DateTime(2024, 1, 2, 03, 00), 43),
+      SalesData(DateTime(2024, 1, 2, 04, 00), 56)
     ];
 
     return Scaffold(
@@ -81,51 +111,21 @@ class MoisturePage extends StatelessWidget {
                   Opacity(
                     opacity: .9,
                     child: Container(
-                      color: Colors.white,
-                      height: screenheight / 3,
-                      child: Center(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              //Initialize the chart widget
-                              SfCartesianChart(
-                                  enableAxisAnimation: false,
-                                  primaryXAxis: const CategoryAxis(),
-
-                                  // Chart title
-                                  title: const ChartTitle(
-                                      text: 'Moisture Level Chart'),
-                                  // Enable legend
-                                  legend: const Legend(isVisible: false),
-                                  // Enable tooltip
-                                  tooltipBehavior:
-                                      TooltipBehavior(enable: false),
-
-                                  //todo marker:
-                                  annotations: const [
-                                    CartesianChartAnnotation(
-                                        widget: Icon(Icons.golf_course_sharp),
-                                        x: 460,
-                                        y: 40)
-                                  ],
-                                  series: <CartesianSeries<_SalesData, String>>[
-                                    LineSeries<_SalesData, String>(
-                                        dataSource: data,
-                                        xValueMapper: (_SalesData sales, _) =>
-                                            sales.year,
-                                        yValueMapper: (_SalesData sales, _) =>
-                                            sales.sales,
-                                        name: 'Moisture',
-                                        // Enable data label
-                                        dataLabelSettings:
-                                            const DataLabelSettings(
-                                                isVisible: true))
-                                  ]),
-
-                              //todo-->
-                            ]),
-                      ),
-                    ),
+                        color: Colors.white,
+                        height: screenheight / 3,
+                        child: Center(
+                            child: SfCartesianChart(
+                                zoomPanBehavior: _zoomPanBehavior,
+                                primaryXAxis: const DateTimeAxis(),
+                                series: <CartesianSeries>[
+                              // Renders line chart
+                              LineSeries<SalesData, DateTime>(
+                                  dataSource: chartData,
+                                  xValueMapper: (SalesData sales, _) =>
+                                      sales.year,
+                                  yValueMapper: (SalesData sales, _) =>
+                                      sales.sales)
+                            ]))),
                   ),
                   SizedBox(
                     height: screenheight / 82,
@@ -280,9 +280,8 @@ class MoisturePage extends StatelessWidget {
   }
 }
 
-class _SalesData {
-  _SalesData(this.year, this.sales);
-
-  final String year;
+class SalesData {
+  SalesData(this.year, this.sales);
+  final DateTime year;
   final double sales;
 }
