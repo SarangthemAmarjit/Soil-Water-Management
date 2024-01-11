@@ -51,6 +51,10 @@ void onStart(ServiceInstance service) async {
         if (await service.isForegroundService()) {
           if (controller.latestfeeddata != null) {
             if (int.parse(controller.latestfeeddata!.field3) < 50) {
+              service.setForegroundNotificationInfo(
+                  title: 'Smart Irrigation System',
+                  content:
+                      'Current Soil Moisture Level : ${controller.latestfeeddata == null ? '' : controller.latestfeeddata!.field3}');
               NotificationService().showNotification(
                   title: '⚠️Critical Soil Moisture Level⚠️ ',
                   body: 'Tap Here Soon to Pump the Water');
