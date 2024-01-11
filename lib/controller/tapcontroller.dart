@@ -27,6 +27,7 @@ class GetxTapController extends GetxController {
   bool _pumpStatusmanually = false;
   bool _pumpStatus = false;
   String _soiltitle = '';
+  Timer? _scheduletimer;
 
   bool get iswatermanualconfirm => _ismanualwaterconfirm;
   List get allfeed => _allfeed;
@@ -40,7 +41,8 @@ class GetxTapController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    getalldata();
+    _startTimer();
+    // getalldata();
   }
 
   @override
@@ -52,6 +54,20 @@ class GetxTapController extends GetxController {
   void onClose() {}
 
   Rx<VisualType?> selectedVisualType = Rx<VisualType?>(null);
+
+  @override
+  void dispose() {
+    // Cancel the timer when the widget is disposed
+    _scheduletimer!.cancel();
+    super.dispose();
+  }
+
+  void _startTimer() {
+    // Create a periodic timer that executes the function every 5 seconds
+    _scheduletimer = Timer.periodic(const Duration(seconds: 30), (Timer timer) {
+      log('Executing your function periodically...');
+    });
+  }
 
   void getsoildetailaccordingtoindex({required int index}) {
     switch (index) {
