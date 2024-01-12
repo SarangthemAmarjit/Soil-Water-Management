@@ -1,15 +1,55 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:soilmoisturedetector/widget/drawerWidget.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 @RoutePage()
-class SoilNpkPage extends StatelessWidget {
+class SoilNpkPage extends StatefulWidget {
   const SoilNpkPage({super.key});
+
+  @override
+  State<SoilNpkPage> createState() => _SoilNpkPageState();
+}
+
+class _SoilNpkPageState extends State<SoilNpkPage> {
+  late ZoomPanBehavior _zoomPanBehavior;
+
+  @override
+  void initState() {
+    _zoomPanBehavior = ZoomPanBehavior(
+        enablePinching: true,
+        enablePanning: true,
+        zoomMode: ZoomMode.x,
+        enableSelectionZooming: true,
+        enableDoubleTapZooming: true);
+    //   _trackballBehavior = TrackballBehavior(
+    //   enable: true,
+    //   // Display mode of trackball tooltip
+    //   tooltipDisplayMode: TrackballDisplayMode.floatAllPoints
+    // );
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     double screenheight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+
+    //!    from datetime import datetime
+//! sales_data = datetime(2019, 1, 1, 12, 34)  # Year: 2019, Month: 1, Day: 1, Hour: 12, Minute: 34
+
+    final List<SalesData> chartData = [
+      SalesData(DateTime(2024, 1, 1, 01, 00), 10, 20, 30),
+      SalesData(DateTime(2024, 1, 1, 02, 00), 20, 33, 44),
+      SalesData(DateTime(2024, 1, 1, 03, 00), 34, 54, 43),
+      SalesData(DateTime(2024, 1, 1, 04, 00), 34, 43, 21),
+      SalesData(DateTime(2024, 1, 1, 05, 00), 67, 43, 54),
+      SalesData(DateTime(2024, 1, 1, 06, 00), 76, 43, 56),
+      SalesData(DateTime(2024, 1, 1, 07, 00), 56, 56, 54),
+      SalesData(DateTime(2024, 1, 1, 08, 00), 43, 43, 34),
+      SalesData(DateTime(2024, 1, 1, 09, 00), 56, 32, 21)
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -62,15 +102,39 @@ class SoilNpkPage extends StatelessWidget {
                   Opacity(
                     opacity: .9,
                     child: Container(
-                      color: Colors.white,
-                      height: screenheight / 2.5,
-                      child: const Center(
-                        child: Text(
-                          "GRAPH",
-                          style: TextStyle(fontSize: 98),
-                        ),
-                      ),
-                    ),
+                        color: Colors.white,
+                        height: screenheight / 3,
+                        child: Center(
+                            child: SfCartesianChart(
+                                legend: const Legend(
+                                  isVisible: true,
+                                ),
+                                zoomPanBehavior: _zoomPanBehavior,
+                                primaryXAxis: const DateTimeAxis(),
+                                series: <CartesianSeries>[
+                              // Renders line chart
+                              LineSeries<SalesData, DateTime>(
+                                  legendItemText: "Nitrogen",
+                                  color: Colors.red,
+                                  dataSource: chartData,
+                                  xValueMapper: (SalesData sales, _) =>
+                                      sales.year,
+                                  yValueMapper: (SalesData N, _) => N.N),
+                              LineSeries<SalesData, DateTime>(
+                                  color: Colors.green,
+                                  legendItemText: "Phosphorous",
+                                  dataSource: chartData,
+                                  xValueMapper: (SalesData sales, _) =>
+                                      sales.year,
+                                  yValueMapper: (SalesData P, _) => P.P),
+                              LineSeries<SalesData, DateTime>(
+                                  color: Colors.blue,
+                                  legendItemText: "Potassium",
+                                  dataSource: chartData,
+                                  xValueMapper: (SalesData sales, _) =>
+                                      sales.year,
+                                  yValueMapper: (SalesData K, _) => K.K)
+                            ]))),
                   ),
                   SizedBox(
                     height: screenheight / 82,
@@ -215,6 +279,8 @@ class SoilNpkPage extends StatelessWidget {
                                       ),
                                     ),
                                     ListView.builder(
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
                                         itemCount: 5,
                                         shrinkWrap: true,
                                         itemBuilder:
@@ -302,4 +368,12 @@ class SoilNpkPage extends StatelessWidget {
       ),
     );
   }
+}
+
+class SalesData {
+  SalesData(this.year, this.N, this.P, this.K);
+  final DateTime year;
+  final double N;
+  final double P;
+  final double K;
 }
