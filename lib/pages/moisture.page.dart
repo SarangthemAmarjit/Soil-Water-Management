@@ -151,6 +151,12 @@ class _MoisturePageState extends State<MoisturePage> {
                                 series: <CartesianSeries>[
                               // Renders line chart
                               LineSeries<Moisture, DateTime>(
+                                  markerSettings:
+                                      const MarkerSettings(isVisible: true),
+                                  dataLabelSettings: const DataLabelSettings(
+                                      isVisible: true,
+                                      labelPosition:
+                                          ChartDataLabelPosition.inside),
                                   dataSource:
 
                                       //! above codes to be used for dateTime

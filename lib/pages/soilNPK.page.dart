@@ -1,6 +1,5 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:soilmoisturedetector/widget/drawerWidget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 @RoutePage()
