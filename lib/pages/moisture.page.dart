@@ -15,6 +15,37 @@ class MoisturePage extends StatefulWidget {
 
 class _MoisturePageState extends State<MoisturePage> {
   late ZoomPanBehavior _zoomPanBehavior;
+  final List<DateTime> DateData = [
+    DateTime(2024, 1, 1, 1, 00),
+    DateTime(2024, 1, 1, 2, 00),
+    DateTime(2024, 1, 1, 3, 00),
+    DateTime(2024, 1, 1, 4, 00),
+    DateTime(2024, 1, 1, 5, 00),
+    DateTime(2024, 1, 1, 6, 00),
+    DateTime(2024, 1, 1, 7, 00),
+    DateTime(2024, 1, 1, 8, 00),
+    DateTime(2024, 1, 1, 9, 00),
+    DateTime(2024, 1, 1, 10, 00),
+    DateTime(2024, 1, 1, 11, 00),
+    DateTime(2024, 1, 1, 12, 00),
+
+    // Add more DateTime values as needed
+  ];
+
+  final List<double> moistureData = [
+    23,
+    22,
+    22,
+    23,
+    10,
+    22,
+    77,
+    33,
+    44,
+    25,
+    18,
+    23,
+  ];
 
   @override
   void initState() {
@@ -41,18 +72,18 @@ class _MoisturePageState extends State<MoisturePage> {
 //!    from datetime import datetime
 //! sales_data = datetime(2019, 1, 1, 12, 34)  # Year: 2019, Month: 1, Day: 1, Hour: 12, Minute: 34
 
-    final List<SalesData> chartData = [
-      SalesData(DateTime(2024, 1, 1, 07, 00), 56),
-      SalesData(DateTime(2024, 1, 1, 08, 00), 87),
-      SalesData(DateTime(2024, 1, 1, 09, 00), 65),
-      SalesData(DateTime(2024, 1, 1, 10, 00), 34),
-      SalesData(DateTime(2024, 1, 1, 11, 00), 34),
-      SalesData(DateTime(2024, 1, 1, 12, 00), 67),
-      SalesData(DateTime(2024, 1, 2, 01, 00), 76),
-      SalesData(DateTime(2024, 1, 2, 02, 00), 56),
-      SalesData(DateTime(2024, 1, 2, 03, 00), 43),
-      SalesData(DateTime(2024, 1, 2, 04, 00), 56)
-    ];
+    // final List<Moisture> moisturChartData = [
+    //   Moisture(DateTime(2024, 1, 1, 01, 00), 76),
+    //   Moisture(DateTime(2024, 1, 1, 02, 00), 56),
+    //   Moisture(DateTime(2024, 1, 1, 03, 00), 43),
+    //   Moisture(DateTime(2024, 1, 1, 04, 00), 21),
+    //   Moisture(DateTime(2024, 1, 1, 07, 00), 56),
+    //   Moisture(DateTime(2024, 1, 1, 08, 00), 87),
+    //   Moisture(DateTime(2024, 1, 1, 09, 00), 65),
+    //   Moisture(DateTime(2024, 1, 1, 10, 00), 21),
+    //   Moisture(DateTime(2024, 1, 1, 11, 00), 34),
+    //   Moisture(DateTime(2024, 1, 1, 12, 00), 67),
+    // ];
 
     return Scaffold(
       appBar: AppBar(
@@ -119,12 +150,22 @@ class _MoisturePageState extends State<MoisturePage> {
                                 primaryXAxis: const DateTimeAxis(),
                                 series: <CartesianSeries>[
                               // Renders line chart
-                              LineSeries<SalesData, DateTime>(
-                                  dataSource: chartData,
-                                  xValueMapper: (SalesData sales, _) =>
-                                      sales.year,
-                                  yValueMapper: (SalesData sales, _) =>
-                                      sales.sales)
+                              LineSeries<Moisture, DateTime>(
+                                  markerSettings:
+                                      const MarkerSettings(isVisible: true),
+                                  dataLabelSettings: const DataLabelSettings(
+                                      isVisible: true,
+                                      labelPosition:
+                                          ChartDataLabelPosition.inside),
+                                  dataSource:
+
+                                      //! above codes to be used for dateTime
+                                      // moisturChartData,
+                                      _getData(),
+                                  xValueMapper: (Moisture moisture, _) =>
+                                      moisture.time,
+                                  yValueMapper: (Moisture moisture, _) =>
+                                      moisture.moisture)
                             ]))),
                   ),
                   SizedBox(
@@ -278,10 +319,18 @@ class _MoisturePageState extends State<MoisturePage> {
       ),
     );
   }
+
+  List<Moisture> _getData() {
+    List<Moisture> data = [];
+    for (int i = 0; i < DateData.length; i++) {
+      data.add(Moisture(DateData[i], moistureData[i]));
+    }
+    return data;
+  }
 }
 
-class SalesData {
-  SalesData(this.year, this.sales);
-  final DateTime year;
-  final double sales;
+class Moisture {
+  Moisture(this.time, this.moisture);
+  final DateTime time;
+  final double moisture;
 }
