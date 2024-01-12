@@ -14,6 +14,39 @@ class SoilNpkPage extends StatefulWidget {
 class _SoilNpkPageState extends State<SoilNpkPage> {
   late ZoomPanBehavior _zoomPanBehavior;
 
+  final List<DateTime> dateData = [
+    DateTime(2024, 1, 1, 1, 00),
+    DateTime(2024, 1, 1, 2, 00),
+    DateTime(2024, 1, 1, 3, 00),
+    DateTime(2024, 1, 1, 4, 00),
+    DateTime(2024, 1, 1, 5, 00),
+    DateTime(2024, 1, 1, 6, 00),
+    DateTime(2024, 1, 1, 7, 00),
+    DateTime(2024, 1, 1, 8, 00),
+    DateTime(2024, 1, 1, 9, 00),
+    DateTime(2024, 1, 1, 10, 00),
+    DateTime(2024, 1, 1, 11, 00),
+    DateTime(2024, 1, 1, 12, 00),
+
+    // Add more DateTime values as needed
+  ];
+
+  List<Map<String, double>> soilNPK = [
+    {'Nitrogen': 1.0, 'Phosphorous': 2.0, 'Potassium': 3.0},
+    {'Nitrogen': 4.5, 'Phosphorous': 6.7, 'Potassium': 8.2},
+    {'Nitrogen': 0.2, 'Phosphorous': 9.1, 'Potassium': 5.5},
+    {'Nitrogen': 1.0, 'Phosphorous': 2.0, 'Potassium': 3.0},
+    {'Nitrogen': 4.5, 'Phosphorous': 6.7, 'Potassium': 8.2},
+    {'Nitrogen': 0.2, 'Phosphorous': 9.1, 'Potassium': 5.5},
+    {'Nitrogen': 1.0, 'Phosphorous': 2.0, 'Potassium': 3.0},
+    {'Nitrogen': 4.5, 'Phosphorous': 6.7, 'Potassium': 8.2},
+    {'Nitrogen': 0.2, 'Phosphorous': 9.1, 'Potassium': 5.5},
+    {'Nitrogen': 1.0, 'Phosphorous': 2.0, 'Potassium': 3.0},
+    {'Nitrogen': 4.5, 'Phosphorous': 6.7, 'Potassium': 8.2},
+    {'Nitrogen': 0.2, 'Phosphorous': 9.1, 'Potassium': 5.5},
+    // Add more maps as needed
+  ];
+
   @override
   void initState() {
     _zoomPanBehavior = ZoomPanBehavior(
@@ -37,19 +70,19 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     //!    from datetime import datetime
-//! sales_data = datetime(2019, 1, 1, 12, 34)  # Year: 2019, Month: 1, Day: 1, Hour: 12, Minute: 34
+//! soilnpk_data = datetime(2019, 1, 1, 12, 34)  # time: 2019, Month: 1, Day: 1, Hour: 12, Minute: 34
 
-    final List<SoilNPK> chartData = [
-      SoilNPK(DateTime(2024, 1, 1, 01, 00), 10, 20, 30),
-      SoilNPK(DateTime(2024, 1, 1, 02, 00), 20, 33, 44),
-      SoilNPK(DateTime(2024, 1, 1, 03, 00), 34, 54, 43),
-      SoilNPK(DateTime(2024, 1, 1, 04, 00), 34, 43, 21),
-      SoilNPK(DateTime(2024, 1, 1, 05, 00), 67, 43, 54),
-      SoilNPK(DateTime(2024, 1, 1, 06, 00), 76, 43, 56),
-      SoilNPK(DateTime(2024, 1, 1, 07, 00), 56, 56, 54),
-      SoilNPK(DateTime(2024, 1, 1, 08, 00), 43, 43, 34),
-      SoilNPK(DateTime(2024, 1, 1, 09, 00), 56, 32, 21)
-    ];
+    // final List<SoilNPK> chartData = [
+    //   SoilNPK(DateTime(2024, 1, 1, 01, 00), 10, 20, 30),
+    //   SoilNPK(DateTime(2024, 1, 1, 02, 00), 20, 33, 44),
+    //   SoilNPK(DateTime(2024, 1, 1, 03, 00), 34, 54, 43),
+    //   SoilNPK(DateTime(2024, 1, 1, 04, 00), 34, 43, 21),
+    //   SoilNPK(DateTime(2024, 1, 1, 05, 00), 67, 43, 54),
+    //   SoilNPK(DateTime(2024, 1, 1, 06, 00), 76, 43, 56),
+    //   SoilNPK(DateTime(2024, 1, 1, 07, 00), 56, 56, 54),
+    //   SoilNPK(DateTime(2024, 1, 1, 08, 00), 43, 43, 34),
+    //   SoilNPK(DateTime(2024, 1, 1, 09, 00), 56, 32, 21)
+    // ];
 
     return Scaffold(
       appBar: AppBar(
@@ -117,7 +150,9 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
                               LineSeries<SoilNPK, DateTime>(
                                   legendItemText: "Nitrogen",
                                   color: Colors.red,
-                                  dataSource: chartData,
+                                  dataSource: _getData(),
+
+                                  // chartData,
 
                                   //  List.generate(
                                   //   controller.isselectedmonthly
@@ -128,12 +163,12 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
                                   //                   .isEmpty
                                   //           ? 0
                                   //           : months.length
-                                  //       : controller.yearlist.length,
+                                  //       : controller.timelist.length,
                                   //   (index) => ChartData(
                                   //       controller.isselectedmonthly
                                   //           ? months[index]
                                   //           : controller
-                                  //               .yearlist[index]
+                                  //               .timelist[index]
                                   //               .toString(),
                                   //       controller.isselectedmonthly
                                   //           ? controller
@@ -141,24 +176,26 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
                                   //           : controller
                                   //               .datalist[index]),
                                   // ),
-                                  xValueMapper: (SoilNPK sales, _) =>
-                                      sales.year,
+                                  xValueMapper: (SoilNPK soilnpk, _) =>
+                                      soilnpk.time,
                                   yValueMapper: (SoilNPK N, _) => N.N),
                               LineSeries<SoilNPK, DateTime>(
                                   animationDelay: 300,
                                   color: Colors.green,
                                   legendItemText: "Phosphorous",
-                                  dataSource: chartData,
-                                  xValueMapper: (SoilNPK sales, _) =>
-                                      sales.year,
+                                  dataSource: _getData(),
+                                  //  chartData,
+                                  xValueMapper: (SoilNPK soilnpk, _) =>
+                                      soilnpk.time,
                                   yValueMapper: (SoilNPK P, _) => P.P),
                               LineSeries<SoilNPK, DateTime>(
                                   animationDelay: 600,
                                   color: Colors.blue,
                                   legendItemText: "Potassium",
-                                  dataSource: chartData,
-                                  xValueMapper: (SoilNPK sales, _) =>
-                                      sales.year,
+                                  dataSource: _getData(),
+                                  //  chartData,
+                                  xValueMapper: (SoilNPK soilnpk, _) =>
+                                      soilnpk.time,
                                   yValueMapper: (SoilNPK K, _) => K.K)
                             ]))),
                   ),
@@ -413,11 +450,20 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
       ),
     );
   }
+
+  List<SoilNPK> _getData() {
+    List<SoilNPK> data = [];
+    for (int i = 0; i < dateData.length; i++) {
+      data.add(SoilNPK(dateData[i], soilNPK[i]["Nitrogen"]!,
+          soilNPK[i]["Phosphorous"]!, soilNPK[i]["Potassium"]!));
+    }
+    return data;
+  }
 }
 
 class SoilNPK {
-  SoilNPK(this.year, this.N, this.P, this.K);
-  final DateTime year;
+  SoilNPK(this.time, this.N, this.P, this.K);
+  final DateTime time;
   final double N;
   final double P;
   final double K;
