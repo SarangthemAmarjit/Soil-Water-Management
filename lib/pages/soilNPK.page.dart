@@ -60,9 +60,9 @@ class SoilNpkPage extends StatelessWidget {
                     height: screenheight / 82,
                   ),
                   Opacity(
-                    opacity: .4,
+                    opacity: .9,
                     child: Container(
-                      color: Colors.amber,
+                      color: Colors.white,
                       height: screenheight / 2.5,
                       child: const Center(
                         child: Text(
@@ -76,7 +76,7 @@ class SoilNpkPage extends StatelessWidget {
                     height: screenheight / 82,
                   ),
                   Opacity(
-                    opacity: .5,
+                    opacity: .8,
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: const BoxDecoration(
@@ -95,7 +95,7 @@ class SoilNpkPage extends StatelessWidget {
                               children: [
                                 Icon(
                                   Icons.history,
-                                  size: screenWidth / 12,
+                                  size: screenWidth / 20,
                                 ),
                                 const SizedBox(
                                   width: 8,
@@ -105,7 +105,7 @@ class SoilNpkPage extends StatelessWidget {
                                   child: Text(
                                     "HISTORY",
                                     style: TextStyle(
-                                        fontSize: screenWidth / 12,
+                                        fontSize: screenWidth / 20,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -129,11 +129,19 @@ class SoilNpkPage extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: screenheight / 82,
+                                      height: screenheight / 108,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 32.0),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      decoration: BoxDecoration(
+                                          color: Colors.orange[200],
+                                          borderRadius:
+                                              const BorderRadius.vertical(
+                                                  top: Radius.circular(14))),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: screenWidth / 30.0,
+                                          vertical: screenWidth / 30),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -141,7 +149,7 @@ class SoilNpkPage extends StatelessWidget {
                                           Text(
                                             "Time",
                                             style: TextStyle(
-                                                fontSize: screenWidth / 20,
+                                                fontSize: screenWidth / 24,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           RichText(
@@ -156,7 +164,7 @@ class SoilNpkPage extends StatelessWidget {
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize:
-                                                            screenWidth / 20,
+                                                            screenWidth / 24,
                                                         color:
                                                             Colors.red[900])),
                                                 const TextSpan(text: 'itrogen'),
@@ -175,7 +183,7 @@ class SoilNpkPage extends StatelessWidget {
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize:
-                                                            screenWidth / 20,
+                                                            screenWidth / 24,
                                                         color:
                                                             Colors.red[900])),
                                                 const TextSpan(
@@ -195,7 +203,7 @@ class SoilNpkPage extends StatelessWidget {
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize:
-                                                            screenWidth / 20,
+                                                            screenWidth / 24,
                                                         color:
                                                             Colors.red[900])),
                                                 const TextSpan(
@@ -211,9 +219,17 @@ class SoilNpkPage extends StatelessWidget {
                                         shrinkWrap: true,
                                         itemBuilder:
                                             (BuildContext context, int index) {
-                                          return Padding(
+                                          return Container(
+                                            margin: const EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color: index % 2 == 0
+                                                  ? Colors.blueGrey[100]
+                                                  : Colors.grey[100],
+                                            ),
                                             padding: const EdgeInsets.symmetric(
-                                                vertical: 6, horizontal: 32.0),
+                                                vertical: 12, horizontal: 8.0),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -224,9 +240,9 @@ class SoilNpkPage extends StatelessWidget {
                                                   style: TextStyle(
                                                       color: index % 2 == 1
                                                           ? Colors.black
-                                                          : Colors.blueGrey,
+                                                          : Colors.black,
                                                       fontSize:
-                                                          screenWidth / 20),
+                                                          screenWidth / 26),
                                                 ),
                                                 Padding(
                                                   padding:
@@ -239,7 +255,7 @@ class SoilNpkPage extends StatelessWidget {
                                                             ? Colors.black
                                                             : Colors.blueGrey,
                                                         fontSize:
-                                                            screenWidth / 20),
+                                                            screenWidth / 26),
                                                   ),
                                                 ),
                                                 Padding(
@@ -253,7 +269,7 @@ class SoilNpkPage extends StatelessWidget {
                                                             ? Colors.black
                                                             : Colors.blueGrey,
                                                         fontSize:
-                                                            screenWidth / 20),
+                                                            screenWidth / 26),
                                                   ),
                                                 ),
                                                 Text(
@@ -263,7 +279,7 @@ class SoilNpkPage extends StatelessWidget {
                                                           ? Colors.black
                                                           : Colors.blueGrey,
                                                       fontSize:
-                                                          screenWidth / 20),
+                                                          screenWidth / 26),
                                                 ),
                                               ],
                                             ),
