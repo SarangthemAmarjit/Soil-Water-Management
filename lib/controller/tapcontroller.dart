@@ -42,8 +42,8 @@ class GetxTapController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    // _startTimer();
-    // getlatestfeeddata();
+    _startTimer();
+    getlatestfeeddata();
   }
 
   @override
