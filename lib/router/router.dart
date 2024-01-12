@@ -13,7 +13,7 @@ class AppRouter extends $AppRouter {
           page: HomePage.page,
         ),
 
-        AutoRoute(path: '/moisturePage', page: MoisturePage.page),
+        AutoRoute(path: '/moisturePage', page: CommonGraphPage.page),
         AutoRoute(path: '/npkPage', page: SoilNpkPage.page),
         AutoRoute(path: '/contactPage', page: ContactPage.page),
       ];

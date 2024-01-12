@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                                     : controller.latestfeeddata!.field3,
                               ),
                               onTap: () {
-                                context.router.push(const MoisturePage());
+                                // context.router.push( CommonGraphPage(graphYaxisdata: ));
                               },
                             );
                           case 1:
@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                                     : controller.latestfeeddata!.field2,
                               ),
                               onTap: () {
-                                context.router.push(const MoisturePage());
+                                // context.router.push( CommonGraphPage(graphYaxisdata: ));
                               },
                             );
                           case 2:
@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                                     : controller.latestfeeddata!.field7,
                               ),
                               onTap: () {
-                                context.router.push(const MoisturePage());
+                                // context.router.push( CommonGraphPage(graphYaxisdata: controller.alldata!.feeds));
                               },
                             );
                           case 3:

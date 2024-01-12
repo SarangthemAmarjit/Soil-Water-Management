@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:ui';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
@@ -17,7 +18,10 @@ import 'package:soilmoisturedetector/widget/localnotification.dart';
 import 'package:workmanager/workmanager.dart';
 
 class GetxTapController extends GetxController {
+  //setter
+  Getallsoildetails? latestdata;
   Getallsoildetails? alldata;
+  List<Map<String, dynamic>> _allsoildatamap = [];
   final List _allfeed = [];
   Feed? _latestfeeddata;
   // 5 minutes in seconds
@@ -25,12 +29,17 @@ class GetxTapController extends GetxController {
   int pumptimer = 0;
   int _min = 0;
   int _sec = 0;
+
   bool _ismanualwaterconfirm = false;
   var isDataLoading = false.obs;
   bool _pumpStatusmanually = false;
   bool _pumpStatus = false;
   String _soiltitle = '';
   Timer? _scheduletimer;
+  final List<DateTime> _alldatetime = [];
+
+  //getter
+  List<Map<String, dynamic>> get allsoildatamap => _allsoildatamap;
   Timer get scheduletimer => _scheduletimer!;
   bool get iswatermanualconfirm => _ismanualwaterconfirm;
   List get allfeed => _allfeed;
@@ -40,12 +49,14 @@ class GetxTapController extends GetxController {
   int get min => _min;
   int get sec => _sec;
   String get soiltitle => _soiltitle;
+  List get alldatetime => _alldatetime;
   var data = <Feed>[].obs;
   @override
   Future<void> onInit() async {
     super.onInit();
     _startTimer();
     getlatestfeeddata();
+    getalldata();
   }
 
   @override
@@ -149,8 +160,8 @@ class GetxTapController extends GetxController {
 
       if (response.statusCode == 200) {
         var users = getallsoildetailsFromJson(response.body);
-        alldata = users;
-        _latestfeeddata = alldata!.feeds.last;
+        latestdata = users;
+        _latestfeeddata = latestdata!.feeds.last;
 
         update();
 
@@ -168,21 +179,30 @@ class GetxTapController extends GetxController {
 
   Future getalldata() async {
     try {
-      isDataLoading(true);
       final queryParameters = {
         "api_key": "330F3444455D4923",
-        "interval": "2",
+        "interval": "60",
       };
       final response = await http.get(
         Uri.http('10.10.1.139:88', '/api/channel-data/698633/feeds',
             queryParameters),
       );
-      log(response.statusCode.toString());
+      var soildata = jsonEncode(response.body);
+      var dec = jsonDecode(soildata);
+      _allsoildatamap = dec['feeds'];
+
+      log('List :${_allsoildatamap.toString()}');
 
       if (response.statusCode == 200) {
         var users = getallsoildetailsFromJson(response.body);
         alldata = users;
-        _latestfeeddata = alldata!.feeds.last;
+        for (var element in alldata!.feeds) {
+          if (_alldatetime.contains(element.created)) {
+            log('Already Exist');
+          } else {
+            _alldatetime.add(element.created);
+          }
+        }
 
         update();
 
@@ -193,9 +213,7 @@ class GetxTapController extends GetxController {
       return null;
     } catch (e) {
       print(e.toString());
-    } finally {
-      isDataLoading(false);
-    }
+    } finally {}
   }
 
   Future setwaterpump({

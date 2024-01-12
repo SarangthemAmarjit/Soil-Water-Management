@@ -6,14 +6,15 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 // TODO: to change the page name
 
 @RoutePage()
-class MoisturePage extends StatefulWidget {
-  const MoisturePage({super.key});
+class CommonGraphPage extends StatefulWidget {
+  final List<double> graphYaxisdata;
+  const CommonGraphPage({super.key, required this.graphYaxisdata});
 
   @override
-  State<MoisturePage> createState() => _MoisturePageState();
+  State<CommonGraphPage> createState() => _CommonGraphPageState();
 }
 
-class _MoisturePageState extends State<MoisturePage> {
+class _CommonGraphPageState extends State<CommonGraphPage> {
   late ZoomPanBehavior _zoomPanBehavior;
   final List<DateTime> DateData = [
     DateTime(2024, 1, 1, 1, 00),
