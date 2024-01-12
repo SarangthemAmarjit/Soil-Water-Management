@@ -8,8 +8,6 @@ import 'package:soilmoisturedetector/widget/cardwidget.dart';
 import 'package:soilmoisturedetector/widget/drawerWidget.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-import '../widget/drawerWidget.dart';
-
 @RoutePage()
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

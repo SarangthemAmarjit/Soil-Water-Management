@@ -2,10 +2,8 @@
 
 import 'dart:async';
 import 'dart:ui';
-
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:soilmoisturedetector/widget/localnotification.dart';
@@ -30,6 +28,7 @@ void onStart(ServiceInstance service) async {
     });
   }
   if (service is AndroidServiceInstance) {
+    service.setAutoStartOnBootMode(GetPlatform.isAndroid);
     service.on('AsBackGround').listen((event) {
       service.setAsBackgroundService();
     });
@@ -55,6 +54,9 @@ void onStart(ServiceInstance service) async {
                   content:
                       'Current Soil Moisture Level : ${controller.latestfeeddata == null ? '' : controller.latestfeeddata!.field3}');
             }
+          } else {
+            service.setForegroundNotificationInfo(
+                title: 'Smart Irrigation System', content: 'NETWORK ERROR');
           }
         }
       }

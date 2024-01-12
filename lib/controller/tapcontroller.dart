@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/model/soilmodel.dart';
 import 'package:soilmoisturedetector/widget/localnotification.dart';
+import 'package:workmanager/workmanager.dart';
 
 class GetxTapController extends GetxController {
   Getallsoildetails? alldata;
@@ -41,8 +42,8 @@ class GetxTapController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    _startTimer();
-    getlatestfeeddata();
+    // _startTimer();
+    // getlatestfeeddata();
   }
 
   @override
@@ -65,7 +66,7 @@ class GetxTapController extends GetxController {
   void _startTimer() {
     // Create a periodic timer that executes the function every 5 seconds
     _scheduletimer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
-      getlatestfeeddata();
+      // getlatestfeeddata();
       log('Executing your function periodically...');
     });
   }

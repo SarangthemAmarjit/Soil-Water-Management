@@ -1,3 +1,4 @@
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,8 @@ import 'package:soilmoisturedetector/pages/demo.dart';
 // import 'package:soilmoisturedetector/demo.dart';
 // import 'package:soilmoisturedetector/pages/dashboard.dart';
 import 'package:soilmoisturedetector/router/router.dart';
+import 'package:soilmoisturedetector/services/alarmmanager.dart';
+import 'package:soilmoisturedetector/services/backgroundservoces.dart';
 
 import 'package:soilmoisturedetector/services/workmanager.dart';
 import 'package:soilmoisturedetector/widget/localnotification.dart';
@@ -15,7 +18,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await NotificationService().initNotification();
-  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  AndroidAlarmManager.initialize();
+  AndroidAlarmManager.periodic(
+    const Duration(seconds: 5),
+    0,
+    backgroundHandler,
+    allowWhileIdle: true,
+  );
+
   runApp(const MyApp());
 }
 
