@@ -39,16 +39,16 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
     //!    from datetime import datetime
 //! sales_data = datetime(2019, 1, 1, 12, 34)  # Year: 2019, Month: 1, Day: 1, Hour: 12, Minute: 34
 
-    final List<SalesData> chartData = [
-      SalesData(DateTime(2024, 1, 1, 01, 00), 10, 20, 30),
-      SalesData(DateTime(2024, 1, 1, 02, 00), 20, 33, 44),
-      SalesData(DateTime(2024, 1, 1, 03, 00), 34, 54, 43),
-      SalesData(DateTime(2024, 1, 1, 04, 00), 34, 43, 21),
-      SalesData(DateTime(2024, 1, 1, 05, 00), 67, 43, 54),
-      SalesData(DateTime(2024, 1, 1, 06, 00), 76, 43, 56),
-      SalesData(DateTime(2024, 1, 1, 07, 00), 56, 56, 54),
-      SalesData(DateTime(2024, 1, 1, 08, 00), 43, 43, 34),
-      SalesData(DateTime(2024, 1, 1, 09, 00), 56, 32, 21)
+    final List<SoilNPK> chartData = [
+      SoilNPK(DateTime(2024, 1, 1, 01, 00), 10, 20, 30),
+      SoilNPK(DateTime(2024, 1, 1, 02, 00), 20, 33, 44),
+      SoilNPK(DateTime(2024, 1, 1, 03, 00), 34, 54, 43),
+      SoilNPK(DateTime(2024, 1, 1, 04, 00), 34, 43, 21),
+      SoilNPK(DateTime(2024, 1, 1, 05, 00), 67, 43, 54),
+      SoilNPK(DateTime(2024, 1, 1, 06, 00), 76, 43, 56),
+      SoilNPK(DateTime(2024, 1, 1, 07, 00), 56, 56, 54),
+      SoilNPK(DateTime(2024, 1, 1, 08, 00), 43, 43, 34),
+      SoilNPK(DateTime(2024, 1, 1, 09, 00), 56, 32, 21)
     ];
 
     return Scaffold(
@@ -80,6 +80,7 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
+            height: screenheight,
             decoration: BoxDecoration(
               image: DecorationImage(
                 colorFilter: ColorFilter.mode(
@@ -113,27 +114,52 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
                                 primaryXAxis: const DateTimeAxis(),
                                 series: <CartesianSeries>[
                               // Renders line chart
-                              LineSeries<SalesData, DateTime>(
+                              LineSeries<SoilNPK, DateTime>(
                                   legendItemText: "Nitrogen",
                                   color: Colors.red,
                                   dataSource: chartData,
-                                  xValueMapper: (SalesData sales, _) =>
+
+                                  //  List.generate(
+                                  //   controller.isselectedmonthly
+                                  //       ? controller.monthdatalist ==
+                                  //                   null ||
+                                  //               controller
+                                  //                   .monthdatalist!
+                                  //                   .isEmpty
+                                  //           ? 0
+                                  //           : months.length
+                                  //       : controller.yearlist.length,
+                                  //   (index) => ChartData(
+                                  //       controller.isselectedmonthly
+                                  //           ? months[index]
+                                  //           : controller
+                                  //               .yearlist[index]
+                                  //               .toString(),
+                                  //       controller.isselectedmonthly
+                                  //           ? controller
+                                  //               .monthdatalist![index]
+                                  //           : controller
+                                  //               .datalist[index]),
+                                  // ),
+                                  xValueMapper: (SoilNPK sales, _) =>
                                       sales.year,
-                                  yValueMapper: (SalesData N, _) => N.N),
-                              LineSeries<SalesData, DateTime>(
+                                  yValueMapper: (SoilNPK N, _) => N.N),
+                              LineSeries<SoilNPK, DateTime>(
+                                  animationDelay: 300,
                                   color: Colors.green,
                                   legendItemText: "Phosphorous",
                                   dataSource: chartData,
-                                  xValueMapper: (SalesData sales, _) =>
+                                  xValueMapper: (SoilNPK sales, _) =>
                                       sales.year,
-                                  yValueMapper: (SalesData P, _) => P.P),
-                              LineSeries<SalesData, DateTime>(
+                                  yValueMapper: (SoilNPK P, _) => P.P),
+                              LineSeries<SoilNPK, DateTime>(
+                                  animationDelay: 600,
                                   color: Colors.blue,
                                   legendItemText: "Potassium",
                                   dataSource: chartData,
-                                  xValueMapper: (SalesData sales, _) =>
+                                  xValueMapper: (SoilNPK sales, _) =>
                                       sales.year,
-                                  yValueMapper: (SalesData K, _) => K.K)
+                                  yValueMapper: (SoilNPK K, _) => K.K)
                             ]))),
                   ),
                   SizedBox(
@@ -216,63 +242,87 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
                                                 fontSize: screenWidth / 24,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          RichText(
-                                            text: TextSpan(
-                                              style:
-                                                  DefaultTextStyle.of(context)
-                                                      .style,
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                    text: 'N',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize:
-                                                            screenWidth / 24,
-                                                        color:
-                                                            Colors.red[900])),
-                                                const TextSpan(text: 'itrogen'),
-                                              ],
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 6),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color: Colors.red,
+                                            ),
+                                            child: RichText(
+                                              text: TextSpan(
+                                                style:
+                                                    DefaultTextStyle.of(context)
+                                                        .style,
+                                                children: <TextSpan>[
+                                                  TextSpan(
+                                                      text: 'N',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize:
+                                                              screenWidth / 26,
+                                                          color: Colors.white)),
+                                                  // const TextSpan(text: 'itrogen'),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                          RichText(
-                                            text: TextSpan(
-                                              style:
-                                                  DefaultTextStyle.of(context)
-                                                      .style,
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                    text: 'P',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize:
-                                                            screenWidth / 24,
-                                                        color:
-                                                            Colors.red[900])),
-                                                const TextSpan(
-                                                    text: 'hosporous'),
-                                              ],
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 6),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color: Colors.green,
+                                            ),
+                                            child: RichText(
+                                              text: TextSpan(
+                                                style:
+                                                    DefaultTextStyle.of(context)
+                                                        .style,
+                                                children: <TextSpan>[
+                                                  TextSpan(
+                                                      text: 'P',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize:
+                                                              screenWidth / 26,
+                                                          color: Colors.white)),
+                                                  // const TextSpan(
+                                                  //     text: 'hosporous'),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                          RichText(
-                                            text: TextSpan(
-                                              style:
-                                                  DefaultTextStyle.of(context)
-                                                      .style,
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                    text: 'P',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize:
-                                                            screenWidth / 24,
-                                                        color:
-                                                            Colors.red[900])),
-                                                const TextSpan(
-                                                    text: 'otassium'),
-                                              ],
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 6),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color: Colors.blue,
+                                            ),
+                                            child: RichText(
+                                              text: TextSpan(
+                                                style:
+                                                    DefaultTextStyle.of(context)
+                                                        .style,
+                                                children: <TextSpan>[
+                                                  TextSpan(
+                                                      text: 'K',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize:
+                                                              screenWidth / 26,
+                                                          color: Colors.white)),
+                                                  // const TextSpan(
+                                                  //     text: 'otassium'),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -310,42 +360,37 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
                                                       fontSize:
                                                           screenWidth / 26),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 16.0),
-                                                  child: Text(
-                                                    "Nitro$index",
-                                                    style: TextStyle(
-                                                        color: index % 2 == 1
-                                                            ? Colors.black
-                                                            : Colors.blueGrey,
-                                                        fontSize:
-                                                            screenWidth / 26),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 16.0),
-                                                  child: Text(
-                                                    "Phos$index",
-                                                    style: TextStyle(
-                                                        color: index % 2 == 1
-                                                            ? Colors.black
-                                                            : Colors.blueGrey,
-                                                        fontSize:
-                                                            screenWidth / 26),
-                                                  ),
-                                                ),
                                                 Text(
-                                                  "Potas$index",
+                                                  "N$index",
                                                   style: TextStyle(
                                                       color: index % 2 == 1
                                                           ? Colors.black
                                                           : Colors.blueGrey,
                                                       fontSize:
                                                           screenWidth / 26),
+                                                ),
+                                                Text(
+                                                  "P$index",
+                                                  style: TextStyle(
+                                                      color: index % 2 == 1
+                                                          ? Colors.black
+                                                          : Colors.blueGrey,
+                                                      fontSize:
+                                                          screenWidth / 26),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 12.0),
+                                                  child: Text(
+                                                    "K$index",
+                                                    style: TextStyle(
+                                                        color: index % 2 == 1
+                                                            ? Colors.black
+                                                            : Colors.blueGrey,
+                                                        fontSize:
+                                                            screenWidth / 26),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -370,8 +415,8 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
   }
 }
 
-class SalesData {
-  SalesData(this.year, this.N, this.P, this.K);
+class SoilNPK {
+  SoilNPK(this.year, this.N, this.P, this.K);
   final DateTime year;
   final double N;
   final double P;
