@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -18,15 +20,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await NotificationService().initNotification();
-  AndroidAlarmManager.initialize();
-  AndroidAlarmManager.periodic(
-    const Duration(seconds: 5),
-    0,
-    backgroundHandler,
-    allowWhileIdle: true,
-  );
-
+  await AndroidAlarmManager.initialize();
   runApp(const MyApp());
+  AndroidAlarmManager.periodic(const Duration(seconds: 3), 0, backgroundHandler,
+      allowWhileIdle: true, rescheduleOnReboot: true, exact: true);
 }
 
 final _appRouter = AppRouter();

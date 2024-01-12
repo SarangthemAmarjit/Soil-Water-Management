@@ -1,8 +1,19 @@
+import 'dart:developer';
+
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
+import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:soilmoisturedetector/widget/localnotification.dart';
 
-Future<void> backgroundHandler() async {
+@pragma('vm:entry-point')
+void backgroundHandler() {
+  GetxTapController controller = Get.put(GetxTapController());
+  log('Alarm Message Comming');
   // Check soil humidity and show notifications
   final notificationService = NotificationService();
-  await notificationService.showNotification(
-      title: 'Checking ', body: 'Tap Here Soon to Pump the Water');
+  if (int.parse(controller.latestfeeddata!.field3) < 50) {
+    notificationService.showNotification(
+        title: '⚠️Critical Soil Moisture Level⚠️ ',
+        body: 'Tap Here Soon to Pump the Water');
+  }
 }

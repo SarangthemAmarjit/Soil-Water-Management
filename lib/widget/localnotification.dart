@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
@@ -34,6 +36,9 @@ class NotificationService {
   notificationDetails() {
     return const NotificationDetails(
         android: AndroidNotificationDetails('channelId', 'channelName',
+            category: AndroidNotificationCategory.event,
+            enableVibration: true,
+            priority: Priority.high,
             importance: Importance.max),
         iOS: DarwinNotificationDetails());
   }

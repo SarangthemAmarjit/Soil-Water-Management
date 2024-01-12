@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:ui';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
@@ -11,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/model/soilmodel.dart';
+import 'package:soilmoisturedetector/services/alarmmanager.dart';
 import 'package:soilmoisturedetector/widget/localnotification.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -66,7 +68,8 @@ class GetxTapController extends GetxController {
   void _startTimer() {
     // Create a periodic timer that executes the function every 5 seconds
     _scheduletimer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
-      // getlatestfeeddata();
+      getlatestfeeddata();
+
       log('Executing your function periodically...');
     });
   }
