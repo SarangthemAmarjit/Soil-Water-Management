@@ -8,12 +8,15 @@ import 'package:soilmoisturedetector/widget/localnotification.dart';
 @pragma('vm:entry-point')
 void backgroundHandler() {
   GetxTapController controller = Get.put(GetxTapController());
-  log('Alarm Message Comming');
+  log('Alarm FIRED at :${DateTime.now()}');
   // Check soil humidity and show notifications
   final notificationService = NotificationService();
-  if (int.parse(controller.latestfeeddata!.field3) < 50) {
-    notificationService.showNotification(
-        title: '⚠️Critical Soil Moisture Level⚠️ ',
-        body: 'Tap Here Soon to Pump the Water');
-  }
+  notificationService.showNotification(
+      title: '⚠️Critical Soil Moisture Level⚠️ ',
+      body: 'Tap Here Soon to Pump the Water');
+  // if (int.parse(controller.latestfeeddata!.field3) < 50) {
+  //   notificationService.showNotification(
+  //       title: '⚠️Critical Soil Moisture Level⚠️ ',
+  //       body: 'Tap Here Soon to Pump the Water');
+  // }
 }

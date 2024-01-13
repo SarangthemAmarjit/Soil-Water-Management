@@ -17,12 +17,17 @@ import 'package:soilmoisturedetector/widget/localnotification.dart';
 import 'package:workmanager/workmanager.dart';
 
 void main() async {
+  int alarmId = 1;
+
   WidgetsFlutterBinding.ensureInitialized();
 
   await NotificationService().initNotification();
-  await AndroidAlarmManager.initialize();
+
   runApp(const MyApp());
-  AndroidAlarmManager.periodic(const Duration(seconds: 3), 0, backgroundHandler,
+  await AndroidAlarmManager.cancel(alarmId);
+  await AndroidAlarmManager.initialize();
+  AndroidAlarmManager.periodic(
+      const Duration(seconds: 3), alarmId, backgroundHandler,
       allowWhileIdle: true, rescheduleOnReboot: true, exact: true);
 }
 

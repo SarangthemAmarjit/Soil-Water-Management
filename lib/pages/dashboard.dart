@@ -88,7 +88,8 @@ class _HomePageState extends State<HomePage> {
                                     : controller.latestfeeddata!.field3,
                               ),
                               onTap: () {
-                                // context.router.push( CommonGraphPage(graphYaxisdata: ));
+                                context.router
+                                    .push(CommonGraphPage(index: index));
                               },
                             );
                           case 1:
@@ -104,7 +105,8 @@ class _HomePageState extends State<HomePage> {
                                     : controller.latestfeeddata!.field2,
                               ),
                               onTap: () {
-                                // context.router.push( CommonGraphPage(graphYaxisdata: ));
+                                context.router
+                                    .push(CommonGraphPage(index: index));
                               },
                             );
                           case 2:
@@ -119,7 +121,8 @@ class _HomePageState extends State<HomePage> {
                                     : controller.latestfeeddata!.field7,
                               ),
                               onTap: () {
-                                // context.router.push( CommonGraphPage(graphYaxisdata: controller.alldata!.feeds));
+                                context.router
+                                    .push(CommonGraphPage(index: index));
                               },
                             );
                           case 3:
@@ -134,7 +137,8 @@ class _HomePageState extends State<HomePage> {
                                     : controller.latestfeeddata!.field7,
                               ),
                               onTap: () {
-                                context.router.push(const SoilNpkPage());
+                                controller.getzoompan();
+                                context.router.push(SoilNpkPage());
                               },
                             );
                           default:

@@ -1,72 +1,21 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:soilmoisturedetector/widget/drawerWidget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 // TODO: to change the page name
 
 @RoutePage()
-class CommonGraphPage extends StatefulWidget {
-  final List<double> graphYaxisdata;
-  const CommonGraphPage({super.key, required this.graphYaxisdata});
+class CommonGraphPage extends StatelessWidget {
+  final int index;
+  const CommonGraphPage({super.key, required this.index});
 
-  @override
-  State<CommonGraphPage> createState() => _CommonGraphPageState();
-}
-
-class _CommonGraphPageState extends State<CommonGraphPage> {
-  late ZoomPanBehavior _zoomPanBehavior;
-  final List<DateTime> DateData = [
-    DateTime(2024, 1, 1, 1, 00),
-    DateTime(2024, 1, 1, 2, 00),
-    DateTime(2024, 1, 1, 3, 00),
-    DateTime(2024, 1, 1, 4, 00),
-    DateTime(2024, 1, 1, 5, 00),
-    DateTime(2024, 1, 1, 6, 00),
-    DateTime(2024, 1, 1, 7, 00),
-    DateTime(2024, 1, 1, 8, 00),
-    DateTime(2024, 1, 1, 9, 00),
-    DateTime(2024, 1, 1, 10, 00),
-    DateTime(2024, 1, 1, 11, 00),
-    DateTime(2024, 1, 1, 12, 00),
-
-    // Add more DateTime values as needed
-  ];
-
-  final List<double> moistureData = [
-    23,
-    22,
-    22,
-    23,
-    10,
-    22,
-    77,
-    33,
-    44,
-    25,
-    18,
-    23,
-  ];
-
-  @override
-  void initState() {
-    _zoomPanBehavior = ZoomPanBehavior(
-        enablePinching: true,
-        enablePanning: true,
-        zoomMode: ZoomMode.x,
-        enableSelectionZooming: true,
-        enableDoubleTapZooming: true);
-    //   _trackballBehavior = TrackballBehavior(
-    //   enable: true,
-    //   // Display mode of trackball tooltip
-    //   tooltipDisplayMode: TrackballDisplayMode.floatAllPoints
-    // );
-
-    super.initState();
-  }
-
+  // final List<DateTime> DateData = [
   @override
   Widget build(BuildContext context) {
+    GetxTapController controller = Get.put(GetxTapController());
     double screenheight = MediaQuery.of(context).size.height;
     double screenwidth = MediaQuery.of(context).size.width;
 
@@ -147,7 +96,7 @@ class _CommonGraphPageState extends State<CommonGraphPage> {
                         height: screenheight / 3,
                         child: Center(
                             child: SfCartesianChart(
-                                zoomPanBehavior: _zoomPanBehavior,
+                                zoomPanBehavior: controller.zoomPanBehavior,
                                 primaryXAxis: const DateTimeAxis(),
                                 series: <CartesianSeries>[
                               // Renders line chart
@@ -162,7 +111,8 @@ class _CommonGraphPageState extends State<CommonGraphPage> {
 
                                       //! above codes to be used for dateTime
                                       // moisturChartData,
-                                      _getData(),
+                                      _getData(
+                                          index: index, controller: controller),
                                   xValueMapper: (Moisture moisture, _) =>
                                       moisture.time,
                                   yValueMapper: (Moisture moisture, _) =>
@@ -321,10 +271,19 @@ class _CommonGraphPageState extends State<CommonGraphPage> {
     );
   }
 
-  List<Moisture> _getData() {
+  List<Moisture> _getData(
+      {required int index, required GetxTapController controller}) {
     List<Moisture> data = [];
-    for (int i = 0; i < DateData.length; i++) {
-      data.add(Moisture(DateData[i], moistureData[i]));
+    for (int i = 0; i < controller.alldatetime.length; i++) {
+      data.add(Moisture(
+          controller.alldatetime[i],
+          index == 0
+              ? double.parse(controller.allsoildatamap[i]['field3'])
+              : index == 1
+                  ? double.parse(controller.allsoildatamap[i]['field2'])
+                  : index == 2
+                      ? double.parse(controller.allsoildatamap[i]['field7'])
+                      : 0));
     }
     return data;
   }

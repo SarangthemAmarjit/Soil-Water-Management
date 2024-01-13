@@ -15,6 +15,7 @@ import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/model/soilmodel.dart';
 import 'package:soilmoisturedetector/services/alarmmanager.dart';
 import 'package:soilmoisturedetector/widget/localnotification.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:workmanager/workmanager.dart';
 
 class GetxTapController extends GetxController {
@@ -37,6 +38,7 @@ class GetxTapController extends GetxController {
   String _soiltitle = '';
   Timer? _scheduletimer;
   final List<DateTime> _alldatetime = [];
+  late ZoomPanBehavior zoomPanBehavior;
 
   //getter
   List<Map<String, dynamic>> get allsoildatamap => _allsoildatamap;
@@ -49,14 +51,14 @@ class GetxTapController extends GetxController {
   int get min => _min;
   int get sec => _sec;
   String get soiltitle => _soiltitle;
-  List get alldatetime => _alldatetime;
+  List<DateTime> get alldatetime => _alldatetime;
   var data = <Feed>[].obs;
   @override
   Future<void> onInit() async {
     super.onInit();
-    _startTimer();
-    getlatestfeeddata();
-    getalldata();
+    // _startTimer();
+    // getlatestfeeddata();
+    // getalldata();
   }
 
   @override
@@ -74,6 +76,15 @@ class GetxTapController extends GetxController {
     // Cancel the timer when the widget is disposed
     _scheduletimer!.cancel();
     super.dispose();
+  }
+
+  void getzoompan() {
+    zoomPanBehavior = ZoomPanBehavior(
+        enablePinching: true,
+        enablePanning: true,
+        zoomMode: ZoomMode.x,
+        enableSelectionZooming: true,
+        enableDoubleTapZooming: true);
   }
 
   void _startTimer() {

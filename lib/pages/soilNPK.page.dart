@@ -1,16 +1,13 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 @RoutePage()
-class SoilNpkPage extends StatefulWidget {
-  const SoilNpkPage({super.key});
+class SoilNpkPage extends StatelessWidget {
+  SoilNpkPage({super.key});
 
-  @override
-  State<SoilNpkPage> createState() => _SoilNpkPageState();
-}
-
-class _SoilNpkPageState extends State<SoilNpkPage> {
   late ZoomPanBehavior _zoomPanBehavior;
 
   final List<DateTime> dateData = [
@@ -47,24 +44,8 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
   ];
 
   @override
-  void initState() {
-    _zoomPanBehavior = ZoomPanBehavior(
-        enablePinching: true,
-        enablePanning: true,
-        zoomMode: ZoomMode.x,
-        enableSelectionZooming: true,
-        enableDoubleTapZooming: true);
-    //   _trackballBehavior = TrackballBehavior(
-    //   enable: true,
-    //   // Display mode of trackball tooltip
-    //   tooltipDisplayMode: TrackballDisplayMode.floatAllPoints
-    // );
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    GetxTapController controller = Get.put(GetxTapController());
     double screenheight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -149,7 +130,7 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
                               LineSeries<SoilNPK, DateTime>(
                                   legendItemText: "Nitrogen",
                                   color: Colors.red,
-                                  dataSource: _getData(),
+                                  dataSource: _getData(controller: controller),
 
                                   // chartData,
 
@@ -182,7 +163,7 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
                                   animationDelay: 300,
                                   color: Colors.green,
                                   legendItemText: "Phosphorous",
-                                  dataSource: _getData(),
+                                  dataSource: _getData(controller: controller),
                                   //  chartData,
                                   xValueMapper: (SoilNPK soilnpk, _) =>
                                       soilnpk.time,
@@ -191,7 +172,7 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
                                   animationDelay: 600,
                                   color: Colors.blue,
                                   legendItemText: "Potassium",
-                                  dataSource: _getData(),
+                                  dataSource: _getData(controller: controller),
                                   //  chartData,
                                   xValueMapper: (SoilNPK soilnpk, _) =>
                                       soilnpk.time,
@@ -450,11 +431,20 @@ class _SoilNpkPageState extends State<SoilNpkPage> {
     );
   }
 
-  List<SoilNPK> _getData() {
+  List<SoilNPK> _getData({required GetxTapController controller}) {
     List<SoilNPK> data = [];
-    for (int i = 0; i < dateData.length; i++) {
-      data.add(SoilNPK(dateData[i], soilNPK[i]["Nitrogen"]!,
-          soilNPK[i]["Phosphorous"]!, soilNPK[i]["Potassium"]!));
+    for (int i = 0; i < controller.alldatetime.length; i++) {
+      data.add(SoilNPK(
+          controller.alldatetime[i],
+          controller.allsoildatamap[i]['field4'].toString().isEmpty
+              ? 0
+              : double.parse(controller.allsoildatamap[i]['field4']),
+          controller.allsoildatamap[i]['field5'].toString().isEmpty
+              ? 0
+              : double.parse(controller.allsoildatamap[i]['field5']),
+          controller.allsoildatamap[i]['field6'].toString().isEmpty
+              ? 0
+              : double.parse(controller.allsoildatamap[i]['field6'])));
     }
     return data;
   }

@@ -26,7 +26,7 @@ abstract class $AppRouter extends _i5.RootStackRouter {
         routeData: routeData,
         child: _i1.CommonGraphPage(
           key: args.key,
-          graphYaxisdata: args.graphYaxisdata,
+          index: args.index,
         ),
       );
     },
@@ -43,9 +43,11 @@ abstract class $AppRouter extends _i5.RootStackRouter {
       );
     },
     SoilNpkPage.name: (routeData) {
+      final args = routeData.argsAs<SoilNpkPageArgs>(
+          orElse: () => const SoilNpkPageArgs());
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.SoilNpkPage(),
+        child: _i4.SoilNpkPage(key: args.key),
       );
     },
   };
@@ -56,13 +58,13 @@ abstract class $AppRouter extends _i5.RootStackRouter {
 class CommonGraphPage extends _i5.PageRouteInfo<CommonGraphPageArgs> {
   CommonGraphPage({
     _i6.Key? key,
-    required List<double> graphYaxisdata,
+    required int index,
     List<_i5.PageRouteInfo>? children,
   }) : super(
           CommonGraphPage.name,
           args: CommonGraphPageArgs(
             key: key,
-            graphYaxisdata: graphYaxisdata,
+            index: index,
           ),
           initialChildren: children,
         );
@@ -76,16 +78,16 @@ class CommonGraphPage extends _i5.PageRouteInfo<CommonGraphPageArgs> {
 class CommonGraphPageArgs {
   const CommonGraphPageArgs({
     this.key,
-    required this.graphYaxisdata,
+    required this.index,
   });
 
   final _i6.Key? key;
 
-  final List<double> graphYaxisdata;
+  final int index;
 
   @override
   String toString() {
-    return 'CommonGraphPageArgs{key: $key, graphYaxisdata: $graphYaxisdata}';
+    return 'CommonGraphPageArgs{key: $key, index: $index}';
   }
 }
 
@@ -119,14 +121,29 @@ class HomePage extends _i5.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.SoilNpkPage]
-class SoilNpkPage extends _i5.PageRouteInfo<void> {
-  const SoilNpkPage({List<_i5.PageRouteInfo>? children})
-      : super(
+class SoilNpkPage extends _i5.PageRouteInfo<SoilNpkPageArgs> {
+  SoilNpkPage({
+    _i6.Key? key,
+    List<_i5.PageRouteInfo>? children,
+  }) : super(
           SoilNpkPage.name,
+          args: SoilNpkPageArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SoilNpkPage';
 
-  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
+  static const _i5.PageInfo<SoilNpkPageArgs> page =
+      _i5.PageInfo<SoilNpkPageArgs>(name);
+}
+
+class SoilNpkPageArgs {
+  const SoilNpkPageArgs({this.key});
+
+  final _i6.Key? key;
+
+  @override
+  String toString() {
+    return 'SoilNpkPageArgs{key: $key}';
+  }
 }
