@@ -14,7 +14,6 @@ import 'package:soilmoisturedetector/services/backgroundservoces.dart';
 
 import 'package:soilmoisturedetector/services/workmanager.dart';
 import 'package:soilmoisturedetector/widget/localnotification.dart';
-import 'package:workmanager/workmanager.dart';
 
 void main() async {
   int alarmId = 1;

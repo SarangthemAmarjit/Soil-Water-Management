@@ -16,7 +16,6 @@ import 'package:soilmoisturedetector/model/soilmodel.dart';
 import 'package:soilmoisturedetector/services/alarmmanager.dart';
 import 'package:soilmoisturedetector/widget/localnotification.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:workmanager/workmanager.dart';
 
 class GetxTapController extends GetxController {
   //setter
@@ -143,15 +142,42 @@ class GetxTapController extends GetxController {
 
   void setpump({required bool pumpstatus}) {
     _pumpStatus = pumpstatus;
+    setwaterpump(
+        status: '1',
+        field2: _latestfeeddata!.field2,
+        field3: _latestfeeddata!.field3,
+        field4: _latestfeeddata!.field4,
+        field5: _latestfeeddata!.field5,
+        field6: _latestfeeddata!.field6,
+        field7: _latestfeeddata!.field7);
     if (pumpStatus == false) {
-      if (_timer != null) {
-        _timer!.cancel();
-        _ismanualwaterconfirm = false;
-        _pumpStatus = false;
-        _min = 0;
-        _sec = 0;
-        selectedVisualType.value = null;
-        update();
+      if (_ismanualwaterconfirm) {
+        if (_timer != null) {
+          setwaterpump(
+              status: '0',
+              field2: _latestfeeddata!.field2,
+              field3: _latestfeeddata!.field3,
+              field4: _latestfeeddata!.field4,
+              field5: _latestfeeddata!.field5,
+              field6: _latestfeeddata!.field6,
+              field7: _latestfeeddata!.field7);
+          _timer!.cancel();
+          _ismanualwaterconfirm = false;
+          _pumpStatus = false;
+          _min = 0;
+          _sec = 0;
+          selectedVisualType.value = null;
+          update();
+        }
+      } else {
+        setwaterpump(
+            status: '0',
+            field2: _latestfeeddata!.field2,
+            field3: _latestfeeddata!.field3,
+            field4: _latestfeeddata!.field4,
+            field5: _latestfeeddata!.field5,
+            field6: _latestfeeddata!.field6,
+            field7: _latestfeeddata!.field7);
       }
     }
     update();
