@@ -277,7 +277,8 @@ class CommonGraphPage extends StatelessWidget {
                                               child: ListView.builder(
                                                   physics:
                                                       const AlwaysScrollableScrollPhysics(),
-                                                  itemCount: 12,
+                                                  itemCount: controller
+                                                      .alldatetimelast10.length,
                                                   shrinkWrap: true,
                                                   itemBuilder:
                                                       (BuildContext context,
@@ -307,7 +308,14 @@ class CommonGraphPage extends StatelessWidget {
                                                                     horizontal:
                                                                         6.0),
                                                             child: Text(
-                                                              "sample $index",
+                                                              index == 0
+                                                                  ? "${controller.allsoildatamaplast10[index]['field3']}"
+                                                                  : index == 1
+                                                                      ? "${controller.allsoildatamaplast10[index]['field2']}"
+                                                                      : index ==
+                                                                              2
+                                                                          ? "${controller.allsoildatamaplast10[index]['field7']}"
+                                                                          : "",
                                                               style: TextStyle(
                                                                   color: index %
                                                                               2 ==
@@ -322,7 +330,11 @@ class CommonGraphPage extends StatelessWidget {
                                                             ),
                                                           ),
                                                           title: Text(
-                                                            "00:0$index",
+                                                            controller
+                                                                .alldatetimelast10[
+                                                                    index]
+                                                                .hour
+                                                                .toString(),
                                                             style: TextStyle(
                                                                 color: index %
                                                                             2 ==
