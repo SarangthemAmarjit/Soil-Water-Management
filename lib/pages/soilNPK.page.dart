@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:intl/intl.dart';
 
 @RoutePage()
 class SoilNpkPage extends StatelessWidget {
@@ -193,231 +194,289 @@ class SoilNpkPage extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(30))),
                       // color: Colors.white,
-                      height: screenheight / 2,
+                      height: screenheight / 1.85,
                       child: Center(
                         child: Column(
                           children: [
-                            SizedBox(
-                              height: screenheight / 82,
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: screenheight / 82,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.history,
+                                        size: screenWidth / 20,
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 8.0),
+                                        child: Text(
+                                          "HISTORY",
+                                          style: TextStyle(
+                                              fontSize: screenWidth / 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: screenheight / 82,
+                                  ),
+                                ],
+                              ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.history,
-                                  size: screenWidth / 20,
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: Text(
-                                    "HISTORY",
-                                    style: TextStyle(
-                                        fontSize: screenWidth / 20,
-                                        fontWeight: FontWeight.bold),
+                            Expanded(
+                              flex: 8,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 32.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 3,
+                                        color: Colors.orange,
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20))),
+                                  // height: 40,
+                                  child: Column(
+                                    children: [
+                                      Expanded(
+                                        flex: 2,
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: screenheight / 108,
+                                            ),
+                                            Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.orange[200],
+                                                  borderRadius:
+                                                      const BorderRadius
+                                                          .vertical(
+                                                          top: Radius.circular(
+                                                              14))),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      screenWidth / 30.0,
+                                                  vertical: screenWidth / 30),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    "Time",
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            screenWidth / 24,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 6),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      color: Colors.red,
+                                                    ),
+                                                    child: RichText(
+                                                      text: TextSpan(
+                                                        style:
+                                                            DefaultTextStyle.of(
+                                                                    context)
+                                                                .style,
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text: 'N',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      screenWidth /
+                                                                          26,
+                                                                  color: Colors
+                                                                      .white)),
+                                                          // const TextSpan(text: 'itrogen'),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 6),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      color: Colors.green,
+                                                    ),
+                                                    child: RichText(
+                                                      text: TextSpan(
+                                                        style:
+                                                            DefaultTextStyle.of(
+                                                                    context)
+                                                                .style,
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text: 'P',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      screenWidth /
+                                                                          26,
+                                                                  color: Colors
+                                                                      .white)),
+                                                          // const TextSpan(
+                                                          //     text: 'hosporous'),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 6),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      color: Colors.blue,
+                                                    ),
+                                                    child: RichText(
+                                                      text: TextSpan(
+                                                        style:
+                                                            DefaultTextStyle.of(
+                                                                    context)
+                                                                .style,
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text: 'K',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      screenWidth /
+                                                                          26,
+                                                                  color: Colors
+                                                                      .white)),
+                                                          // const TextSpan(
+                                                          //     text: 'otassium'),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 10,
+                                        child: ListView.builder(
+                                            physics:
+                                                const BouncingScrollPhysics(),
+                                            itemCount: 10,
+                                            shrinkWrap: true,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return Container(
+                                                margin: const EdgeInsets.all(8),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  color: index % 2 == 0
+                                                      ? Colors.blueGrey[100]
+                                                      : Colors.grey[100],
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 12,
+                                                        horizontal: 8.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      DateFormat('h:mm a')
+                                                          .format(controller
+                                                                  .alldatetimelast10[
+                                                              index]),
+                                                      style: TextStyle(
+                                                          color: index % 2 == 1
+                                                              ? Colors.black
+                                                              : Colors.black,
+                                                          fontSize:
+                                                              screenWidth / 26),
+                                                    ),
+                                                    Text(
+                                                      "${controller.allsoildatamaplast10[index]['field5'].toString().isEmpty ? 'N/A' : controller.allsoildatamaplast10[index]['field4']}",
+                                                      style: TextStyle(
+                                                          color: index % 2 == 1
+                                                              ? Colors.black
+                                                              : Colors.blueGrey,
+                                                          fontSize:
+                                                              screenWidth / 26),
+                                                    ),
+                                                    Text(
+                                                      "${controller.allsoildatamaplast10[index]['field5'].toString().isEmpty ? 'N/A' : controller.allsoildatamaplast10[index]['field5']}",
+                                                      style: TextStyle(
+                                                          color: index % 2 == 1
+                                                              ? Colors.black
+                                                              : Colors.blueGrey,
+                                                          fontSize:
+                                                              screenWidth / 26),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 12.0),
+                                                      child: Text(
+                                                        "${controller.allsoildatamaplast10[index]['field5'].toString().isEmpty ? 'N/A' : controller.allsoildatamaplast10[index]['field6']}",
+                                                        style: TextStyle(
+                                                            color: index % 2 ==
+                                                                    1
+                                                                ? Colors.black
+                                                                : Colors
+                                                                    .blueGrey,
+                                                            fontSize:
+                                                                screenWidth /
+                                                                    26),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            }),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                             SizedBox(
-                              height: screenheight / 82,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 32.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 3,
-                                      color: Colors.orange,
-                                    ),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20))),
-                                // height: 40,
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: screenheight / 108,
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 8),
-                                      decoration: BoxDecoration(
-                                          color: Colors.orange[200],
-                                          borderRadius:
-                                              const BorderRadius.vertical(
-                                                  top: Radius.circular(14))),
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: screenWidth / 30.0,
-                                          vertical: screenWidth / 30),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Time",
-                                            style: TextStyle(
-                                                fontSize: screenWidth / 24,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 6),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: Colors.red,
-                                            ),
-                                            child: RichText(
-                                              text: TextSpan(
-                                                style:
-                                                    DefaultTextStyle.of(context)
-                                                        .style,
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                      text: 'N',
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize:
-                                                              screenWidth / 26,
-                                                          color: Colors.white)),
-                                                  // const TextSpan(text: 'itrogen'),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 6),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: Colors.green,
-                                            ),
-                                            child: RichText(
-                                              text: TextSpan(
-                                                style:
-                                                    DefaultTextStyle.of(context)
-                                                        .style,
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                      text: 'P',
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize:
-                                                              screenWidth / 26,
-                                                          color: Colors.white)),
-                                                  // const TextSpan(
-                                                  //     text: 'hosporous'),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 6),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: Colors.blue,
-                                            ),
-                                            child: RichText(
-                                              text: TextSpan(
-                                                style:
-                                                    DefaultTextStyle.of(context)
-                                                        .style,
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                      text: 'K',
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize:
-                                                              screenWidth / 26,
-                                                          color: Colors.white)),
-                                                  // const TextSpan(
-                                                  //     text: 'otassium'),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    ListView.builder(
-                                        physics: const BouncingScrollPhysics(),
-                                        itemCount: 5,
-                                        shrinkWrap: true,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Container(
-                                            margin: const EdgeInsets.all(8),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: index % 2 == 0
-                                                  ? Colors.blueGrey[100]
-                                                  : Colors.grey[100],
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 12, horizontal: 8.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  "00.0$index",
-                                                  style: TextStyle(
-                                                      color: index % 2 == 1
-                                                          ? Colors.black
-                                                          : Colors.black,
-                                                      fontSize:
-                                                          screenWidth / 26),
-                                                ),
-                                                Text(
-                                                  "N$index",
-                                                  style: TextStyle(
-                                                      color: index % 2 == 1
-                                                          ? Colors.black
-                                                          : Colors.blueGrey,
-                                                      fontSize:
-                                                          screenWidth / 26),
-                                                ),
-                                                Text(
-                                                  "P$index",
-                                                  style: TextStyle(
-                                                      color: index % 2 == 1
-                                                          ? Colors.black
-                                                          : Colors.blueGrey,
-                                                      fontSize:
-                                                          screenWidth / 26),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 12.0),
-                                                  child: Text(
-                                                    "K$index",
-                                                    style: TextStyle(
-                                                        color: index % 2 == 1
-                                                            ? Colors.black
-                                                            : Colors.blueGrey,
-                                                        fontSize:
-                                                            screenWidth / 26),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        }),
-                                  ],
-                                ),
-                              ),
+                              height: screenheight / 64,
                             )
                           ],
                         ),

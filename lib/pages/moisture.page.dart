@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:soilmoisturedetector/widget/drawerWidget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:intl/intl.dart';
 
 // TODO: to change the page name
 
@@ -308,11 +309,12 @@ class CommonGraphPage extends StatelessWidget {
                                                                     horizontal:
                                                                         6.0),
                                                             child: Text(
-                                                              ind == 0
+                                                              index == 0
                                                                   ? "${controller.allsoildatamaplast10[ind]['field3']}"
-                                                                  : ind == 1
+                                                                  : index == 1
                                                                       ? "${controller.allsoildatamaplast10[ind]['field2']}"
-                                                                      : ind == 2
+                                                                      : index ==
+                                                                              2
                                                                           ? "${controller.allsoildatamaplast10[ind]['field7']}"
                                                                           : "",
                                                               style: TextStyle(
@@ -329,11 +331,10 @@ class CommonGraphPage extends StatelessWidget {
                                                             ),
                                                           ),
                                                           title: Text(
-                                                            controller
-                                                                .alldatetimelast10[
-                                                                    ind]
-                                                                .hour
-                                                                .toString(),
+                                                            DateFormat('h:mm a')
+                                                                .format(controller
+                                                                        .alldatetimelast10[
+                                                                    ind]),
                                                             style: TextStyle(
                                                                 color: ind %
                                                                             2 ==
