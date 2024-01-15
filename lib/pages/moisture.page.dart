@@ -282,7 +282,7 @@ class CommonGraphPage extends StatelessWidget {
                                                   shrinkWrap: true,
                                                   itemBuilder:
                                                       (BuildContext context,
-                                                          int index) {
+                                                          int ind) {
                                                     return Container(
                                                       margin:
                                                           const EdgeInsets.all(
@@ -291,7 +291,7 @@ class CommonGraphPage extends StatelessWidget {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(8),
-                                                        color: index % 2 == 0
+                                                        color: ind % 2 == 0
                                                             ? Colors
                                                                 .blueGrey[100]
                                                             : Colors.grey[100],
@@ -308,16 +308,15 @@ class CommonGraphPage extends StatelessWidget {
                                                                     horizontal:
                                                                         6.0),
                                                             child: Text(
-                                                              index == 0
-                                                                  ? "${controller.allsoildatamaplast10[index]['field3']}"
-                                                                  : index == 1
-                                                                      ? "${controller.allsoildatamaplast10[index]['field2']}"
-                                                                      : index ==
-                                                                              2
-                                                                          ? "${controller.allsoildatamaplast10[index]['field7']}"
+                                                              ind == 0
+                                                                  ? "${controller.allsoildatamaplast10[ind]['field3']}"
+                                                                  : ind == 1
+                                                                      ? "${controller.allsoildatamaplast10[ind]['field2']}"
+                                                                      : ind == 2
+                                                                          ? "${controller.allsoildatamaplast10[ind]['field7']}"
                                                                           : "",
                                                               style: TextStyle(
-                                                                  color: index %
+                                                                  color: ind %
                                                                               2 ==
                                                                           1
                                                                       ? Colors
@@ -332,11 +331,11 @@ class CommonGraphPage extends StatelessWidget {
                                                           title: Text(
                                                             controller
                                                                 .alldatetimelast10[
-                                                                    index]
+                                                                    ind]
                                                                 .hour
                                                                 .toString(),
                                                             style: TextStyle(
-                                                                color: index %
+                                                                color: ind %
                                                                             2 ==
                                                                         1
                                                                     ? Colors
