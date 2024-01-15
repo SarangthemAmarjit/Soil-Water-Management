@@ -66,14 +66,14 @@ class SoilNpkPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey[200],
-        title: const Text(
+        backgroundColor: const Color.fromARGB(255, 219, 242, 226),
+        title: Text(
           "Soil N P K",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 36,
+            fontSize: screenWidth / 20,
             fontWeight: FontWeight.bold,
-            shadows: <Shadow>[
+            shadows: const <Shadow>[
               Shadow(
                 offset: Offset(2.0, 2.0),
                 blurRadius: 2.0,
@@ -123,8 +123,11 @@ class SoilNpkPage extends StatelessWidget {
                                 legend: const Legend(
                                   isVisible: true,
                                 ),
-                                zoomPanBehavior: _zoomPanBehavior,
-                                primaryXAxis: const DateTimeAxis(),
+                                zoomPanBehavior: controller.zoomPanBehavior,
+                                primaryXAxis: const DateTimeAxis(
+                                    autoScrollingMode: AutoScrollingMode.end,
+                                    initialZoomPosition: 1,
+                                    initialZoomFactor: 0.01),
                                 series: <CartesianSeries>[
                               // Renders line chart
                               LineSeries<SoilNPK, DateTime>(

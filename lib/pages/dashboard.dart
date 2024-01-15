@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                             return GestureDetector(
                               child: CardWidgetforSoil(
                                 bgimagepath: "assets/images/soilPhLevel.png",
-                                title: "Soil PH Level",
+                                title: "Soil pH Level",
                                 iconpath: "assets/images/ph.png",
                                 index: 2,
                                 value: controller.latestfeeddata == null

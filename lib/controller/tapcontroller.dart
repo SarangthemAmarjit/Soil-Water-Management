@@ -21,7 +21,7 @@ class GetxTapController extends GetxController {
   //setter
   Getallsoildetails? latestdata;
   Getallsoildetails? alldata;
-  List<Map<String, dynamic>> _allsoildatamap = [];
+  List _allsoildatamap = [];
   final List _allfeed = [];
   Feed? _latestfeeddata;
   // 5 minutes in seconds
@@ -40,7 +40,7 @@ class GetxTapController extends GetxController {
   late ZoomPanBehavior zoomPanBehavior;
 
   //getter
-  List<Map<String, dynamic>> get allsoildatamap => _allsoildatamap;
+  List get allsoildatamap => _allsoildatamap;
   Timer get scheduletimer => _scheduletimer!;
   bool get iswatermanualconfirm => _ismanualwaterconfirm;
   List get allfeed => _allfeed;
@@ -55,9 +55,10 @@ class GetxTapController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    // _startTimer();
-    // getlatestfeeddata();
-    // getalldata();
+    _startTimer();
+    getlatestfeeddata();
+    getalldata();
+    getzoompan();
   }
 
   @override
@@ -79,17 +80,18 @@ class GetxTapController extends GetxController {
 
   void getzoompan() {
     zoomPanBehavior = ZoomPanBehavior(
-        enablePinching: true,
-        enablePanning: true,
-        zoomMode: ZoomMode.x,
-        enableSelectionZooming: true,
-        enableDoubleTapZooming: true);
+      enablePinching: true,
+      enablePanning: true,
+      zoomMode: ZoomMode.x,
+      enableSelectionZooming: true,
+    );
   }
 
   void _startTimer() {
     // Create a periodic timer that executes the function every 5 seconds
     _scheduletimer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       getlatestfeeddata();
+      getalldata();
 
       log('Executing your function periodically...');
     });
@@ -224,15 +226,15 @@ class GetxTapController extends GetxController {
         Uri.http('10.10.1.139:88', '/api/channel-data/698633/feeds',
             queryParameters),
       );
-      var soildata = jsonEncode(response.body);
-      var dec = jsonDecode(soildata);
-      _allsoildatamap = dec['feeds'];
-
-      log('List :${_allsoildatamap.toString()}');
+      // var soildata = jsonEncode(response.body);
+      Map<String, dynamic> dec = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
         var users = getallsoildetailsFromJson(response.body);
         alldata = users;
+        _allsoildatamap = dec['feeds'];
+        update();
+
         for (var element in alldata!.feeds) {
           if (_alldatetime.contains(element.created)) {
             log('Already Exist');
@@ -243,13 +245,13 @@ class GetxTapController extends GetxController {
 
         update();
 
-        print('Successfully get Data');
+        print('Successfully get AllData');
       } else {
-        print('Failedrerer to Getdata.');
+        print('Failedrerer to GetAlldata.');
       }
       return null;
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     } finally {}
   }
 

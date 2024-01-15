@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +19,7 @@ class CommonGraphPage extends StatelessWidget {
   Widget build(BuildContext context) {
     GetxTapController controller = Get.put(GetxTapController());
     double screenheight = MediaQuery.of(context).size.height;
+    log(controller.allsoildatamap[1]['field3']);
     double screenwidth = MediaQuery.of(context).size.width;
 
 //!    from datetime import datetime
@@ -39,7 +42,13 @@ class CommonGraphPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 219, 242, 226),
         title: Text(
-          "Soil Moisture",
+          index == 0
+              ? "Soil Moisture"
+              : index == 1
+                  ? "Soil Temperature"
+                  : index == 2
+                      ? "Soil pH Level"
+                      : "",
           style: TextStyle(
             color: Colors.white,
             fontSize: screenwidth / 20,
@@ -59,215 +68,237 @@ class CommonGraphPage extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 8.0),
-            child: BackButton(),
-          ),
-        ],
       ),
-      drawer: const drawerWidget(),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(1), BlendMode.dstATop),
-                image: const AssetImage(
-                  "assets/images/BGspray.png",
+      body: GetBuilder<GetxTapController>(builder: (_) {
+        return SingleChildScrollView(
+          child: SafeArea(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(1), BlendMode.dstATop),
+                  image: const AssetImage(
+                    "assets/images/BGspray.png",
+                  ),
+                  // opacity: .2,
+                  fit: BoxFit.cover,
                 ),
-                // opacity: .2,
-                fit: BoxFit.cover,
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: screenheight / 82,
-                  ),
-                  Opacity(
-                    opacity: .9,
-                    child: Container(
-                        color: Colors.white,
-                        height: screenheight / 3,
-                        child: Center(
-                            child: SfCartesianChart(
-                                zoomPanBehavior: controller.zoomPanBehavior,
-                                primaryXAxis: const DateTimeAxis(),
-                                series: <CartesianSeries>[
-                              // Renders line chart
-                              LineSeries<Moisture, DateTime>(
-                                  markerSettings:
-                                      const MarkerSettings(isVisible: true),
-                                  dataLabelSettings: const DataLabelSettings(
-                                      isVisible: true,
-                                      labelPosition:
-                                          ChartDataLabelPosition.inside),
-                                  dataSource:
-
-                                      //! above codes to be used for dateTime
-                                      // moisturChartData,
-                                      _getData(
-                                          index: index, controller: controller),
-                                  xValueMapper: (Moisture moisture, _) =>
-                                      moisture.time,
-                                  yValueMapper: (Moisture moisture, _) =>
-                                      moisture.moisture)
-                            ]))),
-                  ),
-                  SizedBox(
-                    height: screenheight / 82,
-                  ),
-                  Opacity(
-                    opacity: .8,
-                    child: Container(
-                      decoration: const BoxDecoration(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: screenheight / 82,
+                    ),
+                    Opacity(
+                      opacity: .9,
+                      child: Container(
                           color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(30))),
-                      // color: Colors.white,
-                      height: screenheight / 2,
-                      child: Center(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: screenheight / 82,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.history,
-                                  size: screenwidth / 20,
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: Text(
-                                    "HISTORY",
-                                    style: TextStyle(
-                                        fontSize: screenwidth / 20,
-                                        fontWeight: FontWeight.bold),
+                          height: screenheight / 3,
+                          child: Center(
+                              child: SfCartesianChart(
+                                  tooltipBehavior: TooltipBehavior(
+                                    enable: true,
                                   ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: screenheight / 82,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 32.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 3,
-                                      color: Colors.orange,
+                                  zoomPanBehavior: controller.zoomPanBehavior,
+                                  primaryXAxis: const DateTimeAxis(
+                                      autoScrollingMode: AutoScrollingMode.end,
+                                      initialZoomPosition: 1,
+                                      initialZoomFactor: 0.01),
+                                  series: <CartesianSeries>[
+                                // Renders line chart
+                                LineSeries<Moisture, DateTime>(
+                                    isVisibleInLegend: true,
+                                    initialIsVisible: true,
+                                    name: index == 0
+                                        ? "Moisture Level"
+                                        : index == 1
+                                            ? "Temperature"
+                                            : index == 2
+                                                ? "pH Level"
+                                                : "",
+                                    enableTooltip: true,
+                                    markerSettings:
+                                        const MarkerSettings(isVisible: true),
+                                    dataLabelSettings: const DataLabelSettings(
+                                        isVisible: true,
+                                        labelPosition:
+                                            ChartDataLabelPosition.inside),
+                                    dataSource:
+
+                                        //! above codes to be used for dateTime
+                                        // moisturChartData,
+                                        _getData(
+                                            index: index,
+                                            controller: controller),
+                                    xValueMapper: (Moisture moisture, _) =>
+                                        moisture.time,
+                                    yValueMapper: (Moisture moisture, _) =>
+                                        moisture.moisture)
+                              ]))),
+                    ),
+                    SizedBox(
+                      height: screenheight / 82,
+                    ),
+                    Opacity(
+                      opacity: .8,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(30))),
+                        // color: Colors.white,
+                        // height: screenheight / 2,
+                        child: Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: screenheight / 82,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.history,
+                                    size: screenwidth / 20,
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: Text(
+                                      "HISTORY",
+                                      style: TextStyle(
+                                          fontSize: screenwidth / 20,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20))),
-                                // height: 40,
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: screenheight / 108,
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 8),
-                                      decoration: BoxDecoration(
-                                          color: Colors.orange[200],
-                                          borderRadius:
-                                              const BorderRadius.vertical(
-                                                  top: Radius.circular(14))),
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: screenwidth / 20.0,
-                                          vertical: screenwidth / 30),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Time",
-                                            style: TextStyle(
-                                                fontSize: screenwidth / 24,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            "Moisture Level",
-                                            style: TextStyle(
-                                                fontSize: screenwidth / 24,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: screenheight / 82,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 32.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 3,
+                                        color: Colors.orange,
                                       ),
-                                    ),
-                                    ListView.builder(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemCount: 5,
-                                        shrinkWrap: true,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Container(
-                                            margin: const EdgeInsets.all(8),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: index % 2 == 0
-                                                  ? Colors.blueGrey[100]
-                                                  : Colors.grey[100],
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20))),
+                                  // height: 40,
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: screenheight / 108,
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        decoration: BoxDecoration(
+                                            color: Colors.orange[200],
+                                            borderRadius:
+                                                const BorderRadius.vertical(
+                                                    top: Radius.circular(14))),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: screenwidth / 20.0,
+                                            vertical: screenwidth / 30),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Time",
+                                              style: TextStyle(
+                                                  fontSize: screenwidth / 24,
+                                                  fontWeight: FontWeight.bold),
                                             ),
-                                            child: ListTile(
-                                                // leading: Icon(
-                                                //   Icons.av_timer,
-                                                //   size: screenwidth / 32,
-                                                // ),
-                                                trailing: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 6.0),
-                                                  child: Text(
-                                                    "sample $index",
+                                            Text(
+                                              index == 0
+                                                  ? "Moisture Level"
+                                                  : index == 1
+                                                      ? "Temperature"
+                                                      : index == 2
+                                                          ? "pH Level"
+                                                          : "",
+                                              style: TextStyle(
+                                                  fontSize: screenwidth / 24,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      ListView.builder(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: 10,
+                                          shrinkWrap: true,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Container(
+                                              margin: const EdgeInsets.all(8),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                color: index % 2 == 0
+                                                    ? Colors.blueGrey[100]
+                                                    : Colors.grey[100],
+                                              ),
+                                              child: ListTile(
+                                                  // leading: Icon(
+                                                  //   Icons.av_timer,
+                                                  //   size: screenwidth / 32,
+                                                  // ),
+                                                  trailing: Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 6.0),
+                                                    child: Text(
+                                                      "sample $index",
+                                                      style: TextStyle(
+                                                          color: index % 2 == 1
+                                                              ? Colors.black
+                                                              : Colors.black,
+                                                          fontSize:
+                                                              screenwidth / 26),
+                                                    ),
+                                                  ),
+                                                  title: Text(
+                                                    "00:0$index",
                                                     style: TextStyle(
                                                         color: index % 2 == 1
                                                             ? Colors.black
                                                             : Colors.black,
                                                         fontSize:
                                                             screenwidth / 26),
-                                                  ),
-                                                ),
-                                                title: Text(
-                                                  "00:0$index",
-                                                  style: TextStyle(
-                                                      color: index % 2 == 1
-                                                          ? Colors.black
-                                                          : Colors.black,
-                                                      fontSize:
-                                                          screenwidth / 26),
-                                                )),
-                                          );
-                                        }),
-                                  ],
+                                                  )),
+                                            );
+                                          }),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            )
-                          ],
+                              SizedBox(
+                                height: screenheight / 64,
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
@@ -275,15 +306,26 @@ class CommonGraphPage extends StatelessWidget {
       {required int index, required GetxTapController controller}) {
     List<Moisture> data = [];
     for (int i = 0; i < controller.alldatetime.length; i++) {
-      data.add(Moisture(
-          controller.alldatetime[i],
-          index == 0
-              ? double.parse(controller.allsoildatamap[i]['field3'])
-              : index == 1
-                  ? double.parse(controller.allsoildatamap[i]['field2'])
-                  : index == 2
-                      ? double.parse(controller.allsoildatamap[i]['field7'])
-                      : 0));
+      if (controller.allsoildatamap.isNotEmpty) {
+        data.add(Moisture(
+            controller.alldatetime[i],
+            index == 0
+                ? controller.allsoildatamap[i]['field3'].toString().isEmpty
+                    ? 0
+                    : double.parse(controller.allsoildatamap[i]['field3'])
+                : index == 1
+                    ? controller.allsoildatamap[i]['field2'].toString().isEmpty
+                        ? 0
+                        : double.parse(controller.allsoildatamap[i]['field2'])
+                    : index == 2
+                        ? controller.allsoildatamap[i]['field7']
+                                .toString()
+                                .isEmpty
+                            ? 0
+                            : double.parse(
+                                controller.allsoildatamap[i]['field7'])
+                        : 0));
+      }
     }
     return data;
   }
