@@ -52,6 +52,7 @@ class _HomePageState extends State<HomePage> {
           init: controller,
           builder: (_) {
             return SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
               child: Container(
                 decoration: const BoxDecoration(
                     image: DecorationImage(
