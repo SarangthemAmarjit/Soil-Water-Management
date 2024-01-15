@@ -349,8 +349,7 @@ class SoilNpkPage extends StatelessWidget {
                                       ),
                                     ),
                                     ListView.builder(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
+                                        physics: const BouncingScrollPhysics(),
                                         itemCount: 5,
                                         shrinkWrap: true,
                                         itemBuilder:
