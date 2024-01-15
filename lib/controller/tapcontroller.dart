@@ -22,6 +22,7 @@ class GetxTapController extends GetxController {
   Getallsoildetails? latestdata;
   Getallsoildetails? alldata;
   List _allsoildatamap = [];
+  List _allsoildatamaplast10 = [];
   final List _allfeed = [];
   Feed? _latestfeeddata;
   // 5 minutes in seconds
@@ -37,10 +38,12 @@ class GetxTapController extends GetxController {
   String _soiltitle = '';
   Timer? _scheduletimer;
   final List<DateTime> _alldatetime = [];
+  List<DateTime> _alldatetimelast10 = [];
   late ZoomPanBehavior zoomPanBehavior;
 
   //getter
   List get allsoildatamap => _allsoildatamap;
+  List get allsoildatamaplast10 => _allsoildatamaplast10;
   Timer get scheduletimer => _scheduletimer!;
   bool get iswatermanualconfirm => _ismanualwaterconfirm;
   List get allfeed => _allfeed;
@@ -51,6 +54,7 @@ class GetxTapController extends GetxController {
   int get sec => _sec;
   String get soiltitle => _soiltitle;
   List<DateTime> get alldatetime => _alldatetime;
+  List<DateTime> get alldatetimelast10 => _alldatetimelast10;
   var data = <Feed>[].obs;
   @override
   Future<void> onInit() async {
@@ -233,6 +237,8 @@ class GetxTapController extends GetxController {
         var users = getallsoildetailsFromJson(response.body);
         alldata = users;
         _allsoildatamap = dec['feeds'];
+        _allsoildatamaplast10 =
+            _allsoildatamap.sublist(_allsoildatamap.length - 10);
         update();
 
         for (var element in alldata!.feeds) {
@@ -242,6 +248,7 @@ class GetxTapController extends GetxController {
             _alldatetime.add(element.created);
           }
         }
+        _alldatetimelast10 = _alldatetime.sublist(_alldatetime.length - 10);
 
         update();
 
