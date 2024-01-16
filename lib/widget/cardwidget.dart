@@ -34,7 +34,7 @@ class CardWidgetforSoil extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
               colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.1), BlendMode.dstATop),
+                  Colors.white.withOpacity(0.03), BlendMode.dstATop),
               image: AssetImage(
                 bgimagepath,
               ),

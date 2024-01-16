@@ -68,39 +68,35 @@ class SoilNpkPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 219, 242, 226),
-        title: Text(
-          "Soil N P K",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: screenWidth / 20,
-            fontWeight: FontWeight.bold,
-            shadows: const <Shadow>[
-              Shadow(
-                offset: Offset(2.0, 2.0),
-                blurRadius: 2.0,
-                color: Colors.green,
-              ),
-              Shadow(
-                offset: Offset(3.0, 3.0),
-                blurRadius: 3.0,
-                color: Colors.black,
-              ),
-            ],
-          ),
-        ),
+        title: Text("Soil N P K",
+            style: TextStyle(
+              wordSpacing: 2,
+              letterSpacing: 2,
+              color: Colors.black,
+              fontSize: MediaQuery.of(context).size.width / 20,
+              fontWeight: FontWeight.bold,
+              // shadows: const <Shadow>[
+              //   Shadow(
+              //     offset: Offset(2.0, 2.0),
+              //     blurRadius: 2.0,
+              //     color: Colors.white,
+              //   ),
+              // ],
+            )),
         centerTitle: true,
       ),
       // drawer: const drawerWidget(),
       body: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: SafeArea(
           child: Container(
             height: screenheight,
             decoration: BoxDecoration(
               image: DecorationImage(
                 colorFilter: ColorFilter.mode(
-                    Colors.white.withOpacity(0.7), BlendMode.dstATop),
+                    Colors.black.withOpacity(0.9), BlendMode.dstATop),
                 image: const AssetImage(
-                  "assets/images/BGspray.png",
+                  "assets/images/BGsoil.png",
                 ),
                 // opacity: .2,
                 fit: BoxFit.cover,
@@ -115,7 +111,7 @@ class SoilNpkPage extends StatelessWidget {
                     height: screenheight / 82,
                   ),
                   Opacity(
-                    opacity: .9,
+                    opacity: 1,
                     child: Container(
                         color: Colors.white,
                         height: screenheight / 3,
@@ -187,7 +183,7 @@ class SoilNpkPage extends StatelessWidget {
                     height: screenheight / 82,
                   ),
                   Opacity(
-                    opacity: .8,
+                    opacity: .95,
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: const BoxDecoration(

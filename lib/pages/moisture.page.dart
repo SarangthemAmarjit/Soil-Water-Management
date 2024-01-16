@@ -42,31 +42,27 @@ class CommonGraphPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 219, 242, 226),
         title: Text(
-          index == 0
-              ? "Soil Moisture"
-              : index == 1
-                  ? "Soil Temperature"
-                  : index == 2
-                      ? "Soil pH Level"
-                      : "",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: screenwidth / 20,
-            fontWeight: FontWeight.bold,
-            shadows: const <Shadow>[
-              Shadow(
-                offset: Offset(2.0, 2.0),
-                blurRadius: 2.0,
-                color: Colors.black,
-              ),
-              // Shadow(
-              //   offset: Offset(3.0, 3.0),
-              //   blurRadius: 3.0,
-              //   color: Colors.black,
-              // ),
-            ],
-          ),
-        ),
+            index == 0
+                ? "Soil Moisture"
+                : index == 1
+                    ? "Soil Temperature"
+                    : index == 2
+                        ? "Soil pH Level"
+                        : "",
+            style: TextStyle(
+              wordSpacing: 2,
+              letterSpacing: 2,
+              color: Colors.black,
+              fontSize: MediaQuery.of(context).size.width / 20,
+              fontWeight: FontWeight.bold,
+              // shadows: const <Shadow>[
+              //   Shadow(
+              //     offset: Offset(2.0, 2.0),
+              //     blurRadius: 2.0,
+              //     color: Colors.white,
+              //   ),
+              // ],
+            )),
         centerTitle: true,
       ),
       body: GetBuilder<GetxTapController>(builder: (_) {
@@ -78,9 +74,9 @@ class CommonGraphPage extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(1), BlendMode.dstATop),
+                      Colors.black.withOpacity(.9), BlendMode.dstATop),
                   image: const AssetImage(
-                    "assets/images/BGspray.png",
+                    "assets/images/BGsoil.png",
                   ),
                   // opacity: .2,
                   fit: BoxFit.cover,
@@ -95,7 +91,7 @@ class CommonGraphPage extends StatelessWidget {
                       height: screenheight / 82,
                     ),
                     Opacity(
-                      opacity: .9,
+                      opacity: 1,
                       child: Container(
                           color: Colors.white,
                           height: screenheight / 3,
@@ -145,7 +141,7 @@ class CommonGraphPage extends StatelessWidget {
                       height: screenheight / 82,
                     ),
                     Opacity(
-                      opacity: .8,
+                      opacity: .95,
                       child: Container(
                         decoration: const BoxDecoration(
                             color: Colors.white,

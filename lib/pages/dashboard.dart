@@ -25,23 +25,18 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 219, 242, 226),
-        title: Text("Smart Irrigation System",
+        title: Text("AGRITECH - Nakupi",
             style: TextStyle(
               wordSpacing: 2,
               letterSpacing: 2,
-              color: Colors.white,
+              color: Colors.black,
               fontSize: MediaQuery.of(context).size.width / 20,
               fontWeight: FontWeight.bold,
               shadows: const <Shadow>[
-                Shadow(
-                  offset: Offset(2.0, 2.0),
-                  blurRadius: 2.0,
-                  color: Colors.black,
-                ),
                 // Shadow(
-                //   offset: Offset(3.0, 3.0),
-                //   blurRadius: 3.0,
-                //   color: Colors.black,
+                //   offset: Offset(2.0, 2.0),
+                //   blurRadius: 2.0,
+                //   color: Colors.white,
                 // ),
               ],
             )),
@@ -56,9 +51,9 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                        opacity: 0.7,
+                        opacity: 0.9,
                         fit: BoxFit.cover,
-                        image: AssetImage('assets/images/BGspray.png'))),
+                        image: AssetImage('assets/images/BGsoil.png'))),
                 child: Column(
                   children: [
                     // SizedBox(
