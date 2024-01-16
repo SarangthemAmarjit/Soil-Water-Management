@@ -149,6 +149,11 @@ class GetxTapController extends GetxController {
   void setpump({required bool pumpstatus}) {
     _pumpStatus = pumpstatus;
     setwaterpump(isActive: true);
+    if (_ismanualwaterconfirm == false) {
+      NotificationService().showNotification(
+          title: 'Water Pump Activated 🚰',
+          body: 'Your water pump 💦 has been switched on successfully');
+    }
     if (pumpStatus == false) {
       if (_ismanualwaterconfirm) {
         if (_timer != null) {
@@ -163,6 +168,9 @@ class GetxTapController extends GetxController {
         }
       } else {
         setwaterpump(isActive: false);
+        NotificationService().showNotification(
+            title: 'Water Pump Deactivated 🚰',
+            body: 'Your water pump 💦 has been switched off successfully');
       }
     }
     update();

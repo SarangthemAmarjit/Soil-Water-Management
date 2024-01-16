@@ -3,6 +3,7 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:soilmoisturedetector/pages/demo.dart';
 // import 'package:get/get.dart';
 // import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 // import 'package:soilmoisturedetector/pages/demo.dart';
@@ -39,12 +40,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: _appRouter.config(),
+    return MaterialApp(
+      // routerConfig: _appRouter.config(),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       builder: EasyLoading.init(),
-      theme: ThemeData(fontFamily: 'KulimPark'),
+      theme: ThemeData(fontFamily: 'KulimPark'), home: const DemoPage(),
     );
   }
 }
