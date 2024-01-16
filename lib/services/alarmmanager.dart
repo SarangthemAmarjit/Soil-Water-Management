@@ -11,12 +11,10 @@ void backgroundHandler() {
   log('Alarm FIRED at :${DateTime.now()}');
   // Check soil humidity and show notifications
   final notificationService = NotificationService();
-  notificationService.showNotification(
-      title: '⚠️Critical Soil Moisture Level⚠️ ',
-      body: 'Tap Here Soon to Pump the Water');
-  // if (int.parse(controller.latestfeeddata!.field3) < 50) {
-  //   notificationService.showNotification(
-  //       title: '⚠️Critical Soil Moisture Level⚠️ ',
-  //       body: 'Tap Here Soon to Pump the Water');
-  // }
+
+  if (int.parse(controller.latestfeeddata!.field3) < 50) {
+    notificationService.showNotification(
+        title: '⚠️Critical Soil Moisture Level⚠️ ',
+        body: 'Tap Here Soon to Pump the Water');
+  }
 }
