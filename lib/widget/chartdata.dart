@@ -72,22 +72,23 @@ class RadialData extends StatelessWidget {
               series: <CircularSeries>[
                   // Renders radial bar chart
                   RadialBarSeries<ChartData, String?>(
-                      dataLabelSettings: const DataLabelSettings(
-                          labelPosition: ChartDataLabelPosition.inside,
-                          useSeriesColor: true,
-                          showZeroValue: false,
+                    dataLabelSettings: const DataLabelSettings(
+                        labelPosition: ChartDataLabelPosition.inside,
+                        useSeriesColor: true,
+                        showZeroValue: false,
 
-                          // Renders the data label
-                          isVisible: true),
-                      enableTooltip: true,
-                      radius: '115%',
-                      trackOpacity: 0.2,
-                      trackColor: Colors.grey,
-                      gap: '5%',
-                      cornerStyle: CornerStyle.bothCurve,
-                      dataSource: chartData,
-                      xValueMapper: (ChartData data, _) => data.x,
-                      yValueMapper: (ChartData data, _) => data.y)
+                        // Renders the data label
+                        isVisible: true),
+                    enableTooltip: true,
+                    radius: '115%',
+                    trackOpacity: 0.2,
+                    trackColor: Colors.grey,
+                    gap: '5%',
+                    cornerStyle: CornerStyle.bothCurve,
+                    dataSource: chartData,
+                    xValueMapper: (ChartData data, _) => data.x,
+                    yValueMapper: (ChartData data, _) => data.y,
+                  ),
                 ]),
     );
   }
