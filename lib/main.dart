@@ -1,19 +1,20 @@
-import 'dart:isolate';
+// import 'dart:isolate';
 
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
-import 'package:soilmoisturedetector/controller/tapcontroller.dart';
-import 'package:soilmoisturedetector/pages/demo.dart';
+// import 'package:get/get.dart';
+// import 'package:soilmoisturedetector/controller/tapcontroller.dart';
+// import 'package:soilmoisturedetector/pages/demo.dart';
 // import 'package:soilmoisturedetector/demo.dart';
 // import 'package:soilmoisturedetector/pages/dashboard.dart';
 import 'package:soilmoisturedetector/router/router.dart';
 import 'package:soilmoisturedetector/services/alarmmanager.dart';
-import 'package:soilmoisturedetector/services/backgroundservoces.dart';
+// import 'package:soilmoisturedetector/services/backgroundservoces.dart';
 
-import 'package:soilmoisturedetector/services/workmanager.dart';
+// import 'package:soilmoisturedetector/services/workmanager.dart';
 import 'package:soilmoisturedetector/widget/localnotification.dart';
+import 'package:flutter_launcher_icons/xml_templates.dart';
 
 void main() async {
   int alarmId = 1;
