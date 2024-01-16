@@ -4,7 +4,6 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
-import 'package:soilmoisturedetector/widget/drawerWidget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 
@@ -277,7 +276,7 @@ class CommonGraphPage extends StatelessWidget {
                                                   bottom: 4.0),
                                               child: ListView.builder(
                                                   physics:
-                                                      const AlwaysScrollableScrollPhysics(),
+                                                      const BouncingScrollPhysics(),
                                                   itemCount: controller
                                                       .alldatetimelast10.length,
                                                   shrinkWrap: true,
