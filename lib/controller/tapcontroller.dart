@@ -148,25 +148,11 @@ class GetxTapController extends GetxController {
 
   void setpump({required bool pumpstatus}) {
     _pumpStatus = pumpstatus;
-    setwaterpump(
-        status: '1',
-        field2: _latestfeeddata!.field2,
-        field3: _latestfeeddata!.field3,
-        field4: _latestfeeddata!.field4,
-        field5: _latestfeeddata!.field5,
-        field6: _latestfeeddata!.field6,
-        field7: _latestfeeddata!.field7);
+    setwaterpump(isActive: true);
     if (pumpStatus == false) {
       if (_ismanualwaterconfirm) {
         if (_timer != null) {
-          setwaterpump(
-              status: '0',
-              field2: _latestfeeddata!.field2,
-              field3: _latestfeeddata!.field3,
-              field4: _latestfeeddata!.field4,
-              field5: _latestfeeddata!.field5,
-              field6: _latestfeeddata!.field6,
-              field7: _latestfeeddata!.field7);
+          setwaterpump(isActive: false);
           _timer!.cancel();
           _ismanualwaterconfirm = false;
           _pumpStatus = false;
@@ -176,14 +162,7 @@ class GetxTapController extends GetxController {
           update();
         }
       } else {
-        setwaterpump(
-            status: '0',
-            field2: _latestfeeddata!.field2,
-            field3: _latestfeeddata!.field3,
-            field4: _latestfeeddata!.field4,
-            field5: _latestfeeddata!.field5,
-            field6: _latestfeeddata!.field6,
-            field7: _latestfeeddata!.field7);
+        setwaterpump(isActive: false);
       }
     }
     update();
@@ -266,29 +245,18 @@ class GetxTapController extends GetxController {
   }
 
   Future setwaterpump({
-    required String status,
-    required String field2,
-    required String field3,
-    required String field4,
-    required String field5,
-    required String field6,
-    required String field7,
+    required bool isActive,
   }) async {
     try {
       final queryParameters = {
-        "api_key": "8D35B69579284707",
-        "status": status,
-        "field2": field2,
-        "field3": field3,
-        "field4": field4,
-        "field5": field5,
-        "field6": field6,
-        "field7": field7,
+        "id": 698633,
+        "isactive": isActive,
       };
       final response = await http.post(
-        Uri.http('10.10.1.139:88', '/api/channel-data/update', queryParameters),
+        Uri.http('10.10.1.139:88', '/api/channel-data/change-active',
+            queryParameters),
       );
-      log(response.statusCode.toString());
+      log('Set Water Pump Response ;${response.statusCode}');
 
       if (response.statusCode == 200) {
         log('Successfully switch water pump');
@@ -303,14 +271,7 @@ class GetxTapController extends GetxController {
 
   void startTimer() {
     _pumpStatus = true;
-    setwaterpump(
-        status: '1',
-        field2: _latestfeeddata!.field2,
-        field3: _latestfeeddata!.field3,
-        field4: _latestfeeddata!.field4,
-        field5: _latestfeeddata!.field5,
-        field6: _latestfeeddata!.field6,
-        field7: _latestfeeddata!.field7);
+    setwaterpump(isActive: true);
     NotificationService().showNotification(
         title: 'Water Pump Activated',
         body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
@@ -326,14 +287,7 @@ class GetxTapController extends GetxController {
         // Add your desired action when the countdown reaches 0 here
 
         _ismanualwaterconfirm = false;
-        setwaterpump(
-            status: '0',
-            field2: _latestfeeddata!.field2,
-            field3: _latestfeeddata!.field3,
-            field4: _latestfeeddata!.field4,
-            field5: _latestfeeddata!.field5,
-            field6: _latestfeeddata!.field6,
-            field7: _latestfeeddata!.field7);
+        setwaterpump(isActive: false);
         _pumpStatus = false;
         _min = 0;
         _sec = 0;
