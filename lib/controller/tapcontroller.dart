@@ -67,9 +67,6 @@ class GetxTapController extends GetxController {
       getalldata();
       getzoompan();
     }
-    {
-      _scheduletimer!.cancel();
-    }
   }
 
   @override
