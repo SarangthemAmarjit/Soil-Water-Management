@@ -13,8 +13,12 @@ Future<void> initializeService() async {
   await service.configure(
       iosConfiguration: IosConfiguration(
           autoStart: true, onForeground: onStart, onBackground: onBackgound),
-      androidConfiguration:
-          AndroidConfiguration(onStart: onStart, isForegroundMode: true));
+      androidConfiguration: AndroidConfiguration(
+        autoStart: true,
+        autoStartOnBoot: true,
+        onStart: onStart,
+        isForegroundMode: true,
+      ));
 }
 
 @pragma('vm:entry-point')

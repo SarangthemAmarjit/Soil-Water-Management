@@ -97,7 +97,7 @@ class GetxTapController extends GetxController {
 
   void _startTimer() {
     // Create a periodic timer that executes the function every 5 seconds
-    _scheduletimer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+    _scheduletimer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       getlatestfeeddata();
       getalldata();
 

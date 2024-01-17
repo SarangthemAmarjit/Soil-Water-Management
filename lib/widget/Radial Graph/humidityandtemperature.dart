@@ -24,7 +24,7 @@ class HumiditynTemp extends StatelessWidget {
               axes: <RadialAxis>[
                 RadialAxis(
                   maximum: 100,
-                  canScaleToFit: true,
+
                   annotations: [
                     GaugeAnnotation(
                       widget: Column(
