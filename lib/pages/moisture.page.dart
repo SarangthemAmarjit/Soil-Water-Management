@@ -271,11 +271,19 @@ class CommonGraphPage extends StatelessWidget {
       data.add(Moisture(
           controller.alldatetime[i],
           index == 0
-              ? double.parse(controller.allsoildatamap[i]['field3'])
+              ? controller.allsoildatamap[i]['field3'].toString().isEmpty
+                  ? 0
+                  : double.parse(controller.allsoildatamap[i]['field3'])
               : index == 1
-                  ? double.parse(controller.allsoildatamap[i]['field2'])
+                  ? controller.allsoildatamap[i]['field2'].toString().isEmpty
+                      ? 0
+                      : double.parse(controller.allsoildatamap[i]['field2'])
                   : index == 2
-                      ? double.parse(controller.allsoildatamap[i]['field7'])
+                      ? controller.allsoildatamap[i]['field7']
+                              .toString()
+                              .isEmpty
+                          ? 0
+                          : double.parse(controller.allsoildatamap[i]['field7'])
                       : 0));
     }
     return data;
