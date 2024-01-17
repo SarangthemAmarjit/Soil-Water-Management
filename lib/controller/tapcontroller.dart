@@ -184,6 +184,9 @@ class GetxTapController extends GetxController {
   }
 
   Future getlatestfeeddata() async {
+    if (latestdata == null) {
+      isDataLoading(true);
+    }
     try {
       final queryParameters = {
         "api_key": "330F3444455D4923",
@@ -198,7 +201,6 @@ class GetxTapController extends GetxController {
         var users = getallsoildetailsFromJson(response.body);
 
         if (latestdata == null) {
-          isDataLoading(true);
           latestdata = users;
           _latestfeeddata = latestdata!.feeds.last;
 
