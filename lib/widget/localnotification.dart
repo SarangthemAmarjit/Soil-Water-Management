@@ -37,6 +37,7 @@ class NotificationService {
     return const NotificationDetails(
         android: AndroidNotificationDetails('channelId', 'channelName',
             category: AndroidNotificationCategory.event,
+            groupAlertBehavior: GroupAlertBehavior.all,
             enableVibration: true,
             priority: Priority.high,
             importance: Importance.max),

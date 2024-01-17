@@ -3,6 +3,7 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:soilmoisturedetector/pages/demo.dart';
 // import 'package:get/get.dart';
 // import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 // import 'package:soilmoisturedetector/pages/demo.dart';

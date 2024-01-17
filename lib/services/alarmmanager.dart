@@ -8,7 +8,7 @@ import 'package:soilmoisturedetector/widget/localnotification.dart';
 @pragma('vm:entry-point')
 void backgroundHandler() {
   GetxTapController controller = Get.put(GetxTapController());
-  log('Alarm FIRED at :${DateTime.now()}');
+
   // Check soil humidity and show notifications
   final notificationService = NotificationService();
 
