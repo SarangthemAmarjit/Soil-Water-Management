@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
-import 'package:soilmoisturedetector/widget/radialindicator.dart';
+import 'package:soilmoisturedetector/widget/Radial%20Graph/humidityandtemperature.dart';
+import 'package:soilmoisturedetector/widget/Radial%20Graph/soilpHLevel.dart';
 import 'package:soilmoisturedetector/widget/chartdata.dart';
 
 class CardWidgetforSoil extends StatelessWidget {
@@ -74,10 +75,14 @@ class CardWidgetforSoil extends StatelessWidget {
                         potas: controller.latestfeeddata == null
                             ? ''
                             : controller.latestfeeddata!.field6)
-                    : RadialIndicatorSoil(
-                        value: value,
-                        index: index,
-                      ),
+                    : index == 2
+                        ? RadialIndicatorSoil(
+                            value: value,
+                          )
+                        : HumiditynTemp(
+                            index: index,
+                            value: value,
+                          ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),

@@ -6,11 +6,10 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class RadialIndicatorSoil extends StatelessWidget {
   final String? value;
-  final int index;
+
   const RadialIndicatorSoil({
     super.key,
     this.value,
-    required this.index,
   });
 
   @override
@@ -23,18 +22,12 @@ class RadialIndicatorSoil extends StatelessWidget {
               enableLoadingAnimation: true,
               axes: <RadialAxis>[
                 RadialAxis(
-                  maximum: index == 2 ? 14 : 100,
+                  maximum: 14,
                   canScaleToFit: true,
                   annotations: [
                     GaugeAnnotation(
                         widget: Text(
-                      value == null
-                          ? 'N/A'
-                          : index == 0
-                              ? '$value%'
-                              : index == 1
-                                  ? '$value°C'
-                                  : value!,
+                      value == null ? 'N/A' : value!,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 22),
                     ))
@@ -46,27 +39,13 @@ class RadialIndicatorSoil extends StatelessWidget {
                   // ranges: [GaugeRange(startValue: double.parse(value), endValue: 100)],
                   pointers: <GaugePointer>[
                     RangePointer(
-                        enableAnimation: true,
-                        animationType: AnimationType.bounceOut,
-                        value: value == null ? 0.0 : double.parse(value!),
-                        width: 0.1,
-                        sizeUnit: GaugeSizeUnit.factor,
-                        cornerStyle: CornerStyle.startCurve,
-                        gradient: index == 2
-                            ? getPhLevelGradient(double.parse(value!))
-                            : SweepGradient(colors: <Color>[
-                                int.parse(value!) > 70
-                                    ? const Color(0xFFa4edeb)
-                                    : int.parse(value!) > 50
-                                        ? const Color.fromARGB(
-                                            255, 237, 210, 164)
-                                        : const Color.fromARGB(
-                                            255, 237, 171, 164),
-                                const Color(0xFF00a9b5),
-                              ], stops: const <double>[
-                                0.25,
-                                0.75
-                              ])),
+                      enableAnimation: true,
+                      animationType: AnimationType.bounceOut,
+                      value: value == null ? 0.0 : double.parse(value!),
+                      width: 0.15,
+                      sizeUnit: GaugeSizeUnit.factor,
+                      gradient: getPhLevelGradient(double.parse(value!)),
+                    ),
                     MarkerPointer(
                       value: value == null ? 0.0 : double.parse(value!),
                       markerType: MarkerType.circle,
