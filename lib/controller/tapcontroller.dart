@@ -34,6 +34,7 @@ class GetxTapController extends GetxController {
   bool _ismanualwaterconfirm = false;
   var isDataLoading = false.obs;
   bool _pumpStatusmanually = false;
+  bool _isserverok = true;
   bool _pumpStatus = false;
   String _soiltitle = '';
   Timer? _scheduletimer;
@@ -42,6 +43,7 @@ class GetxTapController extends GetxController {
   late ZoomPanBehavior zoomPanBehavior;
 
   //getter
+  bool get isserverok => _isserverok;
   List get allsoildatamap => _allsoildatamap;
   List get allsoildatamaplast10 => _allsoildatamaplast10;
   Timer get scheduletimer => _scheduletimer!;
@@ -59,10 +61,15 @@ class GetxTapController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    _startTimer();
-    getlatestfeeddata();
-    getalldata();
-    getzoompan();
+    if (_isserverok) {
+      _startTimer();
+      getlatestfeeddata();
+      getalldata();
+      getzoompan();
+    }
+    {
+      _scheduletimer!.cancel();
+    }
   }
 
   @override
@@ -178,7 +185,6 @@ class GetxTapController extends GetxController {
 
   Future getlatestfeeddata() async {
     try {
-      isDataLoading(true);
       final queryParameters = {
         "api_key": "330F3444455D4923",
       };
@@ -190,17 +196,35 @@ class GetxTapController extends GetxController {
 
       if (response.statusCode == 200) {
         var users = getallsoildetailsFromJson(response.body);
-        latestdata = users;
-        _latestfeeddata = latestdata!.feeds.last;
 
-        update();
+        if (latestdata == null) {
+          isDataLoading(true);
+          latestdata = users;
+          _latestfeeddata = latestdata!.feeds.last;
+
+          update();
+        } else {
+          if (users == latestdata) {
+            log('Data Already same');
+          } else {
+            isDataLoading(true);
+            latestdata = users;
+            _latestfeeddata = latestdata!.feeds.last;
+
+            update();
+          }
+        }
 
         print('Successfully get Data');
       } else {
         print('Failedrerer to Getdata.');
+        _isserverok = false;
+        update();
       }
       return null;
     } catch (e) {
+      _isserverok = false;
+      update();
       print(e.toString());
     } finally {
       isDataLoading(false);

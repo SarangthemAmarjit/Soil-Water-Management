@@ -10,6 +10,10 @@ class AppRouter extends $AppRouter {
         //of the replaceInRouteName property
         AutoRoute(
           path: '/',
+          page: SplashRoutePage.page,
+        ),
+        AutoRoute(
+          path: '/dashboard',
           page: HomePage.page,
         ),
 
