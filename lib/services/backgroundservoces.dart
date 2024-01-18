@@ -60,7 +60,7 @@ void onStart(ServiceInstance service) async {
             }
           } else {
             service.setForegroundNotificationInfo(
-                title: 'Smart Irrigation System', content: 'NETWORK ERROR');
+                title: 'Smart Irrigation System', content: 'SERVER ERROR');
           }
         }
       }

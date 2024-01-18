@@ -42,13 +42,14 @@ class HumiditynTemp extends StatelessWidget {
                                         ? '$value°C'
                                         : value!,
                             style: TextStyle(
-                                color: index == 0
-                                    ? double.parse(value!) < 33.33
-                                        ? Colors.red
-                                        : Colors.black
-                                    : Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25),
+                              color: index == 0
+                                  ? double.parse(value!) < 33.33
+                                      ? Colors.red
+                                      : Colors.black
+                                  : Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: MediaQuery.of(context).size.width / 20,
+                            ),
                           ),
                           const SizedBox(
                             height: 8,
@@ -71,9 +72,10 @@ class HumiditynTemp extends StatelessWidget {
                                         : double.parse(value!) > 33.33
                                             ? 'Optimal'
                                             : 'Low',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width / 25,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

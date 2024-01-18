@@ -50,10 +50,19 @@ class _HomePageState extends State<HomePage> {
               physics: const NeverScrollableScrollPhysics(),
               child: Container(
                 decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        opacity: 0.9,
-                        fit: BoxFit.cover,
-                        image: AssetImage('assets/images/BGsoil.png'))),
+                    gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.white,
+                    Color.fromARGB(255, 161, 183, 249), // Start color
+                    Colors.white,
+                    Color.fromARGB(255, 159, 233, 251), // Middle color
+                    Colors.white,
+                    Color.fromARGB(255, 210, 252, 168), // End color
+                  ],
+                  // Adjust stops as needed
+                )),
                 child: Column(
                   children: [
                     // SizedBox(

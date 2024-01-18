@@ -195,6 +195,8 @@ class GetxTapController extends GetxController {
       log(response.statusCode.toString());
 
       if (response.statusCode == 200) {
+        _isserverok = true;
+        update();
         var users = getallsoildetailsFromJson(response.body);
 
         if (latestdata == null) {
