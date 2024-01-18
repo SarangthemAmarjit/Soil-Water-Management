@@ -41,8 +41,14 @@ class HumiditynTemp extends StatelessWidget {
                                     : index == 1
                                         ? '$value°C'
                                         : value!,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 25),
+                            style: TextStyle(
+                                color: index == 0
+                                    ? double.parse(value!) < 33.33
+                                        ? Colors.red
+                                        : Colors.black
+                                    : Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25),
                           ),
                           const SizedBox(
                             height: 8,
@@ -93,7 +99,7 @@ class HumiditynTemp extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                             startValue: 0,
                             endValue: 33.33,
-                            color: Colors.red.withOpacity(0.7),
+                            color: Colors.red.withOpacity(0.6),
                           )
                         : GaugeRange(
                             label: 'Low',
@@ -102,7 +108,7 @@ class HumiditynTemp extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                             startValue: 0,
                             endValue: 33.33,
-                            color: Colors.blue.withOpacity(0.7),
+                            color: Colors.blue.withOpacity(0.6),
                           ),
                     GaugeRange(
                       labelStyle: const GaugeTextStyle(
@@ -110,7 +116,7 @@ class HumiditynTemp extends StatelessWidget {
                       label: 'Optimal',
                       startValue: 33.33,
                       endValue: 66.66,
-                      color: Colors.green.withOpacity(0.7),
+                      color: Colors.green.withOpacity(0.6),
                     ),
                     index == 0
                         ? GaugeRange(
