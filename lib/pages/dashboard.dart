@@ -25,23 +25,18 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 219, 242, 226),
-        title: Text("Smart Irrigation System",
+        title: Text("AGRITECH - Nakupi",
             style: TextStyle(
               wordSpacing: 2,
               letterSpacing: 2,
-              color: Colors.white,
+              color: Colors.black,
               fontSize: MediaQuery.of(context).size.width / 20,
               fontWeight: FontWeight.bold,
               shadows: const <Shadow>[
-                Shadow(
-                  offset: Offset(2.0, 2.0),
-                  blurRadius: 2.0,
-                  color: Colors.black,
-                ),
                 // Shadow(
-                //   offset: Offset(3.0, 3.0),
-                //   blurRadius: 3.0,
-                //   color: Colors.black,
+                //   offset: Offset(2.0, 2.0),
+                //   blurRadius: 2.0,
+                //   color: Colors.white,
                 // ),
               ],
             )),
@@ -52,12 +47,22 @@ class _HomePageState extends State<HomePage> {
           init: controller,
           builder: (_) {
             return SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
               child: Container(
                 decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        opacity: 0.7,
-                        fit: BoxFit.cover,
-                        image: AssetImage('assets/images/BGspray.png'))),
+                    gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.white,
+                    Color.fromARGB(255, 161, 183, 249), // Start color
+                    Colors.white,
+                    Color.fromARGB(255, 159, 233, 251), // Middle color
+                    Colors.white,
+                    Color.fromARGB(255, 210, 252, 168), // End color
+                  ],
+                  // Adjust stops as needed
+                )),
                 child: Column(
                   children: [
                     // SizedBox(
@@ -113,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                             return GestureDetector(
                               child: CardWidgetforSoil(
                                 bgimagepath: "assets/images/soilPhLevel.png",
-                                title: "Soil PH Level",
+                                title: "Soil pH Level",
                                 iconpath: "assets/images/ph.png",
                                 index: 2,
                                 value: controller.latestfeeddata == null
@@ -381,7 +386,6 @@ class _HomePageState extends State<HomePage> {
                                                                                 ElevatedButton(
                                                                                     style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.grey[200], side: BorderSide(color: Colors.grey[700]!)),
                                                                                     onPressed: () {
-                                                                                      controller.setradiobuttoncancellationhandle();
                                                                                       context.router.pop();
                                                                                     },
                                                                                     child: Text(
@@ -471,8 +475,6 @@ class _HomePageState extends State<HomePage> {
                                                                                 ElevatedButton(
                                                                                     style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.grey[200], side: BorderSide(color: Colors.grey[700]!)),
                                                                                     onPressed: () {
-                                                                                      controller.setradiobuttoncancellationhandle();
-
                                                                                       context.router.pop();
                                                                                     },
                                                                                     child: Text(
@@ -554,7 +556,6 @@ class _HomePageState extends State<HomePage> {
                                                                                 ElevatedButton(
                                                                                     style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.grey[200], side: BorderSide(color: Colors.grey[700]!)),
                                                                                     onPressed: () {
-                                                                                      controller.setradiobuttoncancellationhandle();
                                                                                       context.router.pop();
                                                                                     },
                                                                                     child: Text(

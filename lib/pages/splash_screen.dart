@@ -15,13 +15,14 @@ class _GifSplashScreenState extends State<SplashScreenPage> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 4), () {
-      context.router.replaceNamed('/dashboard');
+      context.router.replaceNamed('/initial');
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
           child: SizedBox(
         height: MediaQuery.of(context).size.height,
