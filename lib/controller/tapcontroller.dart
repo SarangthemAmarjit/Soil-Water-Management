@@ -97,7 +97,7 @@ class GetxTapController extends GetxController {
 
   void _startTimer() {
     // Create a periodic timer that executes the function every 5 seconds
-    _scheduletimer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+    _scheduletimer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       getlatestfeeddata();
       getalldata();
 
@@ -195,6 +195,8 @@ class GetxTapController extends GetxController {
       log(response.statusCode.toString());
 
       if (response.statusCode == 200) {
+        _isserverok = true;
+        update();
         var users = getallsoildetailsFromJson(response.body);
 
         if (latestdata == null) {

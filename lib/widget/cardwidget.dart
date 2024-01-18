@@ -32,16 +32,17 @@ class CardWidgetforSoil extends StatelessWidget {
         shadowColor: Colors.black,
         child: Container(
           decoration: BoxDecoration(
+            color: Colors.white38,
             borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(
-              colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.03), BlendMode.dstATop),
-              image: AssetImage(
-                bgimagepath,
-              ),
-              // opacity: .2,
-              fit: BoxFit.cover,
-            ),
+            // image: DecorationImage(
+            //   colorFilter: ColorFilter.mode(
+            //       Colors.white.withOpacity(0.03), BlendMode.dstATop),
+            //   // image: AssetImage(
+            //   //   bgimagepath,
+            //   // ),
+            //   // opacity: .2,
+            //   fit: BoxFit.cover,
+            // ),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -49,7 +50,7 @@ class CardWidgetforSoil extends StatelessWidget {
               Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
-                    color: Colors.teal[100],
+                    color: Colors.deepPurple[100],
                   ),
                   padding: const EdgeInsets.all(8.0),
                   margin: const EdgeInsets.all(8),
@@ -89,7 +90,7 @@ class CardWidgetforSoil extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(height: 25, child: Image.asset(iconpath)),
+                    SizedBox(height: 28, child: Image.asset(iconpath)),
                     Text(
                       "Show more . .",
                       style: TextStyle(

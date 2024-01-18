@@ -23,7 +23,7 @@ class RadialIndicatorSoil extends StatelessWidget {
               axes: <RadialAxis>[
                 RadialAxis(
                   maximum: 14,
-                  canScaleToFit: true,
+
                   annotations: [
                     GaugeAnnotation(
                         widget: Text(

@@ -13,8 +13,8 @@ class AppRouter extends $AppRouter {
           page: SplashRoutePage.page,
         ),
         AutoRoute(
-          path: '/dashboard',
-          page: HomePage.page,
+          path: '/initial',
+          page: InitialPage.page,
         ),
 
         AutoRoute(path: '/moisturePage', page: CommonGraphPage.page),

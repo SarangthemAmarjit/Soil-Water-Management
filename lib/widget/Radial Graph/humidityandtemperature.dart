@@ -15,6 +15,7 @@ class HumiditynTemp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenwidth = MediaQuery.of(context).size.width;
     GetxTapController controller = Get.put(GetxTapController());
     return Obx(
       () => controller.isDataLoading.value
@@ -24,14 +25,14 @@ class HumiditynTemp extends StatelessWidget {
               axes: <RadialAxis>[
                 RadialAxis(
                   maximum: 100,
-                  canScaleToFit: true,
+
                   annotations: [
                     GaugeAnnotation(
                       widget: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const SizedBox(
-                            height: 24,
+                            height: 46,
                           ),
                           Text(
                             value == null
@@ -42,39 +43,50 @@ class HumiditynTemp extends StatelessWidget {
                                         ? '$value°C'
                                         : value!,
                             style: TextStyle(
-                                color: index == 0
-                                    ? double.parse(value!) < 33.33
-                                        ? Colors.red
-                                        : Colors.black
-                                    : Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25),
+                              color: index == 0
+                                  ? double.parse(value!) < 33.33
+                                      ? Colors.red
+                                      : Colors.black
+                                  : Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: MediaQuery.of(context).size.width / 20,
+                            ),
                           ),
                           const SizedBox(
                             height: 8,
                           ),
                           Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6.0),
+                            ),
                             color: Colors.blueGrey,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 8,
                               ),
-                              child: Text(
-                                index == 0
-                                    ? double.parse(value!) > 66.66
-                                        ? 'Wet'
-                                        : double.parse(value!) > 33.33
-                                            ? 'Optimal'
-                                            : 'Dry'
-                                    : double.parse(value!) > 66.66
-                                        ? 'High'
-                                        : double.parse(value!) > 33.33
-                                            ? 'Optimal'
-                                            : 'Low',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                              child: SizedBox(
+                                width: screenwidth / 7,
+                                child: Center(
+                                  child: Text(
+                                    index == 0
+                                        ? double.parse(value!) > 66.66
+                                            ? 'Wet'
+                                            : double.parse(value!) > 33.33
+                                                ? 'Optimal'
+                                                : 'Dry'
+                                        : double.parse(value!) > 66.66
+                                            ? 'High'
+                                            : double.parse(value!) > 33.33
+                                                ? 'Optimal'
+                                                : 'Low',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -99,7 +111,7 @@ class HumiditynTemp extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                             startValue: 0,
                             endValue: 33.33,
-                            color: Colors.red.withOpacity(0.6),
+                            color: Colors.red.withOpacity(0.9),
                           )
                         : GaugeRange(
                             label: 'Low',
@@ -108,7 +120,7 @@ class HumiditynTemp extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                             startValue: 0,
                             endValue: 33.33,
-                            color: Colors.blue.withOpacity(0.6),
+                            color: Colors.blue.withOpacity(0.9),
                           ),
                     GaugeRange(
                       labelStyle: const GaugeTextStyle(
@@ -116,7 +128,7 @@ class HumiditynTemp extends StatelessWidget {
                       label: 'Optimal',
                       startValue: 33.33,
                       endValue: 66.66,
-                      color: Colors.green.withOpacity(0.6),
+                      color: Colors.green.withOpacity(0.9),
                     ),
                     index == 0
                         ? GaugeRange(
@@ -126,7 +138,7 @@ class HumiditynTemp extends StatelessWidget {
                             label: 'Wet',
                             startValue: 66.66,
                             endValue: 100,
-                            color: Colors.blue.withOpacity(0.7),
+                            color: Colors.blue.withOpacity(0.9),
                           )
                         : GaugeRange(
                             labelStyle: const GaugeTextStyle(
@@ -135,7 +147,7 @@ class HumiditynTemp extends StatelessWidget {
                             label: 'High',
                             startValue: 66.66,
                             endValue: 100,
-                            color: Colors.red.withOpacity(0.7),
+                            color: Colors.red.withOpacity(0.9),
                           ),
                   ],
                   useRangeColorForAxis: true,

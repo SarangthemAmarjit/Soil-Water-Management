@@ -11,6 +11,7 @@ import 'package:soilmoisturedetector/pages/demo.dart';
 // import 'package:soilmoisturedetector/pages/dashboard.dart';
 import 'package:soilmoisturedetector/router/router.dart';
 import 'package:soilmoisturedetector/services/alarmmanager.dart';
+import 'package:soilmoisturedetector/services/backgroundservoces.dart';
 // import 'package:soilmoisturedetector/services/backgroundservoces.dart';
 
 // import 'package:soilmoisturedetector/services/workmanager.dart';
@@ -23,13 +24,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await NotificationService().initNotification();
+  await initializeService();
 
   runApp(const MyApp());
-  await AndroidAlarmManager.cancel(alarmId);
-  await AndroidAlarmManager.initialize();
-  AndroidAlarmManager.periodic(
-      const Duration(seconds: 3), alarmId, backgroundHandler,
-      allowWhileIdle: true, rescheduleOnReboot: true, exact: true);
+  // await AndroidAlarmManager.cancel(alarmId);
+  // await AndroidAlarmManager.initialize();
+  // AndroidAlarmManager.periodic(
+  //     const Duration(seconds: 3), alarmId, backgroundHandler,
+  //     allowWhileIdle: true, rescheduleOnReboot: true, exact: true);
 }
 
 final _appRouter = AppRouter();

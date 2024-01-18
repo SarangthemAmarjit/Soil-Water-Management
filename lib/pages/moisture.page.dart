@@ -40,7 +40,7 @@ class CommonGraphPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 219, 242, 226),
+        backgroundColor: Colors.deepPurple[100],
         title: Text(
             index == 0
                 ? "Soil Moisture"
@@ -71,17 +71,21 @@ class CommonGraphPage extends StatelessWidget {
           child: SafeArea(
             child: Container(
               height: screenheight,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(.9), BlendMode.dstATop),
-                  image: const AssetImage(
-                    "assets/images/BGsoil.png",
-                  ),
-                  // opacity: .2,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromARGB(255, 209, 196, 233),
+                  Colors.white,
+                  // Start color
+                  // Colors.white,
+                  // Color.fromARGB(255, 159, 233, 251), // Middle color
+                  // Colors.white,
+                  // Color.fromARGB(255, 210, 252, 168), // End color
+                ],
+                // Adjust stops as needed
+              )),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -93,6 +97,7 @@ class CommonGraphPage extends StatelessWidget {
                     Opacity(
                       opacity: 1,
                       child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6),
                           color: Colors.white,
                           height: screenheight / 3,
                           child: Center(
@@ -144,7 +149,7 @@ class CommonGraphPage extends StatelessWidget {
                       opacity: .95,
                       child: Container(
                         decoration: const BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.white38,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(30))),
                         // color: Colors.white,
@@ -192,7 +197,7 @@ class CommonGraphPage extends StatelessWidget {
                                 flex: 8,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 32.0),
+                                      horizontal: 12.0),
                                   child: Container(
                                     decoration: BoxDecoration(
                                         border: Border.all(

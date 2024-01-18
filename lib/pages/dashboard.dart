@@ -24,8 +24,8 @@ class _HomePageState extends State<HomePage> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 219, 242, 226),
-        title: Text("AGRITECH - Nakupi",
+        backgroundColor: Colors.deepPurple[100],
+        title: Text("agriSENSE - Nakupi",
             style: TextStyle(
               wordSpacing: 2,
               letterSpacing: 2,
@@ -50,10 +50,20 @@ class _HomePageState extends State<HomePage> {
               physics: const NeverScrollableScrollPhysics(),
               child: Container(
                 decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        opacity: 0.9,
-                        fit: BoxFit.cover,
-                        image: AssetImage('assets/images/BGsoil.png'))),
+                    gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color.fromARGB(255, 209, 196, 233),
+                    Colors.white,
+                    // Start color
+                    // Colors.white,
+                    // Color.fromARGB(255, 159, 233, 251), // Middle color
+                    // Colors.white,
+                    // Color.fromARGB(255, 210, 252, 168), // End color
+                  ],
+                  // Adjust stops as needed
+                )),
                 child: Column(
                   children: [
                     // SizedBox(
@@ -147,7 +157,8 @@ class _HomePageState extends State<HomePage> {
 
                     //!
                     Container(
-                      decoration: const BoxDecoration(),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22)),
                       height: height / 2.5,
                       margin: const EdgeInsets.symmetric(horizontal: 20),
                       child: Padding(
@@ -157,7 +168,12 @@ class _HomePageState extends State<HomePage> {
                             Card(
                               elevation: 10,
                               child: Container(
-                                color: Colors.teal.withOpacity(.1),
+                                decoration: BoxDecoration(
+                                  // color: Colors.red,
+                                  color:
+                                      Colors.deepPurple[100]?.withOpacity(.5),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 2, vertical: 12),
                                 child: Padding(
