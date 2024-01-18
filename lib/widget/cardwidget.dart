@@ -50,7 +50,7 @@ class CardWidgetforSoil extends StatelessWidget {
               Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
-                    color: Colors.blueGrey[200],
+                    color: Colors.deepPurple[100],
                   ),
                   padding: const EdgeInsets.all(8.0),
                   margin: const EdgeInsets.all(8),
@@ -90,7 +90,7 @@ class CardWidgetforSoil extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(height: 25, child: Image.asset(iconpath)),
+                    SizedBox(height: 28, child: Image.asset(iconpath)),
                     Text(
                       "Show more . .",
                       style: TextStyle(

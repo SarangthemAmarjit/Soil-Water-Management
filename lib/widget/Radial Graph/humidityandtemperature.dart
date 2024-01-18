@@ -111,7 +111,7 @@ class HumiditynTemp extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                             startValue: 0,
                             endValue: 33.33,
-                            color: Colors.red.withOpacity(0.6),
+                            color: Colors.red.withOpacity(0.9),
                           )
                         : GaugeRange(
                             label: 'Low',
@@ -120,7 +120,7 @@ class HumiditynTemp extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                             startValue: 0,
                             endValue: 33.33,
-                            color: Colors.blue.withOpacity(0.6),
+                            color: Colors.blue.withOpacity(0.9),
                           ),
                     GaugeRange(
                       labelStyle: const GaugeTextStyle(
@@ -128,7 +128,7 @@ class HumiditynTemp extends StatelessWidget {
                       label: 'Optimal',
                       startValue: 33.33,
                       endValue: 66.66,
-                      color: Colors.green.withOpacity(0.6),
+                      color: Colors.green.withOpacity(0.9),
                     ),
                     index == 0
                         ? GaugeRange(
@@ -138,7 +138,7 @@ class HumiditynTemp extends StatelessWidget {
                             label: 'Wet',
                             startValue: 66.66,
                             endValue: 100,
-                            color: Colors.blue.withOpacity(0.7),
+                            color: Colors.blue.withOpacity(0.9),
                           )
                         : GaugeRange(
                             labelStyle: const GaugeTextStyle(
@@ -147,7 +147,7 @@ class HumiditynTemp extends StatelessWidget {
                             label: 'High',
                             startValue: 66.66,
                             endValue: 100,
-                            color: Colors.red.withOpacity(0.7),
+                            color: Colors.red.withOpacity(0.9),
                           ),
                   ],
                   useRangeColorForAxis: true,
