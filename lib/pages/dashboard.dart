@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 219, 242, 226),
+        backgroundColor: const Color.fromARGB(255, 242, 215, 246),
         title: Text("AGRITECH - Nakupi",
             style: TextStyle(
               wordSpacing: 2,
@@ -51,15 +51,16 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                   colors: [
+                    Color.fromARGB(255, 242, 215, 246),
                     Colors.white,
-                    Color.fromARGB(255, 161, 183, 249), // Start color
-                    Colors.white,
-                    Color.fromARGB(255, 159, 233, 251), // Middle color
-                    Colors.white,
-                    Color.fromARGB(255, 210, 252, 168), // End color
+                    // Start color
+                    // Colors.white,
+                    // Color.fromARGB(255, 159, 233, 251), // Middle color
+                    // Colors.white,
+                    // Color.fromARGB(255, 210, 252, 168), // End color
                   ],
                   // Adjust stops as needed
                 )),

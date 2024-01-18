@@ -15,6 +15,7 @@ class HumiditynTemp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenwidth = MediaQuery.of(context).size.width;
     GetxTapController controller = Get.put(GetxTapController());
     return Obx(
       () => controller.isDataLoading.value
@@ -31,7 +32,7 @@ class HumiditynTemp extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const SizedBox(
-                            height: 24,
+                            height: 46,
                           ),
                           Text(
                             value == null
@@ -55,28 +56,37 @@ class HumiditynTemp extends StatelessWidget {
                             height: 8,
                           ),
                           Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6.0),
+                            ),
                             color: Colors.blueGrey,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 8,
                               ),
-                              child: Text(
-                                index == 0
-                                    ? double.parse(value!) > 66.66
-                                        ? 'Wet'
-                                        : double.parse(value!) > 33.33
-                                            ? 'Optimal'
-                                            : 'Dry'
-                                    : double.parse(value!) > 66.66
-                                        ? 'High'
-                                        : double.parse(value!) > 33.33
-                                            ? 'Optimal'
-                                            : 'Low',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width / 25,
-                                  fontWeight: FontWeight.bold,
+                              child: SizedBox(
+                                width: screenwidth / 7,
+                                child: Center(
+                                  child: Text(
+                                    index == 0
+                                        ? double.parse(value!) > 66.66
+                                            ? 'Wet'
+                                            : double.parse(value!) > 33.33
+                                                ? 'Optimal'
+                                                : 'Dry'
+                                        : double.parse(value!) > 66.66
+                                            ? 'High'
+                                            : double.parse(value!) > 33.33
+                                                ? 'Optimal'
+                                                : 'Low',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
