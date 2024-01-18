@@ -72,7 +72,8 @@ class SoilNpkPage extends StatelessWidget {
             style: TextStyle(
               wordSpacing: 2,
               letterSpacing: 2,
-              color: Colors.black,
+              color: const Color.fromARGB(255, 178, 213, 211).withOpacity(0.4),
+
               fontSize: MediaQuery.of(context).size.width / 20,
               fontWeight: FontWeight.bold,
               // shadows: const <Shadow>[
@@ -92,370 +93,351 @@ class SoilNpkPage extends StatelessWidget {
           child: Container(
             height: screenheight,
             decoration: const BoxDecoration(
-                gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(255, 209, 196, 233),
-                Colors.white,
-                // Start color
-                // Colors.white,
-                // Color.fromARGB(255, 159, 233, 251), // Middle color
-                // Colors.white,
-                // Color.fromARGB(255, 210, 252, 168), // End color
-              ],
-              // Adjust stops as needed
-            )),
+                image: DecorationImage(
+                    opacity: 0.2,
+                    fit: BoxFit.cover,
+                    image: AssetImage('assets/images/bg.png'))),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     height: screenheight / 82,
                   ),
-                  Opacity(
-                    opacity: 1,
-                    child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6),
-                        color: Colors.white,
-                        height: screenheight / 3,
-                        child: Center(
-                            child: SfCartesianChart(
-                                legend: const Legend(
-                                  isVisible: true,
-                                ),
-                                zoomPanBehavior: controller.zoomPanBehavior,
-                                primaryXAxis: const DateTimeAxis(
-                                    autoScrollingMode: AutoScrollingMode.end,
-                                    initialZoomPosition: 1,
-                                    initialZoomFactor: 0.01),
-                                series: <CartesianSeries>[
-                              // Renders line chart
-                              LineSeries<SoilNPK, DateTime>(
-                                  legendItemText: "Nitrogen",
-                                  color: Colors.red,
-                                  dataSource: _getData(controller: controller),
+                  Card(
+                    elevation: 10,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6),
+                          color: Colors.white,
+                          height: screenheight / 3,
+                          child: Center(
+                              child: SfCartesianChart(
+                                  legend: const Legend(
+                                    isVisible: true,
+                                  ),
+                                  zoomPanBehavior: controller.zoomPanBehavior,
+                                  primaryXAxis: const DateTimeAxis(
+                                      autoScrollingMode: AutoScrollingMode.end,
+                                      initialZoomPosition: 1,
+                                      initialZoomFactor: 0.01),
+                                  series: <CartesianSeries>[
+                                // Renders line chart
+                                LineSeries<SoilNPK, DateTime>(
+                                    legendItemText: "Nitrogen",
+                                    color: Colors.red,
+                                    dataSource:
+                                        _getData(controller: controller),
 
-                                  // chartData,
+                                    // chartData,
 
-                                  //  List.generate(
-                                  //   controller.isselectedmonthly
-                                  //       ? controller.monthdatalist ==
-                                  //                   null ||
-                                  //               controller
-                                  //                   .monthdatalist!
-                                  //                   .isEmpty
-                                  //           ? 0
-                                  //           : months.length
-                                  //       : controller.timelist.length,
-                                  //   (index) => ChartData(
-                                  //       controller.isselectedmonthly
-                                  //           ? months[index]
-                                  //           : controller
-                                  //               .timelist[index]
-                                  //               .toString(),
-                                  //       controller.isselectedmonthly
-                                  //           ? controller
-                                  //               .monthdatalist![index]
-                                  //           : controller
-                                  //               .datalist[index]),
-                                  // ),
-                                  xValueMapper: (SoilNPK soilnpk, _) =>
-                                      soilnpk.time,
-                                  yValueMapper: (SoilNPK N, _) => N.N),
-                              LineSeries<SoilNPK, DateTime>(
-                                  animationDelay: 300,
-                                  color: Colors.green,
-                                  legendItemText: "Phosphorous",
-                                  dataSource: _getData(controller: controller),
-                                  //  chartData,
-                                  xValueMapper: (SoilNPK soilnpk, _) =>
-                                      soilnpk.time,
-                                  yValueMapper: (SoilNPK P, _) => P.P),
-                              LineSeries<SoilNPK, DateTime>(
-                                  animationDelay: 600,
-                                  color: Colors.blue,
-                                  legendItemText: "Potassium",
-                                  dataSource: _getData(controller: controller),
-                                  //  chartData,
-                                  xValueMapper: (SoilNPK soilnpk, _) =>
-                                      soilnpk.time,
-                                  yValueMapper: (SoilNPK K, _) => K.K)
-                            ]))),
+                                    //  List.generate(
+                                    //   controller.isselectedmonthly
+                                    //       ? controller.monthdatalist ==
+                                    //                   null ||
+                                    //               controller
+                                    //                   .monthdatalist!
+                                    //                   .isEmpty
+                                    //           ? 0
+                                    //           : months.length
+                                    //       : controller.timelist.length,
+                                    //   (index) => ChartData(
+                                    //       controller.isselectedmonthly
+                                    //           ? months[index]
+                                    //           : controller
+                                    //               .timelist[index]
+                                    //               .toString(),
+                                    //       controller.isselectedmonthly
+                                    //           ? controller
+                                    //               .monthdatalist![index]
+                                    //           : controller
+                                    //               .datalist[index]),
+                                    // ),
+                                    xValueMapper: (SoilNPK soilnpk, _) =>
+                                        soilnpk.time,
+                                    yValueMapper: (SoilNPK N, _) => N.N),
+                                LineSeries<SoilNPK, DateTime>(
+                                    animationDelay: 300,
+                                    color: Colors.green,
+                                    legendItemText: "Phosphorous",
+                                    dataSource:
+                                        _getData(controller: controller),
+                                    //  chartData,
+                                    xValueMapper: (SoilNPK soilnpk, _) =>
+                                        soilnpk.time,
+                                    yValueMapper: (SoilNPK P, _) => P.P),
+                                LineSeries<SoilNPK, DateTime>(
+                                    animationDelay: 600,
+                                    color: Colors.blue,
+                                    legendItemText: "Potassium",
+                                    dataSource:
+                                        _getData(controller: controller),
+                                    //  chartData,
+                                    xValueMapper: (SoilNPK soilnpk, _) =>
+                                        soilnpk.time,
+                                    yValueMapper: (SoilNPK K, _) => K.K)
+                              ]))),
+                    ),
                   ),
                   SizedBox(
                     height: screenheight / 82,
                   ),
-                  Opacity(
-                    opacity: .95,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                          color: Colors.white38,
-                          borderRadius: BorderRadius.all(Radius.circular(30))),
-                      // color: Colors.white,
-                      height: screenheight / 1.85,
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: screenheight / 82,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.history,
-                                        size: screenWidth / 20,
-                                      ),
-                                      const SizedBox(
-                                        width: 8,
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 8.0),
-                                        child: Text(
-                                          "HISTORY",
-                                          style: TextStyle(
-                                              fontSize: screenWidth / 20,
-                                              fontWeight: FontWeight.bold),
+                  Card(
+                    elevation: 10,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        // color: Colors.white,
+                        height: screenheight / 1.95,
+                        child: Center(
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: screenheight / 82,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.history,
+                                          size: screenWidth / 20,
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: screenheight / 82,
-                                  ),
-                                ],
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 8.0),
+                                          child: Text(
+                                            "HISTORY",
+                                            style: TextStyle(
+                                                fontSize: screenWidth / 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: screenheight / 82,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              flex: 8,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12.0),
-                                child: Container(
-                                  padding: const EdgeInsets.only(bottom: 4),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                        width: 3,
-                                        color: Colors.orange,
-                                      ),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(20))),
-                                  // height: 40,
-                                  child: Column(
-                                    children: [
-                                      Expanded(
-                                        flex: 2,
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: screenheight / 108,
-                                            ),
-                                            Container(
-                                              margin:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.orange[200],
-                                                  borderRadius:
-                                                      const BorderRadius
-                                                          .vertical(
-                                                          top: Radius.circular(
-                                                              14))),
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal:
-                                                      screenWidth / 30.0,
-                                                  vertical: screenWidth / 30),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "Time",
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            screenWidth / 24,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  Container(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 6),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
-                                                      color: Colors.red,
-                                                    ),
-                                                    child: RichText(
-                                                      text: TextSpan(
-                                                        style:
-                                                            DefaultTextStyle.of(
-                                                                    context)
-                                                                .style,
-                                                        children: <TextSpan>[
-                                                          TextSpan(
-                                                              text: 'N',
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      screenWidth /
-                                                                          26,
-                                                                  color: Colors
-                                                                      .white)),
-                                                          // const TextSpan(text: 'itrogen'),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 6),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
-                                                      color: Colors.green,
-                                                    ),
-                                                    child: RichText(
-                                                      text: TextSpan(
-                                                        style:
-                                                            DefaultTextStyle.of(
-                                                                    context)
-                                                                .style,
-                                                        children: <TextSpan>[
-                                                          TextSpan(
-                                                              text: 'P',
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      screenWidth /
-                                                                          26,
-                                                                  color: Colors
-                                                                      .white)),
-                                                          // const TextSpan(
-                                                          //     text: 'hosporous'),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 6),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
-                                                      color: Colors.blue,
-                                                    ),
-                                                    child: RichText(
-                                                      text: TextSpan(
-                                                        style:
-                                                            DefaultTextStyle.of(
-                                                                    context)
-                                                                .style,
-                                                        children: <TextSpan>[
-                                                          TextSpan(
-                                                              text: 'K',
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      screenWidth /
-                                                                          26,
-                                                                  color: Colors
-                                                                      .white)),
-                                                          // const TextSpan(
-                                                          //     text: 'otassium'),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
+                              Expanded(
+                                flex: 8,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12.0),
+                                  child: Container(
+                                    margin: const EdgeInsets.only(bottom: 10),
+                                    padding: const EdgeInsets.only(bottom: 4),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          width: 3,
+                                          color: Colors.orange,
                                         ),
-                                      ),
-                                      Expanded(
-                                        flex: 10,
-                                        child: ListView.builder(
-                                            physics:
-                                                const BouncingScrollPhysics(),
-                                            itemCount: 10,
-                                            shrinkWrap: true,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return Container(
-                                                margin: const EdgeInsets.all(8),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color: index % 2 == 0
-                                                      ? Colors.blueGrey[100]
-                                                      : Colors.grey[100],
-                                                ),
-                                                padding:
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(20))),
+                                    // height: 40,
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: screenheight / 108,
+                                              ),
+                                              Container(
+                                                margin:
                                                     const EdgeInsets.symmetric(
-                                                        vertical: 12,
-                                                        horizontal: 8.0),
+                                                        horizontal: 8),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.orange[200],
+                                                    borderRadius:
+                                                        const BorderRadius
+                                                            .vertical(
+                                                            top:
+                                                                Radius.circular(
+                                                                    14))),
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal:
+                                                        screenWidth / 30.0,
+                                                    vertical: screenWidth / 30),
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      DateFormat('h:mm a')
-                                                          .format(controller
-                                                                  .alldatetimelast10[
-                                                              index]),
+                                                      "Time",
                                                       style: TextStyle(
-                                                          color: index % 2 == 1
-                                                              ? Colors.black
-                                                              : Colors.black,
                                                           fontSize:
-                                                              screenWidth / 26),
+                                                              screenWidth / 24,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
-                                                    Text(
-                                                      "${controller.allsoildatamaplast10[index]['field5'].toString().isEmpty ? 'N/A' : controller.allsoildatamaplast10[index]['field4']}",
-                                                      style: TextStyle(
-                                                          color: index % 2 == 1
-                                                              ? Colors.black
-                                                              : Colors.blueGrey,
-                                                          fontSize:
-                                                              screenWidth / 26),
+                                                    Container(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 6),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                        color: Colors.red,
+                                                      ),
+                                                      child: RichText(
+                                                        text: TextSpan(
+                                                          style: DefaultTextStyle
+                                                                  .of(context)
+                                                              .style,
+                                                          children: <TextSpan>[
+                                                            TextSpan(
+                                                                text: 'N',
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        screenWidth /
+                                                                            26,
+                                                                    color: Colors
+                                                                        .white)),
+                                                            // const TextSpan(text: 'itrogen'),
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ),
-                                                    Text(
-                                                      "${controller.allsoildatamaplast10[index]['field5'].toString().isEmpty ? 'N/A' : controller.allsoildatamaplast10[index]['field5']}",
-                                                      style: TextStyle(
-                                                          color: index % 2 == 1
-                                                              ? Colors.black
-                                                              : Colors.blueGrey,
-                                                          fontSize:
-                                                              screenWidth / 26),
+                                                    Container(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 6),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                        color: Colors.green,
+                                                      ),
+                                                      child: RichText(
+                                                        text: TextSpan(
+                                                          style: DefaultTextStyle
+                                                                  .of(context)
+                                                              .style,
+                                                          children: <TextSpan>[
+                                                            TextSpan(
+                                                                text: 'P',
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        screenWidth /
+                                                                            26,
+                                                                    color: Colors
+                                                                        .white)),
+                                                            // const TextSpan(
+                                                            //     text: 'hosporous'),
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 12.0),
-                                                      child: Text(
-                                                        "${controller.allsoildatamaplast10[index]['field5'].toString().isEmpty ? 'N/A' : controller.allsoildatamaplast10[index]['field6']}",
+                                                    Container(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 6),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                        color: Colors.blue,
+                                                      ),
+                                                      child: RichText(
+                                                        text: TextSpan(
+                                                          style: DefaultTextStyle
+                                                                  .of(context)
+                                                              .style,
+                                                          children: <TextSpan>[
+                                                            TextSpan(
+                                                                text: 'K',
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        screenWidth /
+                                                                            26,
+                                                                    color: Colors
+                                                                        .white)),
+                                                            // const TextSpan(
+                                                            //     text: 'otassium'),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 11,
+                                          child: ListView.builder(
+                                              physics:
+                                                  const BouncingScrollPhysics(),
+                                              itemCount: 10,
+                                              shrinkWrap: true,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return Container(
+                                                  margin:
+                                                      const EdgeInsets.all(8),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    color: index % 2 == 0
+                                                        ? Colors.blueGrey[100]
+                                                        : Colors.grey[100],
+                                                  ),
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      vertical: 12,
+                                                      horizontal: 8.0),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        DateFormat('h:mm a')
+                                                            .format(controller
+                                                                    .alldatetimelast10[
+                                                                index]),
+                                                        style: TextStyle(
+                                                            color: index % 2 ==
+                                                                    1
+                                                                ? Colors.black
+                                                                : Colors.black,
+                                                            fontSize:
+                                                                screenWidth /
+                                                                    26),
+                                                      ),
+                                                      Text(
+                                                        "${controller.allsoildatamaplast10[index]['field5'].toString().isEmpty ? 'N/A' : controller.allsoildatamaplast10[index]['field4']}",
                                                         style: TextStyle(
                                                             color: index % 2 ==
                                                                     1
@@ -466,21 +448,52 @@ class SoilNpkPage extends StatelessWidget {
                                                                 screenWidth /
                                                                     26),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            }),
-                                      ),
-                                    ],
+                                                      Text(
+                                                        "${controller.allsoildatamaplast10[index]['field5'].toString().isEmpty ? 'N/A' : controller.allsoildatamaplast10[index]['field5']}",
+                                                        style: TextStyle(
+                                                            color: index % 2 ==
+                                                                    1
+                                                                ? Colors.black
+                                                                : Colors
+                                                                    .blueGrey,
+                                                            fontSize:
+                                                                screenWidth /
+                                                                    26),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                right: 12.0),
+                                                        child: Text(
+                                                          "${controller.allsoildatamaplast10[index]['field5'].toString().isEmpty ? 'N/A' : controller.allsoildatamaplast10[index]['field6']}",
+                                                          style: TextStyle(
+                                                              color: index %
+                                                                          2 ==
+                                                                      1
+                                                                  ? Colors.black
+                                                                  : Colors
+                                                                      .blueGrey,
+                                                              fontSize:
+                                                                  screenWidth /
+                                                                      26),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              }),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            // SizedBox(
-                            //   height: screenheight / 64,
-                            // )
-                          ],
+                              // SizedBox(
+                              //   height: screenheight / 64,
+                              // )
+                            ],
+                          ),
                         ),
                       ),
                     ),

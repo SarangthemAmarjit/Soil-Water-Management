@@ -107,6 +107,7 @@ class HumiditynTemp extends StatelessWidget {
                         ? GaugeRange(
                             label: 'Dry',
                             labelStyle: const GaugeTextStyle(
+                                fontFamily: 'KulimPark',
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
                             startValue: 0,
@@ -116,6 +117,7 @@ class HumiditynTemp extends StatelessWidget {
                         : GaugeRange(
                             label: 'Low',
                             labelStyle: const GaugeTextStyle(
+                                fontFamily: 'KulimPark',
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
                             startValue: 0,
@@ -124,7 +126,9 @@ class HumiditynTemp extends StatelessWidget {
                           ),
                     GaugeRange(
                       labelStyle: const GaugeTextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                          fontFamily: 'KulimPark',
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
                       label: 'Optimal',
                       startValue: 33.33,
                       endValue: 66.66,
@@ -133,6 +137,7 @@ class HumiditynTemp extends StatelessWidget {
                     index == 0
                         ? GaugeRange(
                             labelStyle: const GaugeTextStyle(
+                                fontFamily: 'KulimPark',
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
                             label: 'Wet',
@@ -142,6 +147,7 @@ class HumiditynTemp extends StatelessWidget {
                           )
                         : GaugeRange(
                             labelStyle: const GaugeTextStyle(
+                                fontFamily: 'KulimPark',
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
                             label: 'High',

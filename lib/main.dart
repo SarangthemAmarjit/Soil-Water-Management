@@ -11,7 +11,6 @@ import 'package:soilmoisturedetector/pages/demo.dart';
 // import 'package:soilmoisturedetector/pages/dashboard.dart';
 import 'package:soilmoisturedetector/router/router.dart';
 import 'package:soilmoisturedetector/services/alarmmanager.dart';
-import 'package:soilmoisturedetector/services/backgroundservoces.dart';
 // import 'package:soilmoisturedetector/services/backgroundservoces.dart';
 
 // import 'package:soilmoisturedetector/services/workmanager.dart';
@@ -24,7 +23,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await NotificationService().initNotification();
-  await initializeService();
 
   runApp(const MyApp());
   // await AndroidAlarmManager.cancel(alarmId);
@@ -45,7 +43,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: _appRouter.config(),
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Agri Sense',
       builder: EasyLoading.init(),
       theme: ThemeData(fontFamily: 'KulimPark'),
     );

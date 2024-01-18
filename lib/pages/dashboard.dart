@@ -24,8 +24,9 @@ class _HomePageState extends State<HomePage> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple[100],
-        title: Text("agriSENSE - Nakupi",
+        backgroundColor:
+            const Color.fromARGB(255, 178, 213, 211).withOpacity(0.4),
+        title: Text("Agri Sense",
             style: TextStyle(
               wordSpacing: 2,
               letterSpacing: 2,
@@ -50,20 +51,10 @@ class _HomePageState extends State<HomePage> {
               physics: const NeverScrollableScrollPhysics(),
               child: Container(
                 decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromARGB(255, 209, 196, 233),
-                    Colors.white,
-                    // Start color
-                    // Colors.white,
-                    // Color.fromARGB(255, 159, 233, 251), // Middle color
-                    // Colors.white,
-                    // Color.fromARGB(255, 210, 252, 168), // End color
-                  ],
-                  // Adjust stops as needed
-                )),
+                    image: DecorationImage(
+                        opacity: 0.2,
+                        fit: BoxFit.cover,
+                        image: AssetImage('assets/images/bg.png'))),
                 child: Column(
                   children: [
                     // SizedBox(
@@ -160,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(22)),
                       height: height / 2.5,
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Column(
@@ -170,8 +161,7 @@ class _HomePageState extends State<HomePage> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   // color: Colors.red,
-                                  color:
-                                      Colors.deepPurple[100]?.withOpacity(.5),
+                                  color: Colors.white,
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 padding: const EdgeInsets.symmetric(

@@ -7,10 +7,25 @@ class ServerErrorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
           child: Center(
-        child: Text('No Server Error'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/noserver.png',
+              height: 200,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              'Server Error 404',
+              style: TextStyle(fontSize: 25),
+            ),
+          ],
+        ),
       )),
     );
   }
