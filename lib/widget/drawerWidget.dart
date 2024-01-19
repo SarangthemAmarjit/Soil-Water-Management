@@ -14,11 +14,12 @@ class drawerWidget extends StatelessWidget {
         children: [
           Container(
             decoration: const BoxDecoration(
-                color: Colors.blue,
-                image: DecorationImage(
-                    image: AssetImage("assets/images/drawer.jpg"),
-                    opacity: .68,
-                    fit: BoxFit.cover)),
+              color: Color.fromARGB(255, 219, 242, 226),
+              // image: DecorationImage(
+              //     image: AssetImage("assets/images/drawer.jpg"),
+              //     opacity: .8,
+              //     fit: BoxFit.cover),
+            ),
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             // color: Theme.of(context).primaryColor,
@@ -32,31 +33,8 @@ class drawerWidget extends StatelessWidget {
                     decoration: const BoxDecoration(
                       // shape: BoxShape.circle,
                       image: DecorationImage(
-                          image: AssetImage("assets/images/logo.jpg"),
+                          image: AssetImage("assets/images/splash.png"),
                           fit: BoxFit.scaleDown),
-                    ),
-                  ),
-                  const Material(
-                    color: Colors.transparent,
-                    elevation: 5,
-                    child: Text(
-                      "Smart Irrigation System",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 2.0,
-                            color: Colors.red,
-                          ),
-                          Shadow(
-                            offset: Offset(3.0, 3.0),
-                            blurRadius: 3.0,
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ],
