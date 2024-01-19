@@ -6,7 +6,7 @@ import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
-import 'package:soilmoisturedetector/widget/localnotification.dart';
+import 'package:soilmoisturedetector/services/localnotification.dart';
 
 Future<void> initializeService() async {
   final service = FlutterBackgroundService();

@@ -25,21 +25,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 219, 242, 226),
-        title: Text("Agri Sense",
-            style: TextStyle(
-              wordSpacing: 2,
-              letterSpacing: 2,
-              color: Colors.black,
-              fontSize: MediaQuery.of(context).size.width / 20,
-              fontWeight: FontWeight.bold,
-              shadows: const <Shadow>[
-                // Shadow(
-                //   offset: Offset(2.0, 2.0),
-                //   blurRadius: 2.0,
-                //   color: Colors.white,
-                // ),
-              ],
-            )),
+        title: SizedBox(
+          height: 30,
+          child: Image.asset(
+            'assets/images/appbartitle4.png',
+            colorBlendMode: BlendMode.colorDodge,
+          ),
+        ),
         centerTitle: true,
       ),
       drawer: const drawerWidget(),

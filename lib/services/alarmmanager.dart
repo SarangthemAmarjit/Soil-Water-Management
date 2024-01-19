@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
-import 'package:soilmoisturedetector/widget/localnotification.dart';
+import 'package:soilmoisturedetector/services/localnotification.dart';
 
 @pragma('vm:entry-point')
 void backgroundHandler() {

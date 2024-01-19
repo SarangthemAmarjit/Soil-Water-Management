@@ -8,13 +8,14 @@ import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/model/soilmodel.dart';
 import 'package:soilmoisturedetector/services/alarmmanager.dart';
-import 'package:soilmoisturedetector/widget/localnotification.dart';
+import 'package:soilmoisturedetector/services/localnotification.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class GetxTapController extends GetxController {
@@ -61,6 +62,8 @@ class GetxTapController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    Future.delayed(const Duration(seconds: 1))
+        .whenComplete(() => FlutterNativeSplash.remove());
     if (_isserverok) {
       _startTimer();
       getlatestfeeddata();

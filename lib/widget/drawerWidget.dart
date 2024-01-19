@@ -13,8 +13,8 @@ class drawerWidget extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 219, 242, 226),
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 219, 242, 226).withOpacity(0.7),
               // image: DecorationImage(
               //     image: AssetImage("assets/images/drawer.jpg"),
               //     opacity: .8,

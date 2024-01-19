@@ -9,7 +9,7 @@
     
     <application
 
-        android:label="soilmoisturedetector"
+        android:label="Agri Sense"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
