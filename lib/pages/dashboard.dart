@@ -24,8 +24,7 @@ class _HomePageState extends State<HomePage> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:
-            const Color.fromARGB(255, 178, 213, 211).withOpacity(0.4),
+        backgroundColor: const Color.fromARGB(255, 219, 242, 226),
         title: Text("Agri Sense",
             style: TextStyle(
               wordSpacing: 2,
