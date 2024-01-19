@@ -382,6 +382,7 @@ class _HomePageState extends State<HomePage> {
                                                                                 ElevatedButton(
                                                                                     style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.grey[200], side: BorderSide(color: Colors.grey[700]!)),
                                                                                     onPressed: () {
+                                                                                      controller.setradiobuttoncancellationhandle();
                                                                                       context.router.pop();
                                                                                     },
                                                                                     child: Text(
@@ -471,6 +472,7 @@ class _HomePageState extends State<HomePage> {
                                                                                 ElevatedButton(
                                                                                     style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.grey[200], side: BorderSide(color: Colors.grey[700]!)),
                                                                                     onPressed: () {
+                                                                                      controller.setradiobuttoncancellationhandle();
                                                                                       context.router.pop();
                                                                                     },
                                                                                     child: Text(
@@ -552,6 +554,7 @@ class _HomePageState extends State<HomePage> {
                                                                                 ElevatedButton(
                                                                                     style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.grey[200], side: BorderSide(color: Colors.grey[700]!)),
                                                                                     onPressed: () {
+                                                                                      controller.setradiobuttoncancellationhandle();
                                                                                       context.router.pop();
                                                                                     },
                                                                                     child: Text(
