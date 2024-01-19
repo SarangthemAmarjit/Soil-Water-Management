@@ -40,8 +40,7 @@ class CommonGraphPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:
-            const Color.fromARGB(255, 178, 213, 211).withOpacity(0.4),
+        backgroundColor: const Color.fromARGB(255, 219, 242, 226),
         title: Text(
             index == 0
                 ? "Soil Moisture"
@@ -193,7 +192,7 @@ class CommonGraphPage extends StatelessWidget {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 8,
+                                  flex: 7,
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 12.0),
@@ -275,7 +274,7 @@ class CommonGraphPage extends StatelessWidget {
                                               ),
                                             ),
                                             Expanded(
-                                              flex: 11,
+                                              flex: 10,
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                     bottom: 4.0),
@@ -291,7 +290,7 @@ class CommonGraphPage extends StatelessWidget {
                                                             int ind) {
                                                       return Container(
                                                         margin: const EdgeInsets
-                                                            .all(8),
+                                                            .all(6),
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius:

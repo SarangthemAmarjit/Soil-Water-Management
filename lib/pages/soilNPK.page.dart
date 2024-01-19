@@ -9,8 +9,6 @@ import 'package:intl/intl.dart';
 class SoilNpkPage extends StatelessWidget {
   SoilNpkPage({super.key});
 
-  late ZoomPanBehavior _zoomPanBehavior;
-
   final List<DateTime> dateData = [
     DateTime(2024, 1, 1, 1, 00),
     DateTime(2024, 1, 1, 2, 00),
@@ -67,12 +65,12 @@ class SoilNpkPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple[100],
+        backgroundColor: const Color.fromARGB(255, 219, 242, 226),
         title: Text("Soil N P K",
             style: TextStyle(
               wordSpacing: 2,
               letterSpacing: 2,
-              color: const Color.fromARGB(255, 178, 213, 211).withOpacity(0.4),
+              color: Colors.black,
 
               fontSize: MediaQuery.of(context).size.width / 20,
               fontWeight: FontWeight.bold,
@@ -235,7 +233,7 @@ class SoilNpkPage extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                flex: 8,
+                                flex: 7,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 12.0),
@@ -393,7 +391,7 @@ class SoilNpkPage extends StatelessWidget {
                                           ),
                                         ),
                                         Expanded(
-                                          flex: 11,
+                                          flex: 10,
                                           child: ListView.builder(
                                               physics:
                                                   const BouncingScrollPhysics(),

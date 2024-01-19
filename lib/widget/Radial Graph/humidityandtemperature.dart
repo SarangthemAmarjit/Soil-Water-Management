@@ -32,7 +32,7 @@ class HumiditynTemp extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const SizedBox(
-                            height: 46,
+                            height: 20,
                           ),
                           Text(
                             value == null
@@ -49,15 +49,12 @@ class HumiditynTemp extends StatelessWidget {
                                       : Colors.black
                                   : Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: MediaQuery.of(context).size.width / 20,
+                              fontSize: MediaQuery.of(context).size.width / 25,
                             ),
-                          ),
-                          const SizedBox(
-                            height: 8,
                           ),
                           Card(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6.0),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             color: Colors.blueGrey,
                             child: Padding(
@@ -65,7 +62,7 @@ class HumiditynTemp extends StatelessWidget {
                                 horizontal: 8,
                               ),
                               child: SizedBox(
-                                width: screenwidth / 7,
+                                width: screenwidth / 8,
                                 child: Center(
                                   child: Text(
                                     index == 0
@@ -83,7 +80,7 @@ class HumiditynTemp extends StatelessWidget {
                                       color: Colors.white,
                                       fontSize:
                                           MediaQuery.of(context).size.width /
-                                              25,
+                                              30,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -105,55 +102,75 @@ class HumiditynTemp extends StatelessWidget {
                   ranges: <GaugeRange>[
                     index == 0
                         ? GaugeRange(
+                            gradient: SweepGradient(
+                              colors: <Color>[
+                                Colors.red.withOpacity(0.9),
+                                Colors.red.withOpacity(0.5),
+                              ],
+                            ),
                             label: 'Dry',
                             labelStyle: const GaugeTextStyle(
                                 fontFamily: 'KulimPark',
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold),
                             startValue: 0,
                             endValue: 33.33,
-                            color: Colors.red.withOpacity(0.9),
                           )
                         : GaugeRange(
+                            gradient: SweepGradient(
+                              colors: <Color>[
+                                Colors.blue.withOpacity(0.9),
+                                Colors.blue.withOpacity(0.5),
+                              ],
+                            ),
                             label: 'Low',
                             labelStyle: const GaugeTextStyle(
                                 fontFamily: 'KulimPark',
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold),
                             startValue: 0,
                             endValue: 33.33,
-                            color: Colors.blue.withOpacity(0.9),
                           ),
                     GaugeRange(
+                      color: Colors.green.withOpacity(0.9),
                       labelStyle: const GaugeTextStyle(
                           fontFamily: 'KulimPark',
-                          color: Colors.black,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold),
                       label: 'Optimal',
                       startValue: 33.33,
                       endValue: 66.66,
-                      color: Colors.green.withOpacity(0.9),
                     ),
                     index == 0
                         ? GaugeRange(
+                            gradient: SweepGradient(
+                              colors: <Color>[
+                                Colors.blue.withOpacity(0.5),
+                                Colors.blue.withOpacity(0.9),
+                              ],
+                            ),
                             labelStyle: const GaugeTextStyle(
                                 fontFamily: 'KulimPark',
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold),
                             label: 'Wet',
                             startValue: 66.66,
                             endValue: 100,
-                            color: Colors.blue.withOpacity(0.9),
                           )
                         : GaugeRange(
+                            gradient: SweepGradient(
+                              colors: <Color>[
+                                Colors.red.withOpacity(0.5),
+                                Colors.red.withOpacity(0.9),
+                              ],
+                            ),
                             labelStyle: const GaugeTextStyle(
                                 fontFamily: 'KulimPark',
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold),
                             label: 'High',
                             startValue: 66.66,
                             endValue: 100,
-                            color: Colors.red.withOpacity(0.9),
                           ),
                   ],
                   useRangeColorForAxis: true,
