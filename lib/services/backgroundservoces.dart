@@ -49,9 +49,12 @@ void onStart(ServiceInstance service) async {
             if (int.parse(controller.latestfeeddata!.field3) < 50) {
               service.setForegroundNotificationInfo(
                   title: 'ALERT ⚠️ ⚠️ ', content: 'Low Soil Moisture Level');
-              NotificationService().showNotification(
-                  title: '⚠️Critical Soil Moisture Level⚠️ ',
-                  body: 'Tap Here Soon to Pump the Water');
+
+              if (controller.istabonnotification == false) {
+                NotificationService().showalarmwarning(
+                    title: '⚠️Critical Soil Moisture Level⚠️ ',
+                    body: 'Tap Here Soon to Pump the Water');
+              }
             } else {
               service.setForegroundNotificationInfo(
                   title: 'Smart Irrigation System',
