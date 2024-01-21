@@ -33,6 +33,7 @@ class GetxTapController extends GetxController {
   int _sec = 0;
 
   bool _ismanualwaterconfirm = false;
+  bool _istabonnotification = false;
   var isDataLoading = false.obs;
   bool _pumpStatusmanually = false;
   bool _isserverok = true;
@@ -44,6 +45,7 @@ class GetxTapController extends GetxController {
   late ZoomPanBehavior zoomPanBehavior;
 
   //getter
+  bool get istabonnotification => _istabonnotification;
   bool get isserverok => _isserverok;
   List get allsoildatamap => _allsoildatamap;
   List get allsoildatamaplast10 => _allsoildatamaplast10;
@@ -87,6 +89,11 @@ class GetxTapController extends GetxController {
     // Cancel the timer when the widget is disposed
     _scheduletimer!.cancel();
     super.dispose();
+  }
+
+  void setontapnotification() {
+    _istabonnotification = true;
+    update();
   }
 
   void getzoompan() {

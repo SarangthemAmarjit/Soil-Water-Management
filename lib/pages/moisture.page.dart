@@ -192,7 +192,7 @@ class CommonGraphPage extends StatelessWidget {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 7,
+                                  flex: 8,
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 12.0),
@@ -274,7 +274,7 @@ class CommonGraphPage extends StatelessWidget {
                                               ),
                                             ),
                                             Expanded(
-                                              flex: 10,
+                                              flex: 11,
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                     bottom: 4.0),
@@ -290,7 +290,7 @@ class CommonGraphPage extends StatelessWidget {
                                                             int ind) {
                                                       return Container(
                                                         margin: const EdgeInsets
-                                                            .all(6),
+                                                            .all(8),
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius:
