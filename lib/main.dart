@@ -5,9 +5,11 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:soilmoisturedetector/router/router.dart';
-
+import 'package:soilmoisturedetector/services/alarmmanager.dart';
 import 'package:soilmoisturedetector/services/backgroundservoces.dart';
+// import 'package:soilmoisturedetector/services/backgroundservoces.dart';
 
+// import 'package:soilmoisturedetector/services/workmanager.dart';
 import 'package:soilmoisturedetector/services/localnotification.dart';
 
 void main() async {
@@ -15,8 +17,8 @@ void main() async {
 
   await NotificationService().initNotification();
   await initializeService();
-  FlutterNativeSplash.preserve(
-      widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
+  // FlutterNativeSplash.preserve(
+  //     widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   runApp(const MyApp());
   // await AndroidAlarmManager.cancel(alarmId);
   // await AndroidAlarmManager.initialize();
@@ -38,7 +40,21 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Agri Sense',
       builder: EasyLoading.init(),
-      theme: ThemeData(fontFamily: 'KulimPark'),
+      theme: ThemeData(
+        brightness: Brightness.light,
+        /* light theme settings */
+      ),
+      darkTheme: ThemeData(brightness: Brightness.dark, fontFamily: 'KulimPark'
+          /* dark theme settings */
+          ),
+      // themeMode: ThemeMode.dark,
+
+      /* ThemeMode.system to follow system theme, 
+         ThemeMode.light for light theme, 
+         ThemeMode.dark for dark theme
+      */
+
+      // theme: ThemeData(fontFamily: 'KulimPark'),
     );
   }
 }
