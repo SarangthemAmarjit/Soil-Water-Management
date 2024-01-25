@@ -3,7 +3,7 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+
 import 'package:soilmoisturedetector/pages/demo.dart';
 // import 'package:get/get.dart';
 // import 'package:soilmoisturedetector/controller/tapcontroller.dart';
@@ -26,8 +26,8 @@ void main() async {
 
   await NotificationService().initNotification();
   await initializeService();
-  FlutterNativeSplash.preserve(
-      widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
+  // FlutterNativeSplash.preserve(
+  //     widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   runApp(const MyApp());
   // await AndroidAlarmManager.cancel(alarmId);
   // await AndroidAlarmManager.initialize();

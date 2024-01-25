@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_type_check
 
 import 'dart:async';
+import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
@@ -51,11 +52,15 @@ void onStart(ServiceInstance service) async {
                   title: 'ALERT ⚠️ ⚠️ ', content: 'Low Soil Moisture Level');
 
               if (controller.istabonnotification == false) {
+                log('warning loggg');
                 NotificationService().showalarmwarning(
                     title: '⚠️Critical Soil Moisture Level⚠️ ',
                     body: 'Tap Here Soon to Pump the Water');
+              } else {
+                NotificationService().calcelnotification();
               }
             } else {
+              NotificationService().calcelnotification();
               service.setForegroundNotificationInfo(
                   title: 'Smart Irrigation System',
                   content:
