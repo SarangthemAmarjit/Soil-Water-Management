@@ -31,6 +31,20 @@ class NotificationService {
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     await notificationsPlugin.initialize(
       initializationSettings,
+      onDidReceiveNotificationResponse:
+          (NotificationResponse notificationResponse) {
+        switch (notificationResponse.notificationResponseType) {
+          case NotificationResponseType.selectedNotification:
+            log('Notification check 1');
+            controller.setontapnotification();
+            // selectNotificationStream.add(notificationResponse.payload);
+            break;
+          case NotificationResponseType.selectedNotificationAction:
+            log('Notification check 2');
+
+            break;
+        }
+      },
     );
 
     final NotificationAppLaunchDetails? notificationAppLaunchDetails =

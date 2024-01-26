@@ -2,10 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-
 import 'package:soilmoisturedetector/router/router.dart';
-import 'package:soilmoisturedetector/services/alarmmanager.dart';
 import 'package:soilmoisturedetector/services/backgroundservoces.dart';
 // import 'package:soilmoisturedetector/services/backgroundservoces.dart';
 
