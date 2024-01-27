@@ -1,20 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:ui';
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:http/http.dart' as http;
-
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/model/soilmodel.dart';
-import 'package:soilmoisturedetector/services/alarmmanager.dart';
 import 'package:soilmoisturedetector/services/localnotification.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -93,7 +87,9 @@ class GetxTapController extends GetxController {
 
   void setontapnotification() {
     _istabonnotification = true;
+
     update();
+    log(_istabonnotification.toString());
   }
 
   void getzoompan() {
@@ -105,13 +101,47 @@ class GetxTapController extends GetxController {
     );
   }
 
+  void monitorbackgroundservice(ServiceInstance service) {
+    Timer.periodic(const Duration(seconds: 3), (timer) async {
+      if (service is AndroidServiceInstance) {
+        if (await service.isForegroundService()) {
+          if (latestfeeddata != null) {
+            if (int.parse(latestfeeddata!.field3) < 50) {
+              service.setForegroundNotificationInfo(
+                  title: 'ALERT ⚠️ ⚠️ ', content: 'Low Soil Moisture Level');
+
+              if (_istabonnotification == false) {
+                log('warning loggg');
+                NotificationService().showalarmwarning(
+                    title: '⚠️Critical Soil Moisture Level⚠️ ',
+                    body: 'Tap Here Soon to Pump the Water');
+              } else {
+                NotificationService().calcelnotification();
+              }
+            } else {
+              NotificationService().calcelnotification();
+              service.setForegroundNotificationInfo(
+                  title: 'Smart Irrigation System',
+                  content:
+                      'Current Soil Moisture Level : ${latestfeeddata == null ? '' : latestfeeddata!.field3}');
+            }
+          } else {
+            service.setForegroundNotificationInfo(
+                title: 'Smart Irrigation System', content: 'SERVER ERROR');
+          }
+        }
+      }
+    });
+  }
+
   void _startTimer() {
     // Create a periodic timer that executes the function every 5 seconds
     _scheduletimer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       getlatestfeeddata();
       getalldata();
-
-      log('Executing your function periodically...');
+      if (_istabonnotification) {
+        NotificationService().calcelnotification();
+      }
     });
   }
 
@@ -202,7 +232,6 @@ class GetxTapController extends GetxController {
         Uri.http('10.10.1.139:88', '/api/channel-data/698633/latest-feeds',
             queryParameters),
       );
-      log(response.statusCode.toString());
 
       if (response.statusCode == 200) {
         _isserverok = true;
@@ -225,8 +254,6 @@ class GetxTapController extends GetxController {
             update();
           }
         }
-
-        print('Successfully get Data');
       } else {
         print('Failedrerer to Getdata.');
         _isserverok = false;
@@ -263,11 +290,9 @@ class GetxTapController extends GetxController {
 
         _allsoildatamaplast10 = last10.reversed.toList();
         update();
-        log('Last 10 :$_allsoildatamaplast10');
 
         for (var element in alldata!.feeds) {
           if (_alldatetime.contains(element.created)) {
-            log('Already Exist');
           } else {
             _alldatetime.add(element.created);
           }
@@ -276,14 +301,10 @@ class GetxTapController extends GetxController {
         _alldatetimelast10 = last10datetime.reversed.toList();
 
         update();
-
-        print('Successfully get AllData');
       } else {
         print('Failedrerer to GetAlldata.');
       }
       return null;
-    } catch (e) {
-      log(e.toString());
     } finally {}
   }
 

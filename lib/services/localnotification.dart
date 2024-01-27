@@ -29,13 +29,35 @@ class NotificationService {
 
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-    await notificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse:
-            (NotificationResponse notificationResponse) async {
-      controller.setontapnotification();
+    await notificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse:
+          (NotificationResponse notificationResponse) {
+        switch (notificationResponse.notificationResponseType) {
+          case NotificationResponseType.selectedNotification:
+            log('Notification check 1');
+            controller.setontapnotification();
+            // selectNotificationStream.add(notificationResponse.payload);
+            break;
+          case NotificationResponseType.selectedNotificationAction:
+            log('Notification check 2');
 
-      log('fafafaf');
-    });
+            break;
+        }
+      },
+    );
+
+    final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+        await notificationsPlugin.getNotificationAppLaunchDetails();
+
+    if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
+      controller.setontapnotification();
+      log('notificationResponse');
+    }
+  }
+
+  calcelnotification() async {
+    await notificationsPlugin.cancelAll();
   }
 
   notificationDetails() {
@@ -50,22 +72,29 @@ class NotificationService {
         iOS: DarwinNotificationDetails());
   }
 
-  showalarmnotification() async {
-    await notificationsPlugin.cancelAll();
-
-    const AndroidNotificationDetails('14', 'fafsf',
-        channelDescription: 'your other channel description',
-        audioAttributesUsage: AudioAttributesUsage.alarm,
-        category: AndroidNotificationCategory.alarm,
-        priority: Priority.high,
-        importance: Importance.max,
-        ongoing: true,
-        autoCancel: true,
-        sound: RawResourceAndroidNotificationSound('alarm2'));
+  showalarmnotification() {
+    return const NotificationDetails(
+        android: AndroidNotificationDetails('1', 'channelName',
+            channelDescription: 'your other channel description',
+            audioAttributesUsage: AudioAttributesUsage.alarm,
+            category: AndroidNotificationCategory.alarm,
+            priority: Priority.high,
+            importance: Importance.max,
+            ongoing: true,
+            autoCancel: true,
+            playSound: true,
+            sound: RawResourceAndroidNotificationSound('alarm2')));
   }
 
   Future showalarmwarning(
+<<<<<<< HEAD
       {int id = 0, String? title, String? body, String? payLoad}) async {}
+=======
+      {int id = 1, String? title, String? body, String? payLoad}) async {
+    return notificationsPlugin.show(
+        id, title, body, await showalarmnotification());
+  }
+>>>>>>> cd1b56a69700312a2a2bcbdea923b069c3715e1e
 
   Future showNotification(
       {int id = 0, String? title, String? body, String? payLoad}) async {

@@ -2,20 +2,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:soilmoisturedetector/router/router.dart';
 import 'package:soilmoisturedetector/services/backgroundservoces.dart';
+// import 'package:soilmoisturedetector/services/backgroundservoces.dart';
+
+// import 'package:soilmoisturedetector/services/workmanager.dart';
 import 'package:soilmoisturedetector/services/localnotification.dart';
 
 void main() async {
-  int alarmId = 1;
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await NotificationService().initNotification();
   await initializeService();
-  FlutterNativeSplash.preserve(
-      widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
+  // FlutterNativeSplash.preserve(
+  //     widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   runApp(const MyApp());
   // await AndroidAlarmManager.cancel(alarmId);
   // await AndroidAlarmManager.initialize();

@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_type_check
 
 import 'dart:async';
+import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
@@ -41,33 +42,37 @@ void onStart(ServiceInstance service) async {
       service.stopSelf();
       print("service stop");
     });
+    controller.monitorbackgroundservice(service);
+    // Timer.periodic(const Duration(seconds: 3), (timer) async {
+    //   if (service is AndroidServiceInstance) {
+    //     if (await service.isForegroundService()) {
+    //       if (controller.latestfeeddata != null) {
+    //         if (int.parse(controller.latestfeeddata!.field3) < 50) {
+    //           service.setForegroundNotificationInfo(
+    //               title: 'ALERT ⚠️ ⚠️ ', content: 'Low Soil Moisture Level');
 
-    Timer.periodic(const Duration(seconds: 3), (timer) async {
-      if (service is AndroidServiceInstance) {
-        if (await service.isForegroundService()) {
-          if (controller.latestfeeddata != null) {
-            if (int.parse(controller.latestfeeddata!.field3) < 50) {
-              service.setForegroundNotificationInfo(
-                  title: 'ALERT ⚠️ ⚠️ ', content: 'Low Soil Moisture Level');
-
-              if (controller.istabonnotification == false) {
-                NotificationService().showalarmwarning(
-                    title: '⚠️Critical Soil Moisture Level⚠️ ',
-                    body: 'Tap Here Soon to Pump the Water');
-              }
-            } else {
-              service.setForegroundNotificationInfo(
-                  title: 'Smart Irrigation System',
-                  content:
-                      'Current Soil Moisture Level : ${controller.latestfeeddata == null ? '' : controller.latestfeeddata!.field3}');
-            }
-          } else {
-            service.setForegroundNotificationInfo(
-                title: 'Smart Irrigation System', content: 'SERVER ERROR');
-          }
-        }
-      }
-    });
+    //           if (controller.istabonnotification == false) {
+    //             log('warning loggg');
+    //             NotificationService().showalarmwarning(
+    //                 title: '⚠️Critical Soil Moisture Level⚠️ ',
+    //                 body: 'Tap Here Soon to Pump the Water');
+    //           } else {
+    //             NotificationService().calcelnotification();
+    //           }
+    //         } else {
+    //           NotificationService().calcelnotification();
+    //           service.setForegroundNotificationInfo(
+    //               title: 'Smart Irrigation System',
+    //               content:
+    //                   'Current Soil Moisture Level : ${controller.latestfeeddata == null ? '' : controller.latestfeeddata!.field3}');
+    //         }
+    //       } else {
+    //         service.setForegroundNotificationInfo(
+    //             title: 'Smart Irrigation System', content: 'SERVER ERROR');
+    //       }
+    //     }
+    //   }
+    // });
 
     print('background service running');
     service.invoke('update');
