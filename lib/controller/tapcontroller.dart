@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -97,6 +99,39 @@ class GetxTapController extends GetxController {
       zoomMode: ZoomMode.x,
       enableSelectionZooming: true,
     );
+  }
+
+  void monitorbackgroundservice(ServiceInstance service) {
+    Timer.periodic(const Duration(seconds: 3), (timer) async {
+      if (service is AndroidServiceInstance) {
+        if (await service.isForegroundService()) {
+          if (latestfeeddata != null) {
+            if (int.parse(latestfeeddata!.field3) < 50) {
+              service.setForegroundNotificationInfo(
+                  title: 'ALERT ⚠️ ⚠️ ', content: 'Low Soil Moisture Level');
+
+              if (_istabonnotification == false) {
+                log('warning loggg');
+                NotificationService().showalarmwarning(
+                    title: '⚠️Critical Soil Moisture Level⚠️ ',
+                    body: 'Tap Here Soon to Pump the Water');
+              } else {
+                NotificationService().calcelnotification();
+              }
+            } else {
+              NotificationService().calcelnotification();
+              service.setForegroundNotificationInfo(
+                  title: 'Smart Irrigation System',
+                  content:
+                      'Current Soil Moisture Level : ${latestfeeddata == null ? '' : latestfeeddata!.field3}');
+            }
+          } else {
+            service.setForegroundNotificationInfo(
+                title: 'Smart Irrigation System', content: 'SERVER ERROR');
+          }
+        }
+      }
+    });
   }
 
   void _startTimer() {
