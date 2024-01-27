@@ -87,10 +87,14 @@ class NotificationService {
   }
 
   Future showalarmwarning(
+<<<<<<< HEAD
+      {int id = 0, String? title, String? body, String? payLoad}) async {}
+=======
       {int id = 1, String? title, String? body, String? payLoad}) async {
     return notificationsPlugin.show(
         id, title, body, await showalarmnotification());
   }
+>>>>>>> cd1b56a69700312a2a2bcbdea923b069c3715e1e
 
   Future showNotification(
       {int id = 0, String? title, String? body, String? payLoad}) async {
