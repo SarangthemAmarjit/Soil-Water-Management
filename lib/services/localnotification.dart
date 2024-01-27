@@ -65,9 +65,7 @@ class NotificationService {
   }
 
   Future showalarmwarning(
-      {int id = 0, String? title, String? body, String? payLoad}) async {
-    return notificationsPlugin.show(id, title, body, showalarmnotification());
-  }
+      {int id = 0, String? title, String? body, String? payLoad}) async {}
 
   Future showNotification(
       {int id = 0, String? title, String? body, String? payLoad}) async {

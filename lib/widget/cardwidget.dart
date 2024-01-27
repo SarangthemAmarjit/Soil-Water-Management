@@ -32,7 +32,7 @@ class CardWidgetforSoil extends StatelessWidget {
         shadowColor: Colors.black,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.black12.withOpacity(.001),
             borderRadius: BorderRadius.circular(10),
             // image: DecorationImage(
             //   colorFilter: ColorFilter.mode(
