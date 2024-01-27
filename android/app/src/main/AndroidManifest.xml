@@ -46,12 +46,11 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver" />
         <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
-<<<<<<< HEAD
+
   
-     
-=======
-        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"/>
->>>>>>> 90ebccdc44a0868be8dbfe04103265e7c9b83365
+
+
+
         <receiver
             android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
             android:enabled="false"

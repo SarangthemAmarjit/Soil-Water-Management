@@ -192,7 +192,7 @@ class CommonGraphPage extends StatelessWidget {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 8,
+                                  flex: 7,
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 12.0),
@@ -274,7 +274,7 @@ class CommonGraphPage extends StatelessWidget {
                                               ),
                                             ),
                                             Expanded(
-                                              flex: 11,
+                                              flex: 10,
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                     bottom: 4.0),

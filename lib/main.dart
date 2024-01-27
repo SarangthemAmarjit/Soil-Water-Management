@@ -37,10 +37,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Agri Sense',
       builder: EasyLoading.init(),
-      theme: ThemeData(
-        brightness: Brightness.light,
-        /* light theme settings */
-      ),
+      theme: ThemeData(brightness: Brightness.light, fontFamily: 'KulimPark'
+          /* light theme settings */
+          ),
       darkTheme: ThemeData(brightness: Brightness.dark, fontFamily: 'KulimPark'
           /* dark theme settings */
           ),

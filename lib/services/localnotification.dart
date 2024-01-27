@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -47,13 +48,13 @@ class NotificationService {
       },
     );
 
-    final NotificationAppLaunchDetails? notificationAppLaunchDetails =
-        await notificationsPlugin.getNotificationAppLaunchDetails();
+    // final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+    //     await notificationsPlugin.getNotificationAppLaunchDetails();
 
-    if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-      controller.setontapnotification();
-      log('notificationResponse');
-    }
+    // if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
+    //   controller.setontapnotification();
+    //   log('notificationResponse');
+    // }
   }
 
   calcelnotification() async {
@@ -73,17 +74,16 @@ class NotificationService {
   }
 
   showalarmnotification() {
-    return const NotificationDetails(
+    int insistentFlag = 4;
+    return NotificationDetails(
         android: AndroidNotificationDetails('1', 'channelName',
             channelDescription: 'your other channel description',
-            audioAttributesUsage: AudioAttributesUsage.alarm,
-            category: AndroidNotificationCategory.alarm,
-            priority: Priority.high,
             importance: Importance.max,
+            priority: Priority.high,
             ongoing: true,
             autoCancel: true,
-            playSound: true,
-            sound: RawResourceAndroidNotificationSound('alarm2')));
+            additionalFlags: Int32List.fromList(<int>[insistentFlag]),
+            sound: const RawResourceAndroidNotificationSound('alarm2')));
   }
 
   Future showalarmwarning(

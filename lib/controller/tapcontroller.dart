@@ -27,7 +27,7 @@ class GetxTapController extends GetxController {
   int _sec = 0;
 
   bool _ismanualwaterconfirm = false;
-  bool _istabonnotification = false;
+  bool _istabonnotification = true;
   var isDataLoading = false.obs;
   bool _pumpStatusmanually = false;
   bool _isserverok = true;
@@ -102,6 +102,8 @@ class GetxTapController extends GetxController {
   }
 
   void monitorbackgroundservice(ServiceInstance service) {
+    _istabonnotification = true;
+    update();
     Timer.periodic(const Duration(seconds: 3), (timer) async {
       if (service is AndroidServiceInstance) {
         if (await service.isForegroundService()) {
@@ -109,16 +111,21 @@ class GetxTapController extends GetxController {
             if (int.parse(latestfeeddata!.field3) < 50) {
               service.setForegroundNotificationInfo(
                   title: 'ALERT ⚠️ ⚠️ ', content: 'Low Soil Moisture Level');
-
-              if (_istabonnotification == false) {
-                log('warning loggg');
+              log('istab checking ${_istabonnotification.toString()} ');
+              if (_istabonnotification) {
+                log('istab is  false');
                 NotificationService().showalarmwarning(
                     title: '⚠️Critical Soil Moisture Level⚠️ ',
                     body: 'Tap Here Soon to Pump the Water');
+
+                _istabonnotification = false;
+                update();
               } else {
-                NotificationService().calcelnotification();
+                log('istab is  true');
               }
             } else {
+              _istabonnotification = true;
+              update();
               NotificationService().calcelnotification();
               service.setForegroundNotificationInfo(
                   title: 'Smart Irrigation System',
@@ -139,9 +146,6 @@ class GetxTapController extends GetxController {
     _scheduletimer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       getlatestfeeddata();
       getalldata();
-      if (_istabonnotification) {
-        NotificationService().calcelnotification();
-      }
     });
   }
 
