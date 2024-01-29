@@ -27,7 +27,11 @@ class RadialIndicatorSoil extends StatelessWidget {
                   annotations: [
                     GaugeAnnotation(
                         widget: Text(
-                      value == null ? 'N/A' : value!,
+                      value == null
+                          ? 'N/A'
+                          : int.parse(value!) < 10
+                              ? '0$value'
+                              : value!,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 22),
                     ))

@@ -72,7 +72,7 @@ class SoilNpkPage extends StatelessWidget {
             style: TextStyle(
               wordSpacing: 2,
               letterSpacing: 2,
-              color: const Color.fromARGB(255, 178, 213, 211).withOpacity(0.4),
+              color: Colors.black,
 
               fontSize: MediaQuery.of(context).size.width / 20,
               fontWeight: FontWeight.bold,

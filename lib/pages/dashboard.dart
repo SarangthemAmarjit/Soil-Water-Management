@@ -261,22 +261,26 @@ class _HomePageState extends State<HomePage> {
                                               ),
 
                                               //! using dafault switch
-                                              Switch(
-                                                // This bool value toggles the switch.
-                                                value: controller
-                                                    .pumpStatusmanually,
-                                                activeColor: Colors.blue,
-                                                onChanged: controller.pumpStatus
-                                                    ? null
-                                                    : (bool value) {
-                                                        // This is called when the user toggles the switch.
-                                                        controller
-                                                            .setpumpmanually(
-                                                                pumpstatus:
-                                                                    value);
-                                                        _minutesController
-                                                            .clear();
-                                                      },
+                                              Transform.scale(
+                                                scale: 1.4,
+                                                child: Switch(
+                                                  // This bool value toggles the switch.
+                                                  value: controller
+                                                      .pumpStatusmanually,
+                                                  activeColor: Colors.blue,
+                                                  onChanged:
+                                                      controller.pumpStatus
+                                                          ? null
+                                                          : (bool value) {
+                                                              // This is called when the user toggles the switch.
+                                                              controller
+                                                                  .setpumpmanually(
+                                                                      pumpstatus:
+                                                                          value);
+                                                              _minutesController
+                                                                  .clear();
+                                                            },
+                                                ),
                                               )
                                             ],
                                           ),

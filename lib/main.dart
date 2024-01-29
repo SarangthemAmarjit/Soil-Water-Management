@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:soilmoisturedetector/pages/contactUs.page.dart';
 import 'package:soilmoisturedetector/pages/dashboard.dart';
 import 'package:soilmoisturedetector/router/router.dart';
 import 'package:soilmoisturedetector/services/backgroundservoces.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(brightness: Brightness.dark, fontFamily: 'KulimPark'
           /* dark theme settings */
           ),
+      // home: const ContactPage(),
     );
   }
 }
