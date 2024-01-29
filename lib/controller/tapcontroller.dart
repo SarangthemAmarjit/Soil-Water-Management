@@ -178,6 +178,11 @@ class GetxTapController extends GetxController {
     update();
   }
 
+  void updateTimerValue({required int timerforpump}) {
+    pumptimer = timerforpump * 60;
+    update();
+  }
+
   void setpumpmanually({
     required bool pumpstatus,
   }) {

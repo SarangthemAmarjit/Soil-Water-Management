@@ -42,7 +42,6 @@ class NotificationService {
             break;
           case NotificationResponseType.selectedNotificationAction:
             log('Notification check 2');
-
             break;
         }
       },
