@@ -128,13 +128,13 @@ class GetxTapController extends GetxController {
               update();
               NotificationService().calcelnotification();
               service.setForegroundNotificationInfo(
-                  title: 'Smart Irrigation System',
+                  title: 'Agri Sense',
                   content:
                       'Current Soil Moisture Level : ${latestfeeddata == null ? '' : latestfeeddata!.field3}');
             }
           } else {
             service.setForegroundNotificationInfo(
-                title: 'Smart Irrigation System', content: 'SERVER ERROR');
+                title: 'Agri Sense', content: 'SERVER ERROR');
           }
         }
       }
