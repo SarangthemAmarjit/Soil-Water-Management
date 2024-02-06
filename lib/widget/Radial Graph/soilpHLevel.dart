@@ -27,7 +27,7 @@ class RadialIndicatorSoil extends StatelessWidget {
                   annotations: [
                     GaugeAnnotation(
                         widget: Text(
-                      value == null
+                      value == null||value!.isEmpty
                           ? 'N/A'
                           : int.parse(value!) < 10
                               ? '0$value'
@@ -45,13 +45,13 @@ class RadialIndicatorSoil extends StatelessWidget {
                     RangePointer(
                       enableAnimation: true,
                       animationType: AnimationType.bounceOut,
-                      value: value == null ? 0.0 : double.parse(value!),
+                      value: value == null||value!.isEmpty ? 0.0 : double.parse(value!),
                       width: 0.15,
                       sizeUnit: GaugeSizeUnit.factor,
                       gradient: getPhLevelGradient(double.parse(value!)),
                     ),
                     MarkerPointer(
-                      value: value == null ? 0.0 : double.parse(value!),
+                      value: value == null||value!.isEmpty ? 0.0 : double.parse(value!),
                       markerType: MarkerType.circle,
                       color: const Color.fromARGB(129, 135, 232, 232),
                     )
