@@ -5,11 +5,12 @@ import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 @RoutePage()
 class SoilNpkPage extends StatelessWidget {
   SoilNpkPage({super.key});
 
-  late ZoomPanBehavior _zoomPanBehavior;
+
 
   final List<DateTime> dateData = [
     DateTime(2024, 1, 1, 1, 00),
@@ -28,21 +29,7 @@ class SoilNpkPage extends StatelessWidget {
     // Add more DateTime values as needed
   ];
 
-  List<Map<String, double>> soilNPK = [
-    {'Nitrogen': 1.0, 'Phosphorous': 2.0, 'Potassium': 3.0},
-    {'Nitrogen': 4.5, 'Phosphorous': 6.7, 'Potassium': 8.2},
-    {'Nitrogen': 0.2, 'Phosphorous': 9.1, 'Potassium': 5.5},
-    {'Nitrogen': 1.0, 'Phosphorous': 2.0, 'Potassium': 3.0},
-    {'Nitrogen': 4.5, 'Phosphorous': 6.7, 'Potassium': 8.2},
-    {'Nitrogen': 0.2, 'Phosphorous': 9.1, 'Potassium': 5.5},
-    {'Nitrogen': 1.0, 'Phosphorous': 2.0, 'Potassium': 3.0},
-    {'Nitrogen': 4.5, 'Phosphorous': 6.7, 'Potassium': 8.2},
-    {'Nitrogen': 0.2, 'Phosphorous': 9.1, 'Potassium': 5.5},
-    {'Nitrogen': 1.0, 'Phosphorous': 2.0, 'Potassium': 3.0},
-    {'Nitrogen': 4.5, 'Phosphorous': 6.7, 'Potassium': 8.2},
-    {'Nitrogen': 0.2, 'Phosphorous': 9.1, 'Potassium': 5.5},
-    // Add more maps as needed
-  ];
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -50,20 +37,7 @@ class SoilNpkPage extends StatelessWidget {
     double screenheight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    //!    from datetime import datetime
-//! soilnpk_data = datetime(2019, 1, 1, 12, 34)  # time: 2019, Month: 1, Day: 1, Hour: 12, Minute: 34
 
-    // final List<SoilNPK> chartData = [
-    //   SoilNPK(DateTime(2024, 1, 1, 01, 00), 10, 20, 30),
-    //   SoilNPK(DateTime(2024, 1, 1, 02, 00), 20, 33, 44),
-    //   SoilNPK(DateTime(2024, 1, 1, 03, 00), 34, 54, 43),
-    //   SoilNPK(DateTime(2024, 1, 1, 04, 00), 34, 43, 21),
-    //   SoilNPK(DateTime(2024, 1, 1, 05, 00), 67, 43, 54),
-    //   SoilNPK(DateTime(2024, 1, 1, 06, 00), 76, 43, 56),
-    //   SoilNPK(DateTime(2024, 1, 1, 07, 00), 56, 56, 54),
-    //   SoilNPK(DateTime(2024, 1, 1, 08, 00), 43, 43, 34),
-    //   SoilNPK(DateTime(2024, 1, 1, 09, 00), 56, 32, 21)
-    // ];
 
     return Scaffold(
       appBar: AppBar(
@@ -76,13 +50,7 @@ class SoilNpkPage extends StatelessWidget {
 
               fontSize: MediaQuery.of(context).size.width / 20,
               fontWeight: FontWeight.bold,
-              // shadows: const <Shadow>[
-              //   Shadow(
-              //     offset: Offset(2.0, 2.0),
-              //     blurRadius: 2.0,
-              //     color: Colors.white,
-              //   ),
-              // ],
+   
             )),
         centerTitle: true,
       ),

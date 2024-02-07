@@ -43,11 +43,7 @@ class HumiditynTemp extends StatelessWidget {
                                         ? '$value°C'
                                         : value!,
                             style: TextStyle(
-                              color: index == 0
-                                  ? double.parse(value!) < 33.33
-                                      ? Colors.red
-                                      : Colors.black
-                                  : Colors.black,
+                         
                               fontWeight: FontWeight.bold,
                               fontSize: MediaQuery.of(context).size.width / 25,
                             ),
@@ -65,8 +61,11 @@ class HumiditynTemp extends StatelessWidget {
                                 width: screenwidth / 8,
                                 child: Center(
                                   child: Text(
+    value==null||value!.isEmpty?'N/A':
                                     index == 0
-                                        ? double.parse(value!) > 66.66
+                                        ? 
+                                    
+                                        double.parse(value!) > 66.66
                                             ? 'Wet'
                                             : double.parse(value!) > 33.33
                                                 ? 'Optimal'
@@ -186,7 +185,7 @@ class HumiditynTemp extends StatelessWidget {
                         enableAnimation: true,
                         animationDuration: 1500,
                         animationType: AnimationType.bounceOut,
-                        value: double.parse(value!)),
+                        value: value==null||value!.isEmpty?0.0: double.parse(value!)),
                   ],
                 ),
               ],

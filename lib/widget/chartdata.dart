@@ -17,47 +17,38 @@ class RadialData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('nitro$nitro');
+       log('phos$phos');
+          log('potas$potas');
     GetxTapController controller = Get.put(GetxTapController());
     final List<ChartData> chartData = [
       ChartData(
-          nitro == null
-              ? 'N/A'
-              : nitro!.isEmpty
-                  ? 'N/A'
+          nitro == null||nitro!.isEmpty?
+               'N/A'
+            
                   : 'N',
-          nitro == null
-              ? 0
-              : nitro!.isEmpty
-                  ? 0
-                  : int.parse(nitro!)),
+          nitro == null||nitro!.isEmpty?
+               0
+              : int.parse(nitro!)),
       ChartData(
-          phos == null
-              ? 'N/A'
-              : phos!.isEmpty
-                  ? 'N/A'
+        phos == null||phos!.isEmpty?
+               'N/A'
+            
                   : 'N',
-          phos == null
-              ? 0
-              : phos!.isEmpty
-                  ? 0
-                  : int.parse(phos!)),
+          phos == null||phos!.isEmpty?
+               0
+              : int.parse(phos!)),
       ChartData(
-          potas == null
-              ? 'N/A'
-              : potas!.isEmpty
-                  ? 'N/A'
+  potas == null||potas!.isEmpty?
+               'N/A'
+            
                   : 'N',
-          potas == null
-              ? 0
-              : potas!.isEmpty
-                  ? 0
-                  : int.parse(potas!)),
+          potas == null||potas!.isEmpty?
+               0
+              : int.parse(potas!)),
     ];
-    log(nitro.toString());
-    return Obx(
-      () => controller.isDataLoading.value
-          ? const Center(child: CircularProgressIndicator())
-          : SfCircularChart(
+ 
+    return SfCircularChart(
               legend: const Legend(
                 itemPadding: 1,
                 height: '22',
@@ -89,8 +80,8 @@ class RadialData extends StatelessWidget {
                     xValueMapper: (ChartData data, _) => data.x,
                     yValueMapper: (ChartData data, _) => data.y,
                   ),
-                ]),
-    );
+                ]);
+    
   }
 }
 

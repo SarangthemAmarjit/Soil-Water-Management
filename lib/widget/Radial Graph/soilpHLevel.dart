@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/constant/gradient.dart';
@@ -14,6 +16,7 @@ class RadialIndicatorSoil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log( value.toString());
     GetxTapController controller = Get.put(GetxTapController());
     return Obx(
       () => controller.isDataLoading.value
@@ -29,7 +32,7 @@ class RadialIndicatorSoil extends StatelessWidget {
                         widget: Text(
                       value == null || value!.isEmpty
                           ? 'N/A'
-                          : int.parse(value!) < 10
+                          : double.parse(value!) < 10
                               ? '0$value'
                               : value!,
                       style: const TextStyle(

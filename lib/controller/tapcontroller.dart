@@ -108,7 +108,10 @@ class GetxTapController extends GetxController {
       if (service is AndroidServiceInstance) {
         if (await service.isForegroundService()) {
           if (latestfeeddata != null) {
-            if (int.parse(latestfeeddata!.field3) < 50) {
+            if(latestfeeddata!.field3.isEmpty){
+              log('empty value');
+            }else{
+  if (int.parse(latestfeeddata!.field3) < 50) {
               service.setForegroundNotificationInfo(
                   title: 'ALERT ⚠️ ⚠️ ', content: 'Low Soil Moisture Level');
               log('istab checking ${_istabonnotification.toString()} ');
@@ -132,6 +135,8 @@ class GetxTapController extends GetxController {
                   content:
                       'Current Soil Moisture Level : ${latestfeeddata == null ? '' : latestfeeddata!.field3}');
             }
+            }
+          
           } else {
             service.setForegroundNotificationInfo(
                 title: 'Agri Sense', content: 'SERVER ERROR');
