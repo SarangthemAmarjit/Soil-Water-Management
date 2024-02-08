@@ -10,16 +10,11 @@ class drawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Colors.white,
+      elevation: 0,
       child: Column(
         children: [
           Container(
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 219, 242, 226).withOpacity(0.7),
-              // image: DecorationImage(
-              //     image: AssetImage("assets/images/drawer.jpg"),
-              //     opacity: .8,
-              //     fit: BoxFit.cover),
-            ),
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             // color: Theme.of(context).primaryColor,

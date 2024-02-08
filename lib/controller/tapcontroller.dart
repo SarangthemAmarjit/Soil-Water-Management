@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -11,6 +12,7 @@ import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/model/soilmodel.dart';
 import 'package:soilmoisturedetector/services/localnotification.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GetxTapController extends GetxController {
   //setter
@@ -108,35 +110,34 @@ class GetxTapController extends GetxController {
       if (service is AndroidServiceInstance) {
         if (await service.isForegroundService()) {
           if (latestfeeddata != null) {
-            if(latestfeeddata!.field3.isEmpty){
+            if (latestfeeddata!.field3.isEmpty) {
               log('empty value');
-            }else{
-  if (int.parse(latestfeeddata!.field3) < 50) {
-              service.setForegroundNotificationInfo(
-                  title: 'ALERT ⚠️ ⚠️ ', content: 'Low Soil Moisture Level');
-              log('istab checking ${_istabonnotification.toString()} ');
-              if (_istabonnotification) {
-                log('istab is  false');
-                NotificationService().showalarmwarning(
-                    title: '⚠️Critical Soil Moisture Level⚠️ ',
-                    body: 'Tap Here Soon to Pump the Water');
-
-                _istabonnotification = false;
-                update();
-              } else {
-                log('istab is  true');
-              }
             } else {
-              _istabonnotification = true;
-              update();
-              NotificationService().calcelnotification();
-              service.setForegroundNotificationInfo(
-                  title: 'Agri Sense',
-                  content:
-                      'Current Soil Moisture Level : ${latestfeeddata == null ? '' : latestfeeddata!.field3}');
+              if (int.parse(latestfeeddata!.field3) < 50) {
+                service.setForegroundNotificationInfo(
+                    title: 'ALERT ⚠️ ⚠️ ', content: 'Low Soil Moisture Level');
+                log('istab checking ${_istabonnotification.toString()} ');
+                if (_istabonnotification) {
+                  log('istab is  false');
+                  NotificationService().showalarmwarning(
+                      title: '⚠️Critical Soil Moisture Level⚠️ ',
+                      body: 'Tap Here Soon to Pump the Water');
+
+                  _istabonnotification = false;
+                  update();
+                } else {
+                  log('istab is  true');
+                }
+              } else {
+                _istabonnotification = true;
+                update();
+                NotificationService().calcelnotification();
+                service.setForegroundNotificationInfo(
+                    title: 'Agri Sense',
+                    content:
+                        'Current Soil Moisture Level : ${latestfeeddata == null ? '' : latestfeeddata!.field3}');
+              }
             }
-            }
-          
           } else {
             service.setForegroundNotificationInfo(
                 title: 'Agri Sense', content: 'SERVER ERROR');
@@ -148,7 +149,7 @@ class GetxTapController extends GetxController {
 
   void _startTimer() {
     // Create a periodic timer that executes the function every 5 seconds
-    _scheduletimer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+    _scheduletimer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       getlatestfeeddata();
       getalldata();
     });
@@ -235,6 +236,7 @@ class GetxTapController extends GetxController {
   }
 
   Future getlatestfeeddata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     if (latestdata == null) {
       isDataLoading(true);
     }
@@ -258,7 +260,24 @@ class GetxTapController extends GetxController {
 
           update();
         } else {
-          if (users == latestdata) {
+          if (users == latestdata ||
+              users.feeds.last.field3.isEmpty ||
+              users.feeds.last.field2.isEmpty) {
+            // if (users.feeds.last.field4.isNotEmpty) {
+            //   await prefs.setString(
+            //     'nitro',
+            //     users.feeds.last.field4,
+            //   );
+            //   await prefs.setString(
+            //     'phos',
+            //     users.feeds.last.field5,
+            //   );
+            //   await prefs.setString(
+            //     'potas',
+            //     users.feeds.last.field6,
+            //   );
+            // }
+
             log('Data Already same');
           } else {
             isDataLoading(true);
@@ -270,13 +289,17 @@ class GetxTapController extends GetxController {
         }
       } else {
         print('Failedrerer to Getdata.');
-        _isserverok = false;
-        update();
+        Future.delayed(const Duration(seconds: 5)).whenComplete(() {
+          _isserverok = false;
+          update();
+        });
       }
       return null;
     } catch (e) {
-      _isserverok = false;
-      update();
+      Future.delayed(const Duration(seconds: 5)).whenComplete(() {
+        _isserverok = false;
+        update();
+      });
       print(e.toString());
     } finally {
       isDataLoading(false);
