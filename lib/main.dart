@@ -46,9 +46,9 @@ class MyApp extends StatelessWidget {
           useMaterial3: false
           /* light theme settings */
           ),
-      darkTheme: ThemeData(brightness: Brightness.dark, fontFamily: 'KulimPark'
-          /* dark theme settings */
-          ),
+      // darkTheme: ThemeData(brightness: Brightness.dark, fontFamily: 'KulimPark'
+      //     /* dark theme settings */
+      //     ),
       // home: const ContactPage(),
     );
   }

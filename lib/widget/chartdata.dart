@@ -30,6 +30,7 @@ class RadialData extends StatelessWidget {
           potas == null || potas!.isEmpty ? 0 : int.parse(potas!)),
     ];
 
+
     return SfCircularChart(
         legend: Legend(
           toggleSeriesVisibility: true,
@@ -67,6 +68,9 @@ class RadialData extends StatelessWidget {
             yValueMapper: (ChartData data, _) => data.y,
           ),
         ]);
+
+ 
+ 
   }
 }
 

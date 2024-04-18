@@ -323,10 +323,18 @@ class GetxTapController extends GetxController {
         var users = getallsoildetailsFromJson(response.body);
         alldata = users;
         _allsoildatamap = dec['feeds'];
-        var last10 = _allsoildatamap.sublist(_allsoildatamap.length - 10);
 
-        _allsoildatamaplast10 = last10.reversed.toList();
-        update();
+        if (_allsoildatamap.length > 10) {
+          var last10 = _allsoildatamap.sublist(_allsoildatamap.length - 10);
+
+          _allsoildatamaplast10 = last10.reversed.toList();
+          update();
+        } else {
+          var last10 = _allsoildatamap.sublist(_allsoildatamap.length);
+
+          _allsoildatamaplast10 = last10.reversed.toList();
+          update();
+        }
 
         for (var element in alldata!.feeds) {
           if (_alldatetime.contains(element.created)) {
@@ -334,10 +342,17 @@ class GetxTapController extends GetxController {
             _alldatetime.add(element.created);
           }
         }
-        var last10datetime = _alldatetime.sublist(_alldatetime.length - 10);
-        _alldatetimelast10 = last10datetime.reversed.toList();
+        if (alldatetime.length > 10) {
+          var last10datetime = _alldatetime.sublist(_alldatetime.length - 10);
+          _alldatetimelast10 = last10datetime.reversed.toList();
 
-        update();
+          update();
+        } else {
+          var last10datetime = _alldatetime.sublist(_alldatetime.length);
+          _alldatetimelast10 = last10datetime.reversed.toList();
+
+          update();
+        }
       } else {
         print('Failedrerer to GetAlldata.');
       }
