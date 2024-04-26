@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +16,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GetxTapController extends GetxController {
+
   //setter
   Getallsoildetails? latestdata;
   Getallsoildetails? alldata;
@@ -221,7 +223,9 @@ double get progressvalue=>_progressValue;
         update();// Increment by 0.2 every second (100% / 5 seconds = 0.2)
         if (_progressValue >= 1.0) {
          _circulartimer?.cancel();
-         showDialog(context: context, builder: builder)
+         _pumpStatus = false;
+         update();
+       EasyLoading.showError('Error Pump Activation Failed⚠️⚠️ Check Wire is connected Properly');
         }
     }else{
       _progressValue=1.0;
@@ -266,7 +270,7 @@ double get progressvalue=>_progressValue;
   }
 
   Future getlatestfeeddata() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  
     if (latestdata == null) {
       isDataLoading(true);
       
