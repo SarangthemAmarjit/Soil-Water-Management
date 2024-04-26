@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:soilmoisturedetector/constant/constant.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:soilmoisturedetector/router/router.gr.dart';
@@ -33,24 +34,27 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     GetxTapController controller = Get.put(GetxTapController());
     Future<bool> showExitPopup() async {
-      return await showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Exit App'),
-              content: const Text('Do you want to exit an App?'),
-              actions: [
-                ElevatedButton(
-                  onPressed: () => context.router.pop(false),
-                  child: const Text('No'),
-                ),
-                ElevatedButton(
-                  onPressed: () => SystemNavigator.pop(),
-                  child: const Text('Yes'),
-                ),
-              ],
-            ),
-          ) ??
-          false;
+      return await QuickAlert.show(context: context,type: QuickAlertType.confirm,);
+      
+      
+      // showDialog(
+      //       context: context,
+      //       builder: (context) => AlertDialog(
+      //         title: const Text('Exit App'),
+      //         content: const Text('Do you want to exit an App?'),
+      //         actions: [
+      //           ElevatedButton(
+      //             onPressed: () => context.router.pop(false),
+      //             child: const Text('No'),
+      //           ),
+      //           ElevatedButton(
+      //             onPressed: () => SystemNavigator.pop(),
+      //             child: const Text('Yes'),
+      //           ),
+      //         ],
+      //       ),
+      //     ) ??
+      //     false;
     }
 
     final height = MediaQuery.of(context).size.height;
