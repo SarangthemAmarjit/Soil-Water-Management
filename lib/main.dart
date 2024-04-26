@@ -15,7 +15,7 @@ import 'package:soilmoisturedetector/services/localnotification.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await NotificationService().initNotification();
+  // await NotificationService().initNotification();
   // await initializeService();
   FlutterNativeSplash.preserve(
       widgetsBinding: WidgetsFlutterBinding.ensureInitialized());

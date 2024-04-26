@@ -35,6 +35,13 @@ class GetxTapController extends GetxController {
   bool _isserverok = true;
   bool _pumpStatus = false;
   String _soiltitle = '';
+
+
+double _progressValue = 0.0;
+double get progressvalue=>_progressValue;
+  Timer? _circulartimer;
+  String _elevation='';
+   String get elevation => _elevation;
   Timer? _scheduletimer;
   final List<DateTime> _alldatetime = [];
   List<DateTime> _alldatetimelast10 = [];
@@ -205,13 +212,36 @@ class GetxTapController extends GetxController {
     update();
   }
 
+  void startTimeforcircular() {
+    const duration = Duration(seconds: 5);
+    _circulartimer = Timer.periodic(duration, (Timer timer) {
+    if(_elevation.isEmpty||_elevation=='0'){
+     // Increment progress value every second until it reaches 5 seconds
+        _progressValue += 0.2; 
+        update();// Increment by 0.2 every second (100% / 5 seconds = 0.2)
+        if (_progressValue >= 1.0) {
+         _circulartimer?.cancel();
+         showDialog(context: context, builder: builder)
+        }
+    }else{
+      _progressValue=1.0;
+        _circulartimer?.cancel();
+        update();
+    }
+   
+    
+    });
+  }
+
   void setpump({required bool pumpstatus}) {
     _pumpStatus = pumpstatus;
     setwaterpump(isActive: true);
     if (_ismanualwaterconfirm == false) {
+      startTimeforcircular;
       NotificationService().showNotification(
           title: 'Water Pump Activated 🚰',
           body: 'Your water pump 💦 has been switched on successfully');
+
     }
     if (pumpStatus == false) {
       if (_ismanualwaterconfirm) {
@@ -239,6 +269,7 @@ class GetxTapController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (latestdata == null) {
       isDataLoading(true);
+      
     }
     try {
       final queryParameters = {
@@ -283,6 +314,7 @@ class GetxTapController extends GetxController {
             isDataLoading(true);
             latestdata = users;
             _latestfeeddata = latestdata!.feeds.last;
+            _elevation = latestdata!.channel.elevation;
 
             update();
           }
@@ -376,6 +408,7 @@ class GetxTapController extends GetxController {
 
       if (response.statusCode == 200) {
         log('Successfully switch water pump');
+        getlatestfeeddata();
       } else {
         print('Failedrerer to Getdata.');
       }

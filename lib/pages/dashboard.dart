@@ -142,9 +142,7 @@ class _HomePageState extends State<HomePage> {
                                     title: "Soil Humidity",
                                     iconpath: "assets/images/humidity.png",
                                     index: 0,
-                                    value: controller.latestfeeddata == null
-                                        ? null
-                                        : controller.latestfeeddata!.field3,
+                                    value: controller.latestfeeddata?.field3,
                                   ),
                                   onTap: () {
                                     context.router
@@ -159,9 +157,7 @@ class _HomePageState extends State<HomePage> {
                                     title: "Soil Temperature",
                                     iconpath: "assets/images/temp.png",
                                     index: 1,
-                                    value: controller.latestfeeddata == null
-                                        ? null
-                                        : controller.latestfeeddata!.field2,
+                                    value: controller.latestfeeddata?.field2,
                                   ),
                                   onTap: () {
                                     context.router
@@ -176,9 +172,7 @@ class _HomePageState extends State<HomePage> {
                                     title: "Soil pH Level",
                                     iconpath: "assets/images/ph.png",
                                     index: 2,
-                                    value: controller.latestfeeddata == null
-                                        ? null
-                                        : controller.latestfeeddata!.field7,
+                                    value: controller.latestfeeddata?.field7,
                                   ),
                                   onTap: () {
                                     context.router
@@ -192,9 +186,7 @@ class _HomePageState extends State<HomePage> {
                                     title: "Soil NPK",
                                     iconpath: "assets/images/npk.png",
                                     index: 3,
-                                    value: controller.latestfeeddata == null
-                                        ? null
-                                        : controller.latestfeeddata!.field7,
+                                    value: controller.latestfeeddata?.field7,
                                   ),
                                   onTap: () {
                                     controller.getzoompan();
@@ -240,22 +232,23 @@ class _HomePageState extends State<HomePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  controller.pumpStatus
-                                                      ? Image.asset(
-                                                          "assets/images/pumpONgif.gif",
-                                                          height: 60,
-                                                        )
-                                                      : Image.asset(
+                                                   controller.elevation.isEmpty||controller.elevation=='0'
+                                                        ?  Image.asset(
                                                           "assets/images/pumpOFF.png",
                                                           height: 60,
                                                         )
+                                                        :  Image.asset(
+                                                          "assets/images/pumpONgif.gif",
+                                                          height: 60,
+                                                        ),
+                                             
 
                                                   // Icon(
                                                   //   Icons.electrical_services_outlined,
                                                   //   size: 32,
                                                   //   color: Colors.amber,
                                                   // ),
-                                                  ,
+                                                  
                                                   const Text(
                                                     "Water Pump",
                                                     style: TextStyle(
@@ -266,6 +259,17 @@ class _HomePageState extends State<HomePage> {
                                                 ],
                                               ),
 
+                                          controller.pumpStatus
+                                                        ?
+                                         
+                                           controller.elevation.isEmpty||controller.elevation=='0'
+                                                        ?  const SizedBox(height: 35,
+                                                          
+                                                          child: Padding(
+                                                            padding: EdgeInsets.only(right: 25),
+                                                            child: CircularProgressIndicator(),
+                                                          )):
+                                            
                                               //! using dafault switch
                                               ToggleSwitch(
                                                 minWidth: 55,
@@ -286,9 +290,9 @@ class _HomePageState extends State<HomePage> {
                                                         255, 58, 60, 62),
                                                 inactiveFgColor: Colors.white,
                                                 initialLabelIndex:
-                                                    controller.pumpStatus
-                                                        ? 1
-                                                        : 0,
+                                                    controller.elevation.isEmpty||controller.elevation=='0'
+                                                        ? 0
+                                                        : 1,
                                                 totalSwitches: 2,
                                                 labels: const ['OFF', 'ON'],
                                                 radiusStyle: true,
@@ -297,6 +301,35 @@ class _HomePageState extends State<HomePage> {
                                                       pumpstatus: index == 0
                                                           ? false
                                                           : true);
+                                                },
+                                              ):        ToggleSwitch(
+                                                minWidth: 55,
+                                                minHeight: 40,
+                                                cornerRadius: 20.0,
+                                                activeBgColors: const [
+                                                  [
+                                                    Color(0xffdc6c73),
+                                                  ],
+                                                  [
+                                                    Color.fromARGB(
+                                                        255, 60, 205, 130),
+                                                  ]
+                                                ],
+                                                activeFgColor: Colors.white,
+                                                inactiveBgColor:
+                                                    const Color.fromARGB(
+                                                        255, 58, 60, 62),
+                                                inactiveFgColor: Colors.white,
+                                                initialLabelIndex:
+                                                    controller.elevation.isEmpty||controller.elevation=='0'
+                                                        ? 0
+                                                        : 1,
+                                                totalSwitches: 2,
+                                                labels: const ['OFF', 'ON'],
+                                                radiusStyle: true,
+                                                onToggle: (index) {
+                                                  controller.setpump(
+                                                      pumpstatus: !controller.pumpStatus);
                                                 },
                                               ),
                                             ],
