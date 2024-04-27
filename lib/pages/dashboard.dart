@@ -34,9 +34,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     GetxTapController controller = Get.put(GetxTapController());
     Future<bool> showExitPopup() async {
-      return await QuickAlert.show(context: context,type: QuickAlertType.confirm,);
-      
-      
+      return await QuickAlert.show(
+        context: context,
+        type: QuickAlertType.confirm,
+      );
+
       // showDialog(
       //       context: context,
       //       builder: (context) => AlertDialog(
@@ -236,23 +238,26 @@ class _HomePageState extends State<HomePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                   controller.elevation.isEmpty||controller.elevation=='0'
-                                                        ?  Image.asset(
+                                                  controller.elevation
+                                                              .isEmpty ||
+                                                          controller
+                                                                  .elevation ==
+                                                              '0'
+                                                      ? Image.asset(
                                                           "assets/images/pumpOFF.png",
                                                           height: 60,
                                                         )
-                                                        :  Image.asset(
+                                                      : Image.asset(
                                                           "assets/images/pumpONgif.gif",
                                                           height: 60,
                                                         ),
-                                             
 
                                                   // Icon(
                                                   //   Icons.electrical_services_outlined,
                                                   //   size: 32,
                                                   //   color: Colors.amber,
                                                   // ),
-                                                  
+
                                                   const Text(
                                                     "Water Pump",
                                                     style: TextStyle(
@@ -262,80 +267,113 @@ class _HomePageState extends State<HomePage> {
                                                   ),
                                                 ],
                                               ),
-
-                                          controller.pumpStatus
-                                                        ?
-                                         
-                                           controller.elevation.isEmpty||controller.elevation=='0'
-                                                        ?  const SizedBox(height: 35,
-                                                          
+                                              controller.pumpStatus
+                                                  ? controller.elevation
+                                                              .isEmpty ||
+                                                          controller
+                                                                  .elevation ==
+                                                              '0'
+                                                      ? const SizedBox(
+                                                          height: 35,
                                                           child: Padding(
-                                                            padding: EdgeInsets.only(right: 25),
-                                                            child: CircularProgressIndicator(),
-                                                          )):
-                                            
-                                              //! using dafault switch
-                                              ToggleSwitch(
-                                                minWidth: 55,
-                                                minHeight: 40,
-                                                cornerRadius: 20.0,
-                                                activeBgColors: const [
-                                                  [
-                                                    Color(0xffdc6c73),
-                                                  ],
-                                                  [
-                                                    Color.fromARGB(
-                                                        255, 60, 205, 130),
-                                                  ]
-                                                ],
-                                                activeFgColor: Colors.white,
-                                                inactiveBgColor:
-                                                    const Color.fromARGB(
-                                                        255, 58, 60, 62),
-                                                inactiveFgColor: Colors.white,
-                                                initialLabelIndex:
-                                                    controller.elevation.isEmpty||controller.elevation=='0'
-                                                        ? 0
-                                                        : 1,
-                                                totalSwitches: 2,
-                                                labels: const ['OFF', 'ON'],
-                                                radiusStyle: true,
-                                                onToggle: (index) {
-                                                  controller.setpump(
-                                                      pumpstatus: index == 0
-                                                          ? false
-                                                          : true);
-                                                },
-                                              ):        ToggleSwitch(
-                                                minWidth: 55,
-                                                minHeight: 40,
-                                                cornerRadius: 20.0,
-                                                activeBgColors: const [
-                                                  [
-                                                    Color(0xffdc6c73),
-                                                  ],
-                                                  [
-                                                    Color.fromARGB(
-                                                        255, 60, 205, 130),
-                                                  ]
-                                                ],
-                                                activeFgColor: Colors.white,
-                                                inactiveBgColor:
-                                                    const Color.fromARGB(
-                                                        255, 58, 60, 62),
-                                                inactiveFgColor: Colors.white,
-                                                initialLabelIndex:
-                                                    controller.elevation.isEmpty||controller.elevation=='0'
-                                                        ? 0
-                                                        : 1,
-                                                totalSwitches: 2,
-                                                labels: const ['OFF', 'ON'],
-                                                radiusStyle: true,
-                                                onToggle: (index) {
-                                                  controller.setpump(
-                                                      pumpstatus: !controller.pumpStatus);
-                                                },
-                                              ),
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    right: 25),
+                                                            child:
+                                                                CircularProgressIndicator(),
+                                                          ))
+                                                      :
+
+                                                      //! using dafault switch
+                                                      ToggleSwitch(
+                                                          minWidth: 55,
+                                                          minHeight: 40,
+                                                          cornerRadius: 20.0,
+                                                          activeBgColors: const [
+                                                            [
+                                                              Color(0xffdc6c73),
+                                                            ],
+                                                            [
+                                                              Color.fromARGB(
+                                                                  255,
+                                                                  60,
+                                                                  205,
+                                                                  130),
+                                                            ]
+                                                          ],
+                                                          activeFgColor:
+                                                              Colors.white,
+                                                          inactiveBgColor:
+                                                              const Color
+                                                                  .fromARGB(255,
+                                                                  58, 60, 62),
+                                                          inactiveFgColor:
+                                                              Colors.white,
+                                                          initialLabelIndex: controller
+                                                                      .elevation
+                                                                      .isEmpty ||
+                                                                  controller
+                                                                          .elevation ==
+                                                                      '0'
+                                                              ? 0
+                                                              : 1,
+                                                          totalSwitches: 2,
+                                                          labels: const [
+                                                            'OFF',
+                                                            'ON'
+                                                          ],
+                                                          radiusStyle: true,
+                                                          onToggle: (index) {
+                                                            controller.setpump(
+                                                                pumpstatus:
+                                                                    !controller
+                                                                        .pumpStatus,
+                                                                context:
+                                                                    context);
+                                                          },
+                                                        )
+                                                  : ToggleSwitch(
+                                                      minWidth: 55,
+                                                      minHeight: 40,
+                                                      cornerRadius: 20.0,
+                                                      activeBgColors: const [
+                                                        [
+                                                          Color(0xffdc6c73),
+                                                        ],
+                                                        [
+                                                          Color.fromARGB(255,
+                                                              60, 205, 130),
+                                                        ]
+                                                      ],
+                                                      activeFgColor:
+                                                          Colors.white,
+                                                      inactiveBgColor:
+                                                          const Color.fromARGB(
+                                                              255, 58, 60, 62),
+                                                      inactiveFgColor:
+                                                          Colors.white,
+                                                      initialLabelIndex: controller
+                                                                  .elevation
+                                                                  .isEmpty ||
+                                                              controller
+                                                                      .elevation ==
+                                                                  '0'
+                                                          ? 0
+                                                          : 1,
+                                                      totalSwitches: 2,
+                                                      labels: const [
+                                                        'OFF',
+                                                        'ON'
+                                                      ],
+                                                      radiusStyle: true,
+                                                      onToggle: (index) {
+                                                        controller.setpump(
+                                                            pumpstatus:
+                                                                !controller
+                                                                    .pumpStatus,
+                                                            context: context);
+                                                      },
+                                                    ),
                                             ],
                                           ),
                                           const SizedBox(
@@ -380,8 +418,10 @@ class _HomePageState extends State<HomePage> {
                                                       value: controller
                                                           .pumpStatusmanually,
                                                       activeColor: Colors.blue,
-                                                      onChanged:
-                                                          controller.pumpStatus
+                                                      onChanged: controller
+                                                              .pumpStatus
+                                                          ? controller.elevation ==
+                                                                  '1'
                                                               ? null
                                                               : (bool value) {
                                                                   // This is called when the user toggles the switch.
@@ -390,7 +430,16 @@ class _HomePageState extends State<HomePage> {
                                                                           value);
                                                                   _minutesController
                                                                       .clear();
-                                                                },
+                                                                }
+                                                          : (bool value) {
+                                                              // This is called when the user toggles the switch.
+                                                              controller
+                                                                  .setpumpmanually(
+                                                                      pumpstatus:
+                                                                          value);
+                                                              _minutesController
+                                                                  .clear();
+                                                            },
                                                     ),
                                                   )
                                                 ],
@@ -525,7 +574,7 @@ class _HomePageState extends State<HomePage> {
                                                                     context:
                                                                         context,
                                                                     builder:
-                                                                        (context) =>
+                                                                        (context2) =>
                                                                             AlertDialog(
                                                                       backgroundColor:
                                                                           Colors
@@ -542,7 +591,7 @@ class _HomePageState extends State<HomePage> {
                                                                             ElevatedButton(
                                                                                 style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.grey[200], side: BorderSide(color: Colors.grey[700]!)),
                                                                                 onPressed: () {
-                                                                                  context.router.pop();
+                                                                                  context2.router.pop();
                                                                                 },
                                                                                 child: Text(
                                                                                   "CANCEL",
@@ -553,15 +602,18 @@ class _HomePageState extends State<HomePage> {
                                                                               child: ElevatedButton(
                                                                                   style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), backgroundColor: Colors.green[200], side: BorderSide(color: Colors.green[700]!)),
                                                                                   onPressed: () {
-                                                                                    controller.startTimer();
-                                                                                    context.router.pop();
-                                                                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                                      behavior: SnackBarBehavior.fixed,
-                                                                                      backgroundColor: Colors.green,
+                                                                                    context2.router.maybePop();
+                                                                                    controller.startTimer(context: context);
 
-                                                                                      content: Text('Water Pump Activated For ${_minutesController.text} Min'),
-                                                                                      duration: const Duration(seconds: 3), // Adjust the duration as needed
-                                                                                    ));
+                                                                                    if (controller.elevation == '1') {
+                                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                        behavior: SnackBarBehavior.fixed,
+                                                                                        backgroundColor: Colors.green,
+
+                                                                                        content: Text('Water Pump Activated For ${_minutesController.text} Min'),
+                                                                                        duration: const Duration(seconds: 3), // Adjust the duration as needed
+                                                                                      ));
+                                                                                    }
                                                                                   },
                                                                                   child: const Text(
                                                                                     "OK",

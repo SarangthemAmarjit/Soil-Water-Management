@@ -2,7 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:auto_route/auto_route.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -214,8 +219,10 @@ double get progressvalue=>_progressValue;
     update();
   }
 
-  void startTimeforcircular() {
-    const duration = Duration(seconds: 5);
+  void startTimeforcircular({required BuildContext context}) {
+    log('Timer Started');
+    const duration = Duration(seconds: 1);
+    
     _circulartimer = Timer.periodic(duration, (Timer timer) {
     if(_elevation.isEmpty||_elevation=='0'){
      // Increment progress value every second until it reaches 5 seconds
@@ -224,8 +231,39 @@ double get progressvalue=>_progressValue;
         if (_progressValue >= 1.0) {
          _circulartimer?.cancel();
          _pumpStatus = false;
+         _progressValue = 0.0;
          update();
-       EasyLoading.showError('Error Pump Activation Failed⚠️⚠️ Check Wire is connected Properly');
+             AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.error,
+              
+                      animType: AnimType.topSlide,
+                      title: 'ERROR',
+                      desc: 'Pump Activation Failed⚠️⚠️ Check Wire is connected Properly',
+                      showCloseIcon: true,
+                    
+                      btnOkOnPress: () {},
+                    ).show();
+                  
+                
+
+          //      showDialog(
+          //   context: context,
+          //   builder: (context) => AlertDialog(
+          //     title: const Text('Error'),
+          //     content: const Text('Pump Activation Failed⚠️⚠️ Check Wire is connected Properly'),
+          //     actions: [
+          //        ElevatedButton(
+          //         onPressed: () => context.router.pop(),
+          //         child: const Text('OK'),
+          //       ),
+          
+          //     ],
+          //   ),
+          // );
+
+    
+      //  EasyLoading.showError('Error Pump Activation Failed⚠️⚠️ Check Wire is connected Properly');
         }
     }else{
       _progressValue=1.0;
@@ -237,14 +275,17 @@ double get progressvalue=>_progressValue;
     });
   }
 
-  void setpump({required bool pumpstatus}) {
+  void setpump({required bool pumpstatus,required BuildContext context}) {
     _pumpStatus = pumpstatus;
     setwaterpump(isActive: true);
     if (_ismanualwaterconfirm == false) {
-      startTimeforcircular;
-      NotificationService().showNotification(
+      startTimeforcircular(context: context);
+     if(_elevation=='1'){
+  NotificationService().showNotification(
           title: 'Water Pump Activated 🚰',
           body: 'Your water pump 💦 has been switched on successfully');
+     }
+    
 
     }
     if (pumpStatus == false) {
@@ -422,10 +463,13 @@ double get progressvalue=>_progressValue;
     }
   }
 
-  void startTimer() {
+  void startTimer({required BuildContext context}) {
     _pumpStatus = true;
+update();
     setwaterpump(isActive: true);
-    NotificationService().showNotification(
+  startTimeforcircular(context: context);
+    if(_elevation=='1'){
+   NotificationService().showNotification(
         title: 'Water Pump Activated',
         body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -452,6 +496,8 @@ double get progressvalue=>_progressValue;
     });
     _ismanualwaterconfirm = true;
     update();
+    }
+ 
   }
 
   void scheduleTask() {
