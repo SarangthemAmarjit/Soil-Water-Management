@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -155,8 +156,7 @@ class CommonGraphPage extends StatelessWidget {
                           child: Center(
                             child: Column(
                               children: [
-                                Expanded(
-                                  flex: 1,
+                                FittedBox(
                                   child: Column(
                                     children: [
                                       SizedBox(
@@ -208,73 +208,64 @@ class CommonGraphPage extends StatelessWidget {
                                       child: SizedBox(
                                         child: Column(
                                           children: [
-                                            Expanded(
-                                              flex: 2,
-                                              child: Column(
-                                                children: [
-                                                  SizedBox(
-                                                    height: screenheight / 108,
-                                                  ),
-                                                  Container(
-                                                    margin: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 8),
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            Colors.orange[200],
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                .vertical(
-                                                                top: Radius
-                                                                    .circular(
-                                                                        14))),
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal:
+                                            Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: screenheight / 108,
+                                                ),
+                                                Container(
+                                                  margin: const EdgeInsets
+                                                      .symmetric(horizontal: 8),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.orange[200],
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .vertical(
+                                                              top: Radius
+                                                                  .circular(
+                                                                      14))),
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal:
+                                                          screenwidth / 20.0,
+                                                      vertical:
+                                                          screenwidth / 30),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        "Time",
+                                                        style: TextStyle(
+                                                            fontSize:
                                                                 screenwidth /
-                                                                    20.0,
-                                                            vertical:
+                                                                    24,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Text(
+                                                        index == 0
+                                                            ? "Moisture Level"
+                                                            : index == 1
+                                                                ? "Temperature"
+                                                                : index == 2
+                                                                    ? "pH Level"
+                                                                    : "",
+                                                        style: TextStyle(
+                                                            fontSize:
                                                                 screenwidth /
-                                                                    30),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          "Time",
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  screenwidth /
-                                                                      24,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        Text(
-                                                          index == 0
-                                                              ? "Moisture Level"
-                                                              : index == 1
-                                                                  ? "Temperature"
-                                                                  : index == 2
-                                                                      ? "pH Level"
-                                                                      : "",
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  screenwidth /
-                                                                      24,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        )
-                                                      ],
-                                                    ),
+                                                                    24,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      )
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                             Expanded(
-                                              flex: 10,
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                     bottom: 4.0),
@@ -315,13 +306,25 @@ class CommonGraphPage extends StatelessWidget {
                                                                           6.0),
                                                               child: Text(
                                                                 index == 0
-                                                                    ? "${controller.allsoildatamaplast10[ind]['field3']}"
+                                                                    ? controller
+                                                                            .allsoildatamaplast10[ind][
+                                                                                'field3']
+                                                                            .toString()
+                                                                            .isEmpty
+                                                                        ? 'N.A'
+                                                                        : "${controller.allsoildatamaplast10[ind]['field3']}"
                                                                     : index == 1
-                                                                        ? "${controller.allsoildatamaplast10[ind]['field2']}"
+                                                                        ? controller.allsoildatamaplast10[ind]['field2']
+                                                                                .toString()
+                                                                                .isEmpty
+                                                                            ? 'N.A'
+                                                                            : "${controller.allsoildatamaplast10[ind]['field2']}"
                                                                         : index ==
                                                                                 2
-                                                                            ? "${controller.allsoildatamaplast10[ind]['field7']}"
-                                                                            : "",
+                                                                            ? controller.allsoildatamaplast10[ind]['field7'].toString().isEmpty
+                                                                                ? 'N.A'
+                                                                                : "${controller.allsoildatamaplast10[ind]['field7']}"
+                                                                            : "N.A",
                                                                 style: TextStyle(
                                                                     color: ind %
                                                                                 2 ==

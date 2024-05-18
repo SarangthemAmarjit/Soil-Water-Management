@@ -20,11 +20,6 @@ void main() async {
   FlutterNativeSplash.preserve(
       widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   runApp(const MyApp());
-  // await AndroidAlarmManager.cancel(alarmId);
-  // await AndroidAlarmManager.initialize();
-  // AndroidAlarmManager.periodic(
-  //     const Duration(seconds: 3), alarmId, backgroundHandler,
-  //     allowWhileIdle: true, rescheduleOnReboot: true, exact: true);
 }
 
 final _appRouter = AppRouter();

@@ -21,7 +21,6 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GetxTapController extends GetxController {
-
   //setter
   Getallsoildetails? latestdata;
   Getallsoildetails? alldata;
@@ -43,12 +42,11 @@ class GetxTapController extends GetxController {
   bool _pumpStatus = false;
   String _soiltitle = '';
 
-
-double _progressValue = 0.0;
-double get progressvalue=>_progressValue;
+  double _progressValue = 0.0;
+  double get progressvalue => _progressValue;
   Timer? _circulartimer;
-  String _elevation='';
-   String get elevation => _elevation;
+  String _elevation = '';
+  String get elevation => _elevation;
   Timer? _scheduletimer;
   final List<DateTime> _alldatetime = [];
   List<DateTime> _alldatetimelast10 = [];
@@ -222,30 +220,26 @@ double get progressvalue=>_progressValue;
   void startTimeforcircular({required BuildContext context}) {
     log('Timer Started');
     const duration = Duration(seconds: 1);
-    
+
     _circulartimer = Timer.periodic(duration, (Timer timer) {
-    if(_elevation.isEmpty||_elevation=='0'){
-     // Increment progress value every second until it reaches 5 seconds
-        _progressValue += 0.2; 
-        update();// Increment by 0.2 every second (100% / 5 seconds = 0.2)
+      if (_elevation.isEmpty || _elevation == '0') {
+        // Increment progress value every second until it reaches 5 seconds
+        _progressValue += 0.2;
+        update(); // Increment by 0.2 every second (100% / 5 seconds = 0.2)
         if (_progressValue >= 1.0) {
-         _circulartimer?.cancel();
-         _pumpStatus = false;
-         _progressValue = 0.0;
-         update();
-             AwesomeDialog(
-                      context: context,
-                      dialogType: DialogType.error,
-              
-                      animType: AnimType.topSlide,
-                      title: 'ERROR',
-                      desc: 'Pump Activation Failed⚠️⚠️ Check Wire is connected Properly',
-                      showCloseIcon: true,
-                    
-                      btnOkOnPress: () {},
-                    ).show();
-                  
-                
+          _circulartimer?.cancel();
+          _pumpStatus = false;
+          _progressValue = 0.0;
+          update();
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.error,
+            animType: AnimType.topSlide,
+            title: 'ERROR',
+            desc: 'Pump Activation Failed⚠️⚠️ Check Wire is connected Properly',
+            showCloseIcon: true,
+            btnOkOnPress: () {},
+          ).show();
 
           //      showDialog(
           //   context: context,
@@ -257,36 +251,31 @@ double get progressvalue=>_progressValue;
           //         onPressed: () => context.router.pop(),
           //         child: const Text('OK'),
           //       ),
-          
+
           //     ],
           //   ),
           // );
 
-    
-      //  EasyLoading.showError('Error Pump Activation Failed⚠️⚠️ Check Wire is connected Properly');
+          //  EasyLoading.showError('Error Pump Activation Failed⚠️⚠️ Check Wire is connected Properly');
         }
-    }else{
-      _progressValue=1.0;
+      } else {
+        _progressValue = 1.0;
         _circulartimer?.cancel();
         update();
-    }
-   
-    
+      }
     });
   }
 
-  void setpump({required bool pumpstatus,required BuildContext context}) {
+  void setpump({required bool pumpstatus, required BuildContext context}) {
     _pumpStatus = pumpstatus;
     setwaterpump(isActive: true);
     if (_ismanualwaterconfirm == false) {
       startTimeforcircular(context: context);
-     if(_elevation=='1'){
-  NotificationService().showNotification(
-          title: 'Water Pump Activated 🚰',
-          body: 'Your water pump 💦 has been switched on successfully');
-     }
-    
-
+      if (_elevation == '1') {
+        NotificationService().showNotification(
+            title: 'Water Pump Activated 🚰',
+            body: 'Your water pump 💦 has been switched on successfully');
+      }
     }
     if (pumpStatus == false) {
       if (_ismanualwaterconfirm) {
@@ -311,10 +300,8 @@ double get progressvalue=>_progressValue;
   }
 
   Future getlatestfeeddata() async {
-  
     if (latestdata == null) {
       isDataLoading(true);
-      
     }
     try {
       final queryParameters = {
@@ -385,6 +372,7 @@ double get progressvalue=>_progressValue;
 
   Future getalldata() async {
     try {
+      // log("All soil date 10 list$_allsoildatamaplast10");
       final queryParameters = {
         "api_key": "330F3444455D4923",
         "interval": "60",
@@ -400,17 +388,21 @@ double get progressvalue=>_progressValue;
         var users = getallsoildetailsFromJson(response.body);
         alldata = users;
         _allsoildatamap = dec['feeds'];
-
+        update();
+        log(_allsoildatamap.length.toString());
         if (_allsoildatamap.length > 10) {
           var last10 = _allsoildatamap.sublist(_allsoildatamap.length - 10);
 
           _allsoildatamaplast10 = last10.reversed.toList();
+          // log("All soil date 10 list$_allsoildatamaplast10");
           update();
         } else {
-          var last10 = _allsoildatamap.sublist(_allsoildatamap.length);
+          var last10 = _allsoildatamap;
 
           _allsoildatamaplast10 = last10.reversed.toList();
+
           update();
+          log("All soil date 10 list$_allsoildatamaplast10");
         }
 
         for (var element in alldata!.feeds) {
@@ -425,7 +417,7 @@ double get progressvalue=>_progressValue;
 
           update();
         } else {
-          var last10datetime = _alldatetime.sublist(_alldatetime.length);
+          var last10datetime = _alldatetime;
           _alldatetimelast10 = last10datetime.reversed.toList();
 
           update();
@@ -465,39 +457,38 @@ double get progressvalue=>_progressValue;
 
   void startTimer({required BuildContext context}) {
     _pumpStatus = true;
-update();
-    setwaterpump(isActive: true);
-  startTimeforcircular(context: context);
-    if(_elevation=='1'){
-   NotificationService().showNotification(
-        title: 'Water Pump Activated',
-        body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (pumptimer > 0) {
-        pumptimer--;
-
-        _min = (pumptimer / 60).floor();
-        _sec = pumptimer % 60;
-        update();
-      } else {
-        _timer!.cancel(); // Stop the timer when it reaches 0
-        // Add your desired action when the countdown reaches 0 here
-
-        _ismanualwaterconfirm = false;
-        setwaterpump(isActive: false);
-        _pumpStatus = false;
-        _min = 0;
-        _sec = 0;
-        selectedVisualType.value = null;
-        update();
-        NotificationService().showNotification(
-            title: 'Done', body: '🚰 Water Pump Completed  Successfully');
-      }
-    });
-    _ismanualwaterconfirm = true;
     update();
+    setwaterpump(isActive: true);
+    startTimeforcircular(context: context);
+    if (_elevation == '1') {
+      NotificationService().showNotification(
+          title: 'Water Pump Activated',
+          body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        if (pumptimer > 0) {
+          pumptimer--;
+
+          _min = (pumptimer / 60).floor();
+          _sec = pumptimer % 60;
+          update();
+        } else {
+          _timer!.cancel(); // Stop the timer when it reaches 0
+          // Add your desired action when the countdown reaches 0 here
+
+          _ismanualwaterconfirm = false;
+          setwaterpump(isActive: false);
+          _pumpStatus = false;
+          _min = 0;
+          _sec = 0;
+          selectedVisualType.value = null;
+          update();
+          NotificationService().showNotification(
+              title: 'Done', body: '🚰 Water Pump Completed  Successfully');
+        }
+      });
+      _ismanualwaterconfirm = true;
+      update();
     }
- 
   }
 
   void scheduleTask() {

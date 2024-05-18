@@ -10,8 +10,6 @@ import 'package:intl/intl.dart';
 class SoilNpkPage extends StatelessWidget {
   SoilNpkPage({super.key});
 
-
-
   final List<DateTime> dateData = [
     DateTime(2024, 1, 1, 1, 00),
     DateTime(2024, 1, 1, 2, 00),
@@ -29,15 +27,11 @@ class SoilNpkPage extends StatelessWidget {
     // Add more DateTime values as needed
   ];
 
- 
-
   @override
   Widget build(BuildContext context) {
     GetxTapController controller = Get.put(GetxTapController());
     double screenheight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-
-
 
     return Scaffold(
       appBar: AppBar(
@@ -47,10 +41,8 @@ class SoilNpkPage extends StatelessWidget {
               wordSpacing: 2,
               letterSpacing: 2,
               color: Colors.black,
-
               fontSize: MediaQuery.of(context).size.width / 20,
               fontWeight: FontWeight.bold,
-   
             )),
         centerTitle: true,
       ),
@@ -84,6 +76,8 @@ class SoilNpkPage extends StatelessWidget {
                           child: Center(
                               child: SfCartesianChart(
                                   legend: const Legend(
+                                    position: LegendPosition.top,
+                                    isResponsive: true,
                                     isVisible: true,
                                   ),
                                   zoomPanBehavior: controller.zoomPanBehavior,
@@ -167,7 +161,7 @@ class SoilNpkPage extends StatelessWidget {
                           child: Column(
                             children: [
                               Expanded(
-                                flex: 1,
+                                flex: 15,
                                 child: Column(
                                   children: [
                                     SizedBox(
@@ -203,7 +197,7 @@ class SoilNpkPage extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                flex: 7,
+                                flex: 70,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 12.0),
@@ -221,7 +215,7 @@ class SoilNpkPage extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Expanded(
-                                          flex: 2,
+                                          flex: 25,
                                           child: Column(
                                             children: [
                                               SizedBox(
@@ -361,11 +355,12 @@ class SoilNpkPage extends StatelessWidget {
                                           ),
                                         ),
                                         Expanded(
-                                          flex: 10,
+                                          flex: 60,
                                           child: ListView.builder(
                                               physics:
                                                   const BouncingScrollPhysics(),
-                                              itemCount: 10,
+                                              itemCount: controller
+                                                  .allsoildatamaplast10.length,
                                               shrinkWrap: true,
                                               itemBuilder:
                                                   (BuildContext context,
@@ -405,7 +400,7 @@ class SoilNpkPage extends StatelessWidget {
                                                                     26),
                                                       ),
                                                       Text(
-                                                        "${controller.allsoildatamaplast10[index]['field5'].toString().isEmpty ? 'N/A' : controller.allsoildatamaplast10[index]['field4']}",
+                                                        "${controller.allsoildatamaplast10[index]['field4'].toString().isEmpty ? 'N/A' : controller.allsoildatamaplast10[index]['field4']}",
                                                         style: TextStyle(
                                                             color: index % 2 ==
                                                                     1
@@ -434,7 +429,7 @@ class SoilNpkPage extends StatelessWidget {
                                                                 .only(
                                                                 right: 12.0),
                                                         child: Text(
-                                                          "${controller.allsoildatamaplast10[index]['field5'].toString().isEmpty ? 'N/A' : controller.allsoildatamaplast10[index]['field6']}",
+                                                          "${controller.allsoildatamaplast10[index]['field6'].toString().isEmpty ? 'N/A' : controller.allsoildatamaplast10[index]['field6']}",
                                                           style: TextStyle(
                                                               color: index %
                                                                           2 ==
