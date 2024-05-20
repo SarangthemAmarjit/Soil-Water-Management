@@ -21,22 +21,29 @@ class RadialData extends StatelessWidget {
     double fontSize = screenWidth * 0.033;
     GetxTapController controller = Get.put(GetxTapController());
     final List<ChartData> chartData = [
-      ChartData(nitro == null || nitro!.isEmpty ? 'N/A ' : 'N',
-          nitro == null || nitro!.isEmpty ? 0 : int.parse(nitro!)),
-      ChartData(phos == null || phos!.isEmpty ? 'N/A ' : 'p',
-          phos == null || phos!.isEmpty ? 0 : int.parse(phos!)),
-      ChartData(potas == null || potas!.isEmpty ? 'N/A ' : 'K',
-          potas == null || potas!.isEmpty ? 0 : int.parse(potas!)),
+      ChartData(
+        nitro == null || nitro!.isEmpty ? 'N/A ' : 'N',
+        nitro == null || nitro!.isEmpty ? 0 : int.parse(nitro!),
+      ),
+      ChartData(
+        phos == null || phos!.isEmpty ? 'N/A ' : 'p',
+        phos == null || phos!.isEmpty ? 0 : int.parse(phos!),
+      ),
+      ChartData(
+        potas == null || potas!.isEmpty ? 'N/A ' : 'K',
+        potas == null || potas!.isEmpty ? 0 : int.parse(potas!),
+      ),
     ];
 
     return SfCircularChart(
       tooltipBehavior: TooltipBehavior(enable: true),
       legend: Legend(
+        padding: 3,
         toggleSeriesVisibility: true,
-        iconWidth: nitro == null || nitro!.isEmpty ? 2 : 20,
-        itemPadding: 2,
+        iconWidth: nitro == null || nitro!.isEmpty ? 2 : 25,
+        itemPadding: 10,
         height: '30',
-        iconHeight: 0,
+        iconHeight: 10,
         offset: Offset.zero,
         borderColor: Colors.amber,
         backgroundColor: Colors.white,
@@ -48,20 +55,11 @@ class RadialData extends StatelessWidget {
       series: <CircularSeries>[
         // Renders radial bar chart
         RadialBarSeries<ChartData, String?>(
-          dataLabelSettings: const DataLabelSettings(
-              useSeriesColor: true,
-              borderColor: Colors.yellow,
-              labelAlignment: ChartDataLabelAlignment.bottom,
-              labelPosition: ChartDataLabelPosition.inside,
-              overflowMode: OverflowMode.trim,
-
-              // Renders the data label
-              isVisible: true),
           enableTooltip: true,
-          radius: '100%',
+          radius: '115%',
           trackOpacity: 0.2,
           trackColor: Colors.grey,
-          gap: '5%',
+          gap: '7%',
           cornerStyle: CornerStyle.bothCurve,
           dataSource: chartData,
           xValueMapper: (ChartData data, _) => data.x,
@@ -76,8 +74,7 @@ class RadialData extends StatelessWidget {
               children: chartData.map((data) {
                 return Text(
                   '${data.x}: ${data.y}%',
-                  style: TextStyle(
-                      fontSize: fontSize, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 );
               }).toList(),
             ),
@@ -89,7 +86,10 @@ class RadialData extends StatelessWidget {
 }
 
 class ChartData {
-  ChartData(this.x, this.y);
+  ChartData(
+    this.x,
+    this.y,
+  );
   final String? x;
   final int y;
 }

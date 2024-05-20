@@ -160,8 +160,7 @@ class SoilNpkPage extends StatelessWidget {
                         child: Center(
                           child: Column(
                             children: [
-                              Expanded(
-                                flex: 15,
+                              FittedBox(
                                 child: Column(
                                   children: [
                                     SizedBox(
@@ -197,7 +196,7 @@ class SoilNpkPage extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                flex: 70,
+                                flex: 7,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 12.0),
@@ -214,148 +213,146 @@ class SoilNpkPage extends StatelessWidget {
                                     // height: 40,
                                     child: Column(
                                       children: [
-                                        Expanded(
-                                          flex: 25,
-                                          child: Column(
-                                            children: [
-                                              SizedBox(
-                                                height: screenheight / 108,
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              height: screenheight / 108,
+                                            ),
+                                            Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.orange[200],
+                                                  borderRadius:
+                                                      const BorderRadius
+                                                          .vertical(
+                                                          top: Radius.circular(
+                                                              14))),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      screenWidth / 30.0,
+                                                  vertical: screenWidth / 30),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    "Time",
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            screenWidth / 24,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 6),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      color: Colors.red,
+                                                    ),
+                                                    child: RichText(
+                                                      text: TextSpan(
+                                                        style:
+                                                            DefaultTextStyle.of(
+                                                                    context)
+                                                                .style,
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text: 'N',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      screenWidth /
+                                                                          26,
+                                                                  color: Colors
+                                                                      .white)),
+                                                          // const TextSpan(text: 'itrogen'),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 6),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      color: Colors.green,
+                                                    ),
+                                                    child: RichText(
+                                                      text: TextSpan(
+                                                        style:
+                                                            DefaultTextStyle.of(
+                                                                    context)
+                                                                .style,
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text: 'P',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      screenWidth /
+                                                                          26,
+                                                                  color: Colors
+                                                                      .white)),
+                                                          // const TextSpan(
+                                                          //     text: 'hosporous'),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 6),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      color: Colors.blue,
+                                                    ),
+                                                    child: RichText(
+                                                      text: TextSpan(
+                                                        style:
+                                                            DefaultTextStyle.of(
+                                                                    context)
+                                                                .style,
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text: 'K',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      screenWidth /
+                                                                          26,
+                                                                  color: Colors
+                                                                      .white)),
+                                                          // const TextSpan(
+                                                          //     text: 'otassium'),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              Container(
-                                                margin:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 8),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.orange[200],
-                                                    borderRadius:
-                                                        const BorderRadius
-                                                            .vertical(
-                                                            top:
-                                                                Radius.circular(
-                                                                    14))),
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        screenWidth / 30.0,
-                                                    vertical: screenWidth / 30),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      "Time",
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              screenWidth / 24,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    Container(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 6),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                        color: Colors.red,
-                                                      ),
-                                                      child: RichText(
-                                                        text: TextSpan(
-                                                          style: DefaultTextStyle
-                                                                  .of(context)
-                                                              .style,
-                                                          children: <TextSpan>[
-                                                            TextSpan(
-                                                                text: 'N',
-                                                                style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize:
-                                                                        screenWidth /
-                                                                            26,
-                                                                    color: Colors
-                                                                        .white)),
-                                                            // const TextSpan(text: 'itrogen'),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 6),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                        color: Colors.green,
-                                                      ),
-                                                      child: RichText(
-                                                        text: TextSpan(
-                                                          style: DefaultTextStyle
-                                                                  .of(context)
-                                                              .style,
-                                                          children: <TextSpan>[
-                                                            TextSpan(
-                                                                text: 'P',
-                                                                style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize:
-                                                                        screenWidth /
-                                                                            26,
-                                                                    color: Colors
-                                                                        .white)),
-                                                            // const TextSpan(
-                                                            //     text: 'hosporous'),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 6),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                        color: Colors.blue,
-                                                      ),
-                                                      child: RichText(
-                                                        text: TextSpan(
-                                                          style: DefaultTextStyle
-                                                                  .of(context)
-                                                              .style,
-                                                          children: <TextSpan>[
-                                                            TextSpan(
-                                                                text: 'K',
-                                                                style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize:
-                                                                        screenWidth /
-                                                                            26,
-                                                                    color: Colors
-                                                                        .white)),
-                                                            // const TextSpan(
-                                                            //     text: 'otassium'),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                         Expanded(
-                                          flex: 60,
                                           child: ListView.builder(
                                               physics:
                                                   const BouncingScrollPhysics(),

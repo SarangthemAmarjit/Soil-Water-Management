@@ -63,7 +63,14 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
       onWillPop: showExitPopup,
       child: AdvancedDrawer(
-        backdropColor: Colors.white,
+        backdrop: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  opacity: 0.1,
+                  fit: BoxFit.cover,
+                  image: AssetImage('assets/images/bg.png'))),
+        ),
+
         controller: _advancedDrawerController,
         animationCurve: Curves.easeIn,
 
