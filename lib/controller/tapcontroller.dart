@@ -40,6 +40,9 @@ class GetxTapController extends GetxController {
   bool _pumpStatusmanually = false;
   bool _isserverok = true;
   bool _pumpStatus = false;
+  bool _ismanual = false;
+  bool get ismanual => _ismanual;
+
   String _soiltitle = '';
 
   double _progressValue = 0.0;
@@ -113,6 +116,11 @@ class GetxTapController extends GetxController {
       zoomMode: ZoomMode.x,
       enableSelectionZooming: true,
     );
+  }
+
+  void automatictoggle() {
+    _ismanual = !_ismanual;
+    update();
   }
 
   void monitorbackgroundservice(ServiceInstance service) {
