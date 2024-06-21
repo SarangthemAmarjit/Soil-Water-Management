@@ -118,10 +118,7 @@ class GetxTapController extends GetxController {
     );
   }
 
-  void automatictoggle() {
-    _ismanual = !_ismanual;
-    update();
-  }
+  void automatictoggle() {}
 
   void monitorbackgroundservice(ServiceInstance service) {
     _istabonnotification = true;
@@ -378,6 +375,43 @@ class GetxTapController extends GetxController {
     }
   }
 
+  void setwaterpumpmode({required bool ispoweron}) async {
+    if (!ispoweron) {
+      _ismanual = !_ismanual;
+      update();
+    }
+
+    log('Field 2 ${_latestfeeddata!.field2}');
+    try {
+      final queryParameters = {
+        "api_key": "8D35B69579284707",
+        'field1': _ismanual
+            ? ispoweron
+                ? '1'
+                : '2'
+            : '0',
+        "field2": _latestfeeddata!.field2,
+        "field3": _latestfeeddata!.field3,
+        "field4": _latestfeeddata!.field4,
+        "field5": _latestfeeddata!.field5,
+        "field6": _latestfeeddata!.field6,
+        "field7": _latestfeeddata!.field7,
+        "field8": _latestfeeddata!.field8,
+      };
+
+      final response = await http.post(
+        Uri.http('10.10.1.139:88', '/api/channel-data/update', queryParameters),
+      );
+      if (response.statusCode == 200) {
+        log('Successfuly Set Mode');
+      } else {
+        log('error water mode set');
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
   Future getalldata() async {
     try {
       // log("All soil date 10 list$_allsoildatamaplast10");
@@ -440,6 +474,7 @@ class GetxTapController extends GetxController {
   Future setwaterpump({
     required bool isActive,
   }) async {
+    setwaterpumpmode(ispoweron: isActive);
     try {
       final queryParameters = {
         "id": 698633,

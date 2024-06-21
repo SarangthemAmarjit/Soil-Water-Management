@@ -128,6 +128,7 @@ class _HomePageState extends State<HomePage> {
           ),
           body: GetBuilder<GetxTapController>(builder: (_) {
             return Container(
+              height: MediaQuery.of(context).size.height,
               decoration: const BoxDecoration(
                   image: DecorationImage(
                       opacity: 0.2,
@@ -258,7 +259,7 @@ class _HomePageState extends State<HomePage> {
                                                   width: 15,
                                                 ),
                                                 const Text(
-                                                  "Water Pump Mode",
+                                                  "Pump Mode",
                                                   style: TextStyle(
                                                       fontSize: 20,
                                                       fontWeight:
@@ -293,7 +294,8 @@ class _HomePageState extends State<HomePage> {
                                               ],
                                               radiusStyle: false,
                                               onToggle: (index) {
-                                                controller.automatictoggle();
+                                                controller.setwaterpumpmode(
+                                                    ispoweron: false);
                                               },
                                             )
                                           ],
@@ -972,14 +974,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 50,
-                    )
                   ],
                 ),
               ),
