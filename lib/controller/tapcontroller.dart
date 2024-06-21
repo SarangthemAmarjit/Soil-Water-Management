@@ -48,8 +48,8 @@ class GetxTapController extends GetxController {
   double _progressValue = 0.0;
   double get progressvalue => _progressValue;
   Timer? _circulartimer;
-  String _elevation = '';
-  String get elevation => _elevation;
+  String _field8 = '';
+  String get elevation => _field8;
   Timer? _scheduletimer;
   final List<DateTime> _alldatetime = [];
   List<DateTime> _alldatetimelast10 = [];
@@ -227,7 +227,7 @@ class GetxTapController extends GetxController {
     const duration = Duration(seconds: 1);
 
     _circulartimer = Timer.periodic(duration, (Timer timer) {
-      if (_elevation.isEmpty || _elevation == '0') {
+      if (_field8.isEmpty || _field8 == '0') {
         // Increment progress value every second until it reaches 5 seconds
         _progressValue += 0.2;
         update(); // Increment by 0.2 every second (100% / 5 seconds = 0.2)
@@ -276,7 +276,7 @@ class GetxTapController extends GetxController {
     setwaterpump(isActive: true);
     if (_ismanualwaterconfirm == false) {
       startTimeforcircular(context: context);
-      if (_elevation == '1') {
+      if (_field8 == '1') {
         NotificationService().showNotification(
             title: 'Water Pump Activated 🚰',
             body: 'Your water pump 💦 has been switched on successfully');
@@ -351,7 +351,7 @@ class GetxTapController extends GetxController {
             isDataLoading(true);
             latestdata = users;
             _latestfeeddata = latestdata!.feeds.last;
-            _elevation = latestdata!.channel.elevation;
+            _field8 = _latestfeeddata!.field8;
 
             update();
           }
@@ -503,7 +503,7 @@ class GetxTapController extends GetxController {
     update();
     setwaterpump(isActive: true);
     startTimeforcircular(context: context);
-    if (_elevation == '1') {
+    if (_field8 == '1') {
       NotificationService().showNotification(
           title: 'Water Pump Activated',
           body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
