@@ -42,6 +42,13 @@ class NotificationService {
             break;
           case NotificationResponseType.selectedNotificationAction:
             log('Notification check 2');
+            if (notificationResponse.actionId == 'Yes') {
+              // Handle the "Yes" action
+              log('User chose to continue the water pump.');
+            } else if (notificationResponse.actionId == 'No') {
+              // Handle the "No" action
+              log('User chose not to continue the water pump.');
+            }
             break;
         }
       },
@@ -58,6 +65,17 @@ class NotificationService {
 
   calcelnotification() async {
     await notificationsPlugin.cancelAll();
+  }
+
+  Future<void> onSelectNotification(String payload) async {
+    print('Notification payload: $payload');
+    if (payload == 'Yes') {
+      // Handle the action for "Yes"
+      print('User chose to continue the water pump.');
+    } else if (payload == 'No') {
+      // Handle the action for "No"
+      print('User chose not to continue the water pump.');
+    }
   }
 
   notificationDetails() {

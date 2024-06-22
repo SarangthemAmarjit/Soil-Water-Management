@@ -43,13 +43,17 @@ class GetxTapController extends GetxController {
   bool _ismanual = false;
   bool get ismanual => _ismanual;
 
+  DateTime? _createddate;
+  DateTime? get createddate => _createddate;
+
   String _soiltitle = '';
 
   double _progressValue = 0.0;
   double get progressvalue => _progressValue;
   Timer? _circulartimer;
+  Timer? _field8checkingtimer;
   String _field8 = '';
-  String get elevation => _field8;
+  String get field8 => _field8;
   Timer? _scheduletimer;
   final List<DateTime> _alldatetime = [];
   List<DateTime> _alldatetimelast10 = [];
@@ -222,6 +226,31 @@ class GetxTapController extends GetxController {
     update();
   }
 
+  void startTimeforcheckingfield8() {
+    log('Timer Started');
+    const duration = Duration(seconds: 1);
+
+    _field8checkingtimer = Timer.periodic(duration, (Timer timer) {
+      if (_latestfeeddata!.created == _createddate) {
+        // Increment progress value every second until it reaches 20 seconds
+        _progressValue +=
+            0.05; // Increment by 0.05 every second (100% / 20 seconds = 0.05)
+        update();
+        if (_progressValue >= 1.0) {
+          _field8checkingtimer?.cancel();
+          _pumpStatus = false;
+          _progressValue = 0.0;
+          update();
+          setwaterpumpmode(ispoweron: false);
+        }
+      } else {
+        _progressValue = 1.0;
+        _field8checkingtimer?.cancel();
+        update();
+      }
+    });
+  }
+
   void startTimeforcircular({required BuildContext context}) {
     log('Timer Started');
     const duration = Duration(seconds: 1);
@@ -273,10 +302,11 @@ class GetxTapController extends GetxController {
 
   void setpump({required bool pumpstatus, required BuildContext context}) {
     _pumpStatus = pumpstatus;
-    setwaterpump(isActive: true);
+
     if (_ismanualwaterconfirm == false) {
       startTimeforcircular(context: context);
       if (_field8 == '1') {
+        setwaterpump(isActive: true);
         NotificationService().showNotification(
             title: 'Water Pump Activated 🚰',
             body: 'Your water pump 💦 has been switched on successfully');
@@ -325,12 +355,19 @@ class GetxTapController extends GetxController {
         if (latestdata == null) {
           latestdata = users;
           _latestfeeddata = latestdata!.feeds.last;
+          _createddate = _latestfeeddata!.created;
 
           update();
         } else {
           if (users == latestdata ||
               users.feeds.last.field3.isEmpty ||
               users.feeds.last.field2.isEmpty) {
+            if (_field8checkingtimer == null) {
+              if (_latestfeeddata!.field8 == '1') {
+                startTimeforcheckingfield8();
+              }
+            }
+
             // if (users.feeds.last.field4.isNotEmpty) {
             //   await prefs.setString(
             //     'nitro',
@@ -474,7 +511,6 @@ class GetxTapController extends GetxController {
   Future setwaterpump({
     required bool isActive,
   }) async {
-    setwaterpumpmode(ispoweron: isActive);
     try {
       final queryParameters = {
         "id": 698633,
@@ -501,9 +537,10 @@ class GetxTapController extends GetxController {
   void startTimer({required BuildContext context}) {
     _pumpStatus = true;
     update();
-    setwaterpump(isActive: true);
+    setwaterpumpmode(ispoweron: _pumpStatus);
     startTimeforcircular(context: context);
     if (_field8 == '1') {
+      setwaterpump(isActive: true);
       NotificationService().showNotification(
           title: 'Water Pump Activated',
           body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
@@ -526,7 +563,9 @@ class GetxTapController extends GetxController {
           selectedVisualType.value = null;
           update();
           NotificationService().showNotification(
-              title: 'Done', body: '🚰 Water Pump Completed  Successfully');
+              title: 'Done',
+              body: '🚰 Water Pump Completed  Successfully',
+              payLoad: 'item x');
         }
       });
       _ismanualwaterconfirm = true;
