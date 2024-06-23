@@ -251,6 +251,18 @@ class GetxTapController extends GetxController {
     });
   }
 
+  void automationmodeerrordialog({required BuildContext context}) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.error,
+      animType: AnimType.topSlide,
+      title: 'ERROR',
+      desc: '⚠️⚠️ In Automation Mode You cannot Change Power Mode',
+      showCloseIcon: true,
+      btnOkOnPress: () {},
+    ).show();
+  }
+
   void startTimeforcircular({required BuildContext context}) {
     log('Timer Started');
     const duration = Duration(seconds: 1);

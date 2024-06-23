@@ -472,13 +472,20 @@ class _HomePageState extends State<HomePage> {
                                                         'ON'
                                                       ],
                                                       radiusStyle: true,
-                                                      onToggle:
-                                                          controller.ismanual
+                                                      onToggle: controller
+                                                              .ismanual
+                                                          ? (index) {
+                                                              controller.setpump(
+                                                                  pumpstatus:
+                                                                      !controller
+                                                                          .pumpStatus,
+                                                                  context:
+                                                                      context);
+                                                            }
+                                                          : controller.field8 ==
+                                                                  '1'
                                                               ? (index) {
-                                                                  controller.setpump(
-                                                                      pumpstatus:
-                                                                          !controller
-                                                                              .pumpStatus,
+                                                                  controller.automationmodeerrordialog(
                                                                       context:
                                                                           context);
                                                                 }
