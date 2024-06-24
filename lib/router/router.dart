@@ -9,10 +9,7 @@ class AppRouter extends $AppRouter {
         //HomeScreen is generated as HomeRoute because
         //of the replaceInRouteName property
 
-        AutoRoute(
-          path: '/',
-          page: InitialPage.page,
-        ),
+        AutoRoute(path: '/', page: ResponsivePage.page),
 
         AutoRoute(path: '/moisturePage', page: CommonGraphPage.page),
         AutoRoute(path: '/npkPage', page: SoilNpkPage.page),

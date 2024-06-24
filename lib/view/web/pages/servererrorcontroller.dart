@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
-import 'package:soilmoisturedetector/pages/dashboard.dart';
-import 'package:soilmoisturedetector/pages/servererrorpage.dart';
+import 'package:soilmoisturedetector/view/mobile/pages/dashboard.dart';
+import 'package:soilmoisturedetector/view/mobile/pages/servererrorpage.dart';
 
 @RoutePage()
 class InitialPage extends StatelessWidget {
