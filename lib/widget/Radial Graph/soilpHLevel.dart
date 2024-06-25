@@ -16,7 +16,7 @@ class RadialIndicatorSoil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log( value.toString());
+    log(value.toString());
     GetxTapController controller = Get.put(GetxTapController());
     return Obx(
       () => controller.isDataLoading.value
@@ -25,7 +25,7 @@ class RadialIndicatorSoil extends StatelessWidget {
               enableLoadingAnimation: true,
               axes: <RadialAxis>[
                 RadialAxis(
-                  maximum: 14,
+                  maximum: 12,
 
                   annotations: [
                     GaugeAnnotation(
@@ -36,7 +36,7 @@ class RadialIndicatorSoil extends StatelessWidget {
                               ? '0$value'
                               : value!,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 22),
+                          fontWeight: FontWeight.bold, fontSize: 14),
                     ))
                   ],
 

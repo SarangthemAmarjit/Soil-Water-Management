@@ -42,11 +42,8 @@ class HumiditynTemp extends StatelessWidget {
                                     : index == 1
                                         ? '$value°C'
                                         : value!,
-                            style: TextStyle(
-                         
-                              fontWeight: FontWeight.bold,
-                              fontSize: MediaQuery.of(context).size.width / 25,
-                            ),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 17),
                           ),
                           Card(
                             shape: RoundedRectangleBorder(
@@ -61,25 +58,22 @@ class HumiditynTemp extends StatelessWidget {
                                 width: screenwidth / 8,
                                 child: Center(
                                   child: Text(
-    value==null||value!.isEmpty?'N/A':
-                                    index == 0
-                                        ? 
-                                    
-                                        double.parse(value!) > 66.66
-                                            ? 'Wet'
-                                            : double.parse(value!) > 33.33
-                                                ? 'Optimal'
-                                                : 'Dry'
-                                        : double.parse(value!) > 66.66
-                                            ? 'High'
-                                            : double.parse(value!) > 33.33
-                                                ? 'Optimal'
-                                                : 'Low',
-                                    style: TextStyle(
+                                    value == null || value!.isEmpty
+                                        ? 'N/A'
+                                        : index == 0
+                                            ? double.parse(value!) > 66.66
+                                                ? 'Wet'
+                                                : double.parse(value!) > 33.33
+                                                    ? 'Optimal'
+                                                    : 'Dry'
+                                            : double.parse(value!) > 66.66
+                                                ? 'High'
+                                                : double.parse(value!) > 33.33
+                                                    ? 'Optimal'
+                                                    : 'Low',
+                                    style: const TextStyle(
                                       color: Colors.white,
-                                      fontSize:
-                                          MediaQuery.of(context).size.width /
-                                              30,
+                                      fontSize: 25,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -185,7 +179,9 @@ class HumiditynTemp extends StatelessWidget {
                         enableAnimation: true,
                         animationDuration: 1500,
                         animationType: AnimationType.bounceOut,
-                        value: value==null||value!.isEmpty?0.0: double.parse(value!)),
+                        value: value == null || value!.isEmpty
+                            ? 0.0
+                            : double.parse(value!)),
                   ],
                 ),
               ],

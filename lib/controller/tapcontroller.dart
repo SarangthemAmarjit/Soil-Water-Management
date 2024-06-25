@@ -371,32 +371,17 @@ class GetxTapController extends GetxController {
 
           update();
         } else {
-          if (users == latestdata ||
-              users.feeds.last.field3.isEmpty ||
-              users.feeds.last.field2.isEmpty) {
+          if (users == latestdata) {
             if (_field8checkingtimer == null) {
               if (_latestfeeddata!.field8 == '1') {
+                log('Field8 is 1');
                 startTimeforcheckingfield8();
               }
             }
 
-            // if (users.feeds.last.field4.isNotEmpty) {
-            //   await prefs.setString(
-            //     'nitro',
-            //     users.feeds.last.field4,
-            //   );
-            //   await prefs.setString(
-            //     'phos',
-            //     users.feeds.last.field5,
-            //   );
-            //   await prefs.setString(
-            //     'potas',
-            //     users.feeds.last.field6,
-            //   );
-            // }
-
             log('Data Already same');
           } else {
+            log('222222222222222222222222222222222');
             isDataLoading(true);
             latestdata = users;
             _latestfeeddata = latestdata!.feeds.last;
