@@ -19,7 +19,7 @@ class ResponsivePage extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (controller.isserverok) {
-            if (constraints.maxWidth < 600) {
+            if (constraints.maxWidth < 800) {
               // If the screen width is less than 600, return the mobile view
               return const HomePage();
             } else {

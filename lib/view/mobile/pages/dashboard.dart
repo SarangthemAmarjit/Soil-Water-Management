@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
           ),
           body: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 500),
+              constraints: const BoxConstraints(maxWidth: 600),
               child: GetBuilder<GetxTapController>(builder: (_) {
                 return Container(
                   height: MediaQuery.of(context).size.height,

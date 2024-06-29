@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_null_aware_operators
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:soilmoisturedetector/controller/tapcontroller.dart';
 import 'package:soilmoisturedetector/widget/Radial%20Graph/humidityandtemperature.dart';
@@ -90,13 +92,19 @@ class CardWidgetforSoil extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(height: 28, child: Image.asset(iconpath)),
-                    Text(
-                      "Show more . .",
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
+                    Expanded(
+                        flex: 1,
+                        child:
+                            SizedBox(height: 28, child: Image.asset(iconpath))),
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        "Show more . .",
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],

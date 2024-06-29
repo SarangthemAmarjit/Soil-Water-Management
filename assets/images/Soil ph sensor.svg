@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1926" height="1473" viewBox="0 0 1926 1473">
+  <g id="Soil_ph_sensor" data-name="Soil ph sensor" transform="translate(6 -524)">
+    <path id="Path_6" data-name="Path 6" d="M4288,1279.849s91.806-90.076,205.867-107.459,165.527,11.062,250.378,37.927,18.083,52.149,89.023,69.532,94.587,11.062,194.738,0,16.692-44.248,205.866-44.248c164.393,0,350.058,42.2,533.668,42.2s92.159-42.711,200.773-42.2S6202,1279.849,6202,1279.849v752.213H4288Z" transform="translate(-4282 -35.062)" fill="#d89096"/>
+    <path id="Rectangle_1" data-name="Rectangle 1" d="M20,0H351a20,20,0,0,1,20,20V506a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V20A20,20,0,0,1,20,0Z" transform="translate(687 524)" fill="#5db363"/>
+    <g id="Group_2" data-name="Group 2" transform="translate(40)">
+      <rect id="Rectangle_4" data-name="Rectangle 4" width="37" height="714" transform="translate(687 1030)" fill="#d1d1d1"/>
+      <path id="Polygon_1" data-name="Polygon 1" d="M18.5,0,37,45H0Z" transform="translate(724 1788) rotate(180)" fill="#d1d1d1"/>
+    </g>
+    <g id="Group_3" data-name="Group 3" transform="translate(294)">
+      <rect id="Rectangle_4-2" data-name="Rectangle 4" width="37" height="714" transform="translate(687 1030)" fill="#d1d1d1"/>
+      <path id="Polygon_1-2" data-name="Polygon 1" d="M18.5,0,37,45H0Z" transform="translate(724 1788) rotate(180)" fill="#d1d1d1"/>
+    </g>
+    <path id="Path_7" data-name="Path 7" d="M6171.6,2000.667s27.907-137.47,0-201.38-29.9-32.346-111.626-54.258-111.626-33.39-215.279-33.39-120.6-4.174-199.333,33.39-45.847,110.6-115.613,116.863-73.753-17.738-163.453-91.821-8.925-139.873-195.347-204.51-326.589,29.35-550.34-54.037S4258,1231.667,4258,1231.667l17.94,769Z" transform="translate(-4264 -3.667)" fill="#a5797c" opacity="0.55"/>
+    <text id="Soil" transform="translate(833 697)" fill="#fff" font-size="50" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Soil</tspan></text>
+    <text id="ph" transform="translate(844 774)" fill="#fff" font-size="50" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">ph</tspan></text>
+    <text id="Sensor" transform="translate(798 851)" fill="#fff" font-size="50" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Sensor</tspan></text>
+  </g>
+</svg>
