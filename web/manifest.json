@@ -1,6 +1,6 @@
 {
-    "name": "soilmoisturedetector",
-    "short_name": "soilmoisturedetector",
+    "name": "soilwatermanagement",
+    "short_name": "soilwatermanagement",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

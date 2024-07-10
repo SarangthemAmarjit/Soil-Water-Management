@@ -71,14 +71,6 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
       onWillPop: showExitPopup,
       child: AdvancedDrawer(
-        backdrop: Container(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  opacity: 0.1,
-                  fit: BoxFit.cover,
-                  image: AssetImage('assets/images/bg.png'))),
-        ),
-
         controller: _advancedDrawerController,
         animationCurve: Curves.easeIn,
 
@@ -130,13 +122,13 @@ class _HomePageState extends State<HomePage> {
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 600),
               child: GetBuilder<GetxTapController>(builder: (_) {
-                return Container(
+                return SizedBox(
                   height: MediaQuery.of(context).size.height,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          opacity: 0.2,
-                          fit: BoxFit.cover,
-                          image: AssetImage('assets/images/bg.png'))),
+                  // decoration: const BoxDecoration(
+                  //     image: DecorationImage(
+                  //         opacity: 0.2,
+                  //         fit: BoxFit.cover,
+                  //         image: AssetImage('assets/images/bg.png'))),
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Column(
@@ -667,7 +659,7 @@ class _HomePageState extends State<HomePage> {
                                                                   width: 16.0),
                                                               ElevatedButton(
                                                                 style: ButtonStyle(
-                                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                                                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                                                         borderRadius:
                                                                             BorderRadius.circular(
                                                                                 15),
@@ -675,7 +667,7 @@ class _HomePageState extends State<HomePage> {
                                                                             color: Colors
                                                                                 .red))),
                                                                     backgroundColor:
-                                                                        const MaterialStatePropertyAll(Color.fromARGB(
+                                                                        const WidgetStatePropertyAll(Color.fromARGB(
                                                                             255,
                                                                             149,
                                                                             219,

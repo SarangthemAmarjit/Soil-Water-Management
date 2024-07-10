@@ -86,7 +86,9 @@ class HumiditynTemp extends StatelessWidget {
                                               : value!,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: screenwidth / 70,
+                                    fontSize: screenwidth < 800
+                                        ? screenwidth / 30
+                                        : screenwidth / 70,
                                   ),
                                 ),
                                 Card(
@@ -119,7 +121,9 @@ class HumiditynTemp extends StatelessWidget {
                                                           : 'Low',
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: screenwidth / 50,
+                                            fontSize: screenwidth < 800
+                                                ? screenwidth / 30
+                                                : screenwidth / 50,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),

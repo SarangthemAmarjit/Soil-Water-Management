@@ -40,7 +40,7 @@ class GetxTapController extends GetxController {
   bool _pumpStatusmanually = false;
   bool _isserverok = true;
   bool _pumpStatus = false;
-  bool _ismanual = false;
+  final bool _ismanual = false;
   bool get ismanual => _ismanual;
 
   DateTime? _createddate;
@@ -55,10 +55,41 @@ class GetxTapController extends GetxController {
   String _field8 = '';
   String get field8 => _field8;
   Timer? _scheduletimer;
-  final List<DateTime> _alldatetime = [];
+  List<DateTime> _alldatetime = [];
   List<DateTime> _alldatetimelast10 = [];
   late ZoomPanBehavior zoomPanBehavior;
+  String _dropdowname = dropdownItems.first;
+  String get dropdownname => _dropdowname;
 
+  String? _dropdowntime;
+  String? get dropdowntime => _dropdowntime;
+
+  int? _timeinterval;
+  int? get timeinterval => _timeinterval;
+
+  void settimeinterval({required String name}) {
+    int ind = timeintervallist.indexOf(name);
+    if (ind == 0) {
+      _timeinterval = 5;
+      update();
+      getalldata();
+    } else if (ind == 1) {
+      _timeinterval = 15;
+
+      update();
+      getalldata();
+    } else {
+      _timeinterval = 30;
+
+      update();
+      getalldata();
+    }
+    _dropdowntime = name;
+    update();
+  }
+
+  int _dropdownindex = 0;
+  int get dropdownindex => _dropdownindex;
   //getter
   bool get istabonnotification => _istabonnotification;
   bool get isserverok => _isserverok;
@@ -268,7 +299,7 @@ class GetxTapController extends GetxController {
     const duration = Duration(seconds: 1);
 
     _circulartimer = Timer.periodic(duration, (Timer timer) {
-      if (_field8.isEmpty || _field8 == '0') {
+      if (_field8.isEmpty || _field8 == '0' || _field8 == '2') {
         // Increment progress value every second until it reaches 5 seconds
         _progressValue += 0.2;
         update(); // Increment by 0.2 every second (100% / 5 seconds = 0.2)
@@ -312,13 +343,51 @@ class GetxTapController extends GetxController {
     });
   }
 
+  static const int initialTime = 10 * 60; // 10 minutes in seconds
+  int _remainingTime = initialTime;
+  Timer? _powerontimer;
+  void powerontimer({required BuildContext context}) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_remainingTime > 0) {
+        _remainingTime--;
+      } else {
+        _powerontimer?.cancel();
+        setwaterpump(isActive: false);
+        setwaterpumpmode(ispoweron: false);
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.info,
+          animType: AnimType.topSlide,
+          title: 'Confirm',
+          desc:
+              'Water Pump Continously on for 10 min. Do you want to pump for another 10 min?',
+          showCloseIcon: true,
+          btnOk: TextButton(
+              onPressed: () {
+                setwaterpump(isActive: true);
+                setwaterpumpmode(ispoweron: true);
+              },
+              child: const Text('YES')),
+          btnCancel: TextButton(
+              onPressed: () {
+                context.router.maybePop();
+              },
+              child: const Text('NO')),
+          btnOkOnPress: () {},
+        ).show();
+      }
+    });
+  }
+
   void setpump({required bool pumpstatus, required BuildContext context}) {
     _pumpStatus = pumpstatus;
 
     if (_ismanualwaterconfirm == false) {
       startTimeforcircular(context: context);
+
       if (_field8 == '1') {
         setwaterpump(isActive: true);
+        powerontimer(context: context);
         NotificationService().showNotification(
             title: 'Water Pump Activated 🚰',
             body: 'Your water pump 💦 has been switched on successfully');
@@ -409,11 +478,18 @@ class GetxTapController extends GetxController {
     }
   }
 
+  void changedropdownindex({required String dropdownvalue}) {
+    int ind = dropdownItems.indexOf(dropdownvalue);
+    _dropdowname = dropdownvalue;
+    _dropdownindex = ind;
+    update();
+  }
+
   void setwaterpumpmode({required bool ispoweron}) async {
-    if (!ispoweron) {
-      _ismanual = !_ismanual;
-      update();
-    }
+    // if (!ispoweron) {
+    //   _ismanual = !_ismanual;
+    //   update();
+    // }
 
     log('Field 2 ${_latestfeeddata!.field2}');
     try {
@@ -447,11 +523,12 @@ class GetxTapController extends GetxController {
   }
 
   Future getalldata() async {
+    log('Time interval : $_timeinterval');
     try {
       // log("All soil date 10 list$_allsoildatamaplast10");
       final queryParameters = {
         "api_key": "330F3444455D4923",
-        "interval": "60",
+        "interval": _timeinterval == null ? '60' : '$_timeinterval'
       };
       final response = await http.get(
         Uri.http('10.10.1.139:88', '/api/channel-data/698633/feeds',
@@ -464,12 +541,15 @@ class GetxTapController extends GetxController {
         var users = getallsoildetailsFromJson(response.body);
         alldata = users;
         _allsoildatamap = dec['feeds'];
+        _alldatetime = [];
+
         update();
-        log(_allsoildatamap.length.toString());
+        log('length herer :${_allsoildatamap.length}');
         if (_allsoildatamap.length > 10) {
           var last10 = _allsoildatamap.sublist(_allsoildatamap.length - 10);
 
           _allsoildatamaplast10 = last10.reversed.toList();
+          log('length greter than 10 :${_allsoildatamaplast10.length}');
           // log("All soil date 10 list$_allsoildatamaplast10");
           update();
         } else {
@@ -478,7 +558,7 @@ class GetxTapController extends GetxController {
           _allsoildatamaplast10 = last10.reversed.toList();
 
           update();
-          log("All soil date 10 list$_allsoildatamaplast10");
+          log('length less than 10 :${_allsoildatamap.length}');
         }
 
         for (var element in alldata!.feeds) {

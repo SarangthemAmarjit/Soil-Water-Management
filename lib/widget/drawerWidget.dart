@@ -12,11 +12,11 @@ class drawerWidget extends StatelessWidget {
     return Drawer(
       elevation: 0,
       child: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                opacity: 0.1,
-                fit: BoxFit.cover,
-                image: AssetImage('assets/images/bg.png'))),
+        // decoration: const BoxDecoration(
+        //     image: DecorationImage(
+        //         opacity: 0.1,
+        //         fit: BoxFit.cover,
+        //         image: AssetImage('assets/images/bg.png'))),
         child: Column(
           children: [
             Container(
