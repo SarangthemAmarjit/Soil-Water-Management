@@ -40,7 +40,7 @@ class GetxTapController extends GetxController {
   bool _pumpStatusmanually = false;
   bool _isserverok = true;
   bool _pumpStatus = false;
-  final bool _ismanual = false;
+  bool _ismanual = false;
   bool get ismanual => _ismanual;
 
   DateTime? _createddate;
@@ -54,6 +54,9 @@ class GetxTapController extends GetxController {
   Timer? _field8checkingtimer;
   String _field8 = '';
   String get field8 => _field8;
+
+  String _field1 = '';
+  String get field1 => _field1;
   Timer? _scheduletimer;
   List<DateTime> _alldatetime = [];
   List<DateTime> _alldatetimelast10 = [];
@@ -299,7 +302,7 @@ class GetxTapController extends GetxController {
     const duration = Duration(seconds: 1);
 
     _circulartimer = Timer.periodic(duration, (Timer timer) {
-      if (_field8.isEmpty || _field8 == '0' || _field8 == '2') {
+      if (_field1.isEmpty || _field1 == '0' || _field1 == '2') {
         // Increment progress value every second until it reaches 5 seconds
         _progressValue += 0.2;
         update(); // Increment by 0.2 every second (100% / 5 seconds = 0.2)
@@ -385,7 +388,7 @@ class GetxTapController extends GetxController {
     if (_ismanualwaterconfirm == false) {
       startTimeforcircular(context: context);
 
-      if (_field8 == '1') {
+      if (_field1 == '1') {
         setwaterpump(isActive: true);
         powerontimer(context: context);
         NotificationService().showNotification(
@@ -455,7 +458,8 @@ class GetxTapController extends GetxController {
             latestdata = users;
             _latestfeeddata = latestdata!.feeds.last;
             _field8 = _latestfeeddata!.field8;
-
+            _field1 = _latestfeeddata!.field1;
+            log('FIELD 1 :$_field1');
             update();
           }
         }
@@ -486,10 +490,10 @@ class GetxTapController extends GetxController {
   }
 
   void setwaterpumpmode({required bool ispoweron}) async {
-    // if (!ispoweron) {
-    //   _ismanual = !_ismanual;
-    //   update();
-    // }
+    if (!ispoweron) {
+      _ismanual = !_ismanual;
+      update();
+    }
 
     log('Field 2 ${_latestfeeddata!.field2}');
     try {
@@ -616,7 +620,7 @@ class GetxTapController extends GetxController {
     update();
     setwaterpumpmode(ispoweron: _pumpStatus);
     startTimeforcircular(context: context);
-    if (_field8 == '1') {
+    if (_field1 == '1') {
       setwaterpump(isActive: true);
       NotificationService().showNotification(
           title: 'Water Pump Activated',
