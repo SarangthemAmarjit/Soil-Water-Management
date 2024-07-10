@@ -386,15 +386,13 @@ class GetxTapController extends GetxController {
     _pumpStatus = pumpstatus;
 
     if (_ismanualwaterconfirm == false) {
-      startTimeforcircular(context: context);
-
-      if (_field1 == '1') {
-        setwaterpump(isActive: true);
-        powerontimer(context: context);
-        NotificationService().showNotification(
-            title: 'Water Pump Activated 🚰',
-            body: 'Your water pump 💦 has been switched on successfully');
-      }
+      // startTimeforcircular(context: context);
+      setwaterpumpmode(ispoweron: _pumpStatus);
+      setwaterpump(isActive: true);
+      powerontimer(context: context);
+      NotificationService().showNotification(
+          title: 'Water Pump Activated 🚰',
+          body: 'Your water pump 💦 has been switched on successfully');
     }
     if (pumpStatus == false) {
       if (_ismanualwaterconfirm) {
@@ -492,6 +490,7 @@ class GetxTapController extends GetxController {
   void setwaterpumpmode({required bool ispoweron}) async {
     if (!ispoweron) {
       _ismanual = !_ismanual;
+      log('ISMANUAL : $_ismanual');
       update();
     }
 

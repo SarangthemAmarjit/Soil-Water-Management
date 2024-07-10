@@ -354,11 +354,11 @@ class _WebHomePageState extends State<WebHomePage> {
                                                             child: FittedBox(
                                                               child: controller
                                                                       .pumpStatus
-                                                                  ? controller.field8
+                                                                  ? controller.field1
                                                                               .isEmpty ||
-                                                                          controller.field8 ==
+                                                                          controller.field1 ==
                                                                               '0' ||
-                                                                          controller.field8 ==
+                                                                          controller.field1 ==
                                                                               '2'
                                                                       ? const SizedBox(
                                                                           height:
@@ -391,8 +391,8 @@ class _WebHomePageState extends State<WebHomePage> {
                                                                               Color.fromARGB(255, 60, 205, 130),
                                                                             ]
                                                                           ],
-                                                                          activeFgColor:
-                                                                              Colors.white,
+                                                                          activeFgColor: Colors
+                                                                              .white,
                                                                           inactiveBgColor: const Color
                                                                               .fromARGB(
                                                                               255,
@@ -408,31 +408,21 @@ class _WebHomePageState extends State<WebHomePage> {
                                                                               : controller.field1 == '2' || controller.field1.isEmpty
                                                                                   ? 0
                                                                                   : 1,
-                                                                          totalSwitches:
-                                                                              2,
-                                                                          labels: const [
-                                                                            'OFF',
-                                                                            'ON'
-                                                                          ],
-                                                                          radiusStyle:
-                                                                              true,
-                                                                          onToggle: controller.ismanual
+                                                                          totalSwitches: 2,
+                                                                          labels: const ['OFF', 'ON'],
+                                                                          radiusStyle: true,
+                                                                          onToggle: controller.field1 == '2' || controller.field1 == '1'
                                                                               ? (index) {
                                                                                   controller.setpump(pumpstatus: !controller.pumpStatus, context: context);
                                                                                 }
-                                                                              : null,
-                                                                        )
+                                                                              : (index) {
+                                                                                  controller.automationmodeerrordialog(context: context);
+                                                                                })
                                                                   : ToggleSwitch(
-                                                                      changeOnTap: controller
-                                                                              .ismanual
-                                                                          ? true
-                                                                          : false,
-                                                                      minWidth:
-                                                                          55,
-                                                                      minHeight:
-                                                                          40,
-                                                                      cornerRadius:
-                                                                          20.0,
+                                                                      changeOnTap: controller.ismanual ? true : false,
+                                                                      minWidth: 55,
+                                                                      minHeight: 40,
+                                                                      cornerRadius: 20.0,
                                                                       activeBgColors: [
                                                                         [
                                                                           controller.ismanual
@@ -447,45 +437,26 @@ class _WebHomePageState extends State<WebHomePage> {
                                                                               130),
                                                                         ]
                                                                       ],
-                                                                      activeFgColor:
-                                                                          Colors
-                                                                              .white,
-                                                                      inactiveBgColor: const Color
-                                                                          .fromARGB(
-                                                                          255,
-                                                                          58,
-                                                                          60,
-                                                                          62),
-                                                                      inactiveFgColor:
-                                                                          Colors
-                                                                              .white,
-                                                                      initialLabelIndex: controller.field1 ==
-                                                                              "0"
+                                                                      activeFgColor: Colors.white,
+                                                                      inactiveBgColor: const Color.fromARGB(255, 58, 60, 62),
+                                                                      inactiveFgColor: Colors.white,
+                                                                      initialLabelIndex: controller.field1 == "0"
                                                                           ? controller.field8.isEmpty || controller.field8 == '0' || controller.field8 == '2'
                                                                               ? 0
                                                                               : 1
                                                                           : controller.field1 == '2' || controller.field1.isEmpty
                                                                               ? 0
                                                                               : 1,
-                                                                      totalSwitches:
-                                                                          2,
-                                                                      labels: const [
-                                                                        'OFF',
-                                                                        'ON'
-                                                                      ],
-                                                                      radiusStyle:
-                                                                          true,
-                                                                      onToggle: controller
-                                                                              .ismanual
+                                                                      totalSwitches: 2,
+                                                                      labels: const ['OFF', 'ON'],
+                                                                      radiusStyle: true,
+                                                                      onToggle: controller.field1 == '2' || controller.field1 == '1'
                                                                           ? (index) {
                                                                               controller.setpump(pumpstatus: !controller.pumpStatus, context: context);
                                                                             }
-                                                                          : controller.field8 == '1'
-                                                                              ? (index) {
-                                                                                  controller.automationmodeerrordialog(context: context);
-                                                                                }
-                                                                              : null,
-                                                                    ),
+                                                                          : (index) {
+                                                                              controller.automationmodeerrordialog(context: context);
+                                                                            }),
                                                             ),
                                                           ),
                                                         ],
