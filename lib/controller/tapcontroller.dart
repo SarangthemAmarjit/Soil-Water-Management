@@ -40,6 +40,9 @@ class GetxTapController extends GetxController {
   bool _pumpStatusmanually = false;
   bool _isserverok = true;
   bool _pumpStatus = false;
+
+  bool _ispumboff = false;
+  bool get ispumboff => _ispumboff;
   bool _ismanual = false;
   bool get ismanual => _ismanual;
 
@@ -275,7 +278,7 @@ class GetxTapController extends GetxController {
           _pumpStatus = false;
           _progressValue = 0.0;
           update();
-          setwaterpumpmode(ispoweron: false);
+          setwaterpumpmode(ispoweron: false, iscomingfrompumpmode: false);
         }
       } else {
         _progressValue = 1.0;
@@ -292,6 +295,18 @@ class GetxTapController extends GetxController {
       animType: AnimType.topSlide,
       title: 'ERROR',
       desc: '⚠️⚠️ In Automation Mode You cannot Change Power Mode',
+      showCloseIcon: true,
+      btnOkOnPress: () {},
+    ).show();
+  }
+
+  void manualmodeerrordialog({required BuildContext context}) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.error,
+      animType: AnimType.topSlide,
+      title: 'ERROR',
+      desc: '⚠️⚠️ Set the Pump Mode to Manual First',
       showCloseIcon: true,
       btnOkOnPress: () {},
     ).show();
@@ -355,8 +370,8 @@ class GetxTapController extends GetxController {
         _remainingTime--;
       } else {
         _powerontimer?.cancel();
-        setwaterpump(isActive: false);
-        setwaterpumpmode(ispoweron: false);
+        // setwaterpump(isActive: false);
+        setwaterpumpmode(ispoweron: false, iscomingfrompumpmode: false);
         AwesomeDialog(
           context: context,
           dialogType: DialogType.info,
@@ -367,8 +382,8 @@ class GetxTapController extends GetxController {
           showCloseIcon: true,
           btnOk: TextButton(
               onPressed: () {
-                setwaterpump(isActive: true);
-                setwaterpumpmode(ispoweron: true);
+                // setwaterpump(isActive: true);
+                setwaterpumpmode(ispoweron: true, iscomingfrompumpmode: false);
               },
               child: const Text('YES')),
           btnCancel: TextButton(
@@ -382,22 +397,28 @@ class GetxTapController extends GetxController {
     });
   }
 
-  void setpump({required bool pumpstatus, required BuildContext context}) {
+  void setpump(
+      {required bool pumpstatus,
+      required bool ispumboffff,
+      required BuildContext context}) {
+    log('Pump oFF :$ispumboffff');
     _pumpStatus = pumpstatus;
+    _ispumboff = ispumboffff;
+    update();
 
-    if (_ismanualwaterconfirm == false) {
-      // startTimeforcircular(context: context);
-      setwaterpumpmode(ispoweron: _pumpStatus);
-      setwaterpump(isActive: true);
+    if (pumpstatus) {
+      setwaterpumpmode(ispoweron: true, iscomingfrompumpmode: false);
+      // setwaterpump(isActive: true);
       powerontimer(context: context);
-      NotificationService().showNotification(
-          title: 'Water Pump Activated 🚰',
-          body: 'Your water pump 💦 has been switched on successfully');
-    }
-    if (pumpStatus == false) {
+      // startTimeforcircular(context: context);
+
+      // NotificationService().showNotification(
+      //     title: 'Water Pump Activated 🚰',
+      //     body: 'Your water pump 💦 has been switched on successfully');
+    } else {
       if (_ismanualwaterconfirm) {
         if (_timer != null) {
-          setwaterpump(isActive: false);
+          // setwaterpump(isActive: false);
           _timer!.cancel();
           _ismanualwaterconfirm = false;
           _pumpStatus = false;
@@ -407,13 +428,13 @@ class GetxTapController extends GetxController {
           update();
         }
       } else {
-        setwaterpump(isActive: false);
+        setwaterpumpmode(ispoweron: false, iscomingfrompumpmode: false);
+        // setwaterpump(isActive: false);
         NotificationService().showNotification(
             title: 'Water Pump Deactivated 🚰',
             body: 'Your water pump 💦 has been switched off successfully');
       }
     }
-    update();
   }
 
   Future getlatestfeeddata() async {
@@ -457,6 +478,15 @@ class GetxTapController extends GetxController {
             _latestfeeddata = latestdata!.feeds.last;
             _field8 = _latestfeeddata!.field8;
             _field1 = _latestfeeddata!.field1;
+            if (_field1 == '0' || _field1.isEmpty) {
+              _ismanual = false;
+              _pumpStatus = false;
+              update();
+            } else {
+              _ismanual = true;
+              update();
+            }
+
             log('FIELD 1 :$_field1');
             update();
           }
@@ -487,13 +517,12 @@ class GetxTapController extends GetxController {
     update();
   }
 
-  void setwaterpumpmode({required bool ispoweron}) async {
-    if (!ispoweron) {
+  void setwaterpumpmode(
+      {required bool ispoweron, required bool iscomingfrompumpmode}) async {
+    if (iscomingfrompumpmode) {
       _ismanual = !_ismanual;
-      log('ISMANUAL : $_ismanual');
       update();
     }
-
     log('Field 2 ${_latestfeeddata!.field2}');
     try {
       final queryParameters = {
@@ -588,39 +617,39 @@ class GetxTapController extends GetxController {
     } finally {}
   }
 
-  Future setwaterpump({
-    required bool isActive,
-  }) async {
-    try {
-      final queryParameters = {
-        "id": 698633,
-        "isactive": isActive,
-      };
-      final response = await http.post(
-        Uri.http('10.10.1.139:88', '/api/channel-data/change-active',
-            queryParameters),
-      );
-      log('Set Water Pump Response ;${response.statusCode}');
+  // Future setwaterpump({
+  //   required bool isActive,
+  // }) async {
+  //   try {
+  //     final queryParameters = {
+  //       "id": 698633,
+  //       "isactive": isActive,
+  //     };
+  //     final response = await http.post(
+  //       Uri.http('10.10.1.139:88', '/api/channel-data/change-active',
+  //           queryParameters),
+  //     );
+  //     log('Set Water Pump Response ;${response.statusCode}');
 
-      if (response.statusCode == 200) {
-        log('Successfully switch water pump');
-        getlatestfeeddata();
-      } else {
-        print('Failedrerer to Getdata.');
-      }
-      return null;
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+  //     if (response.statusCode == 200) {
+  //       log('Successfully switch water pump');
+  //       getlatestfeeddata();
+  //     } else {
+  //       print('Failedrerer to Getdata.');
+  //     }
+  //     return null;
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
 
   void startTimer({required BuildContext context}) {
     _pumpStatus = true;
     update();
-    setwaterpumpmode(ispoweron: _pumpStatus);
+    setwaterpumpmode(ispoweron: _pumpStatus, iscomingfrompumpmode: false);
     startTimeforcircular(context: context);
     if (_field1 == '1') {
-      setwaterpump(isActive: true);
+      // setwaterpump(isActive: true);
       NotificationService().showNotification(
           title: 'Water Pump Activated',
           body: 'Water Pump Activated for ${pumptimer ~/ 60} min');
@@ -636,7 +665,7 @@ class GetxTapController extends GetxController {
           // Add your desired action when the countdown reaches 0 here
 
           _ismanualwaterconfirm = false;
-          setwaterpump(isActive: false);
+          // setwaterpump(isActive: false);
           _pumpStatus = false;
           _min = 0;
           _sec = 0;

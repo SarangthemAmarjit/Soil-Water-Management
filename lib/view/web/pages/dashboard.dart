@@ -265,8 +265,8 @@ class _WebHomePageState extends State<WebHomePage> {
                                                                   //         255, 58, 60, 62),
                                                                   // inactiveFgColor: Colors.white,
                                                                   initialLabelIndex:
-                                                                      controller.field1 == '2' ||
-                                                                              controller.field1 == '1'
+                                                                      controller
+                                                                              .ismanual
                                                                           ? 1
                                                                           : 0,
                                                                   totalSwitches:
@@ -281,7 +281,9 @@ class _WebHomePageState extends State<WebHomePage> {
                                                                       (index) {
                                                                     controller.setwaterpumpmode(
                                                                         ispoweron:
-                                                                            false);
+                                                                            false,
+                                                                        iscomingfrompumpmode:
+                                                                            true);
                                                                   },
                                                                 ),
                                                               ),
@@ -352,112 +354,142 @@ class _WebHomePageState extends State<WebHomePage> {
                                                           ),
                                                           Expanded(
                                                             child: FittedBox(
-                                                              child: controller
-                                                                      .pumpStatus
-                                                                  ? controller.field1
-                                                                              .isEmpty ||
-                                                                          controller.field1 ==
-                                                                              '0' ||
-                                                                          controller.field1 ==
-                                                                              '2'
-                                                                      ? const SizedBox(
-                                                                          height:
-                                                                              30,
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                EdgeInsets.symmetric(horizontal: 70),
+                                                                child: controller
+                                                                        .ispumboff
+                                                                    ? controller.field1 ==
+                                                                            '1'
+                                                                        ? const SizedBox(
+                                                                            height:
+                                                                                30,
                                                                             child:
-                                                                                CircularProgressIndicator(),
-                                                                          ))
-                                                                      :
-
-                                                                      //! using dafault switch
-                                                                      ToggleSwitch(
-                                                                          minWidth:
-                                                                              35,
-                                                                          changeOnTap: controller.ismanual
-                                                                              ? true
-                                                                              : false,
-                                                                          minHeight:
-                                                                              30,
-                                                                          cornerRadius:
-                                                                              20.0,
-                                                                          activeBgColors: [
-                                                                            [
-                                                                              controller.ismanual ? const Color(0xffdc6c73) : Colors.grey,
+                                                                                Padding(
+                                                                              padding: EdgeInsets.symmetric(horizontal: 70),
+                                                                              child: CircularProgressIndicator(),
+                                                                            ))
+                                                                        : ToggleSwitch(
+                                                                            changeOnTap:
+                                                                                true,
+                                                                            minWidth:
+                                                                                55,
+                                                                            minHeight:
+                                                                                40,
+                                                                            cornerRadius:
+                                                                                20.0,
+                                                                            activeBgColors: [
+                                                                              [
+                                                                                controller.ismanual ? const Color(0xffdc6c73) : Colors.grey,
+                                                                              ],
+                                                                              const [
+                                                                                Color.fromARGB(255, 60, 205, 130),
+                                                                              ]
                                                                             ],
-                                                                            const [
-                                                                              Color.fromARGB(255, 60, 205, 130),
-                                                                            ]
-                                                                          ],
-                                                                          activeFgColor: Colors
-                                                                              .white,
-                                                                          inactiveBgColor: const Color
-                                                                              .fromARGB(
-                                                                              255,
-                                                                              58,
-                                                                              60,
-                                                                              62),
-                                                                          inactiveFgColor:
-                                                                              Colors.white,
-                                                                          initialLabelIndex: controller.field1 == "0"
-                                                                              ? controller.field8.isEmpty || controller.field8 == '0' || controller.field8 == '2'
-                                                                                  ? 0
-                                                                                  : 1
-                                                                              : controller.field1 == '2' || controller.field1.isEmpty
-                                                                                  ? 0
-                                                                                  : 1,
-                                                                          totalSwitches: 2,
-                                                                          labels: const ['OFF', 'ON'],
-                                                                          radiusStyle: true,
-                                                                          onToggle: controller.field1 == '2' || controller.field1 == '1'
-                                                                              ? (index) {
-                                                                                  controller.setpump(pumpstatus: !controller.pumpStatus, context: context);
-                                                                                }
-                                                                              : (index) {
-                                                                                  controller.automationmodeerrordialog(context: context);
-                                                                                })
-                                                                  : ToggleSwitch(
-                                                                      changeOnTap: controller.ismanual ? true : false,
-                                                                      minWidth: 55,
-                                                                      minHeight: 40,
-                                                                      cornerRadius: 20.0,
-                                                                      activeBgColors: [
-                                                                        [
-                                                                          controller.ismanual
-                                                                              ? const Color(0xffdc6c73)
-                                                                              : Colors.grey,
-                                                                        ],
-                                                                        const [
-                                                                          Color.fromARGB(
-                                                                              255,
-                                                                              60,
-                                                                              205,
-                                                                              130),
-                                                                        ]
-                                                                      ],
-                                                                      activeFgColor: Colors.white,
-                                                                      inactiveBgColor: const Color.fromARGB(255, 58, 60, 62),
-                                                                      inactiveFgColor: Colors.white,
-                                                                      initialLabelIndex: controller.field1 == "0"
-                                                                          ? controller.field8.isEmpty || controller.field8 == '0' || controller.field8 == '2'
-                                                                              ? 0
-                                                                              : 1
-                                                                          : controller.field1 == '2' || controller.field1.isEmpty
-                                                                              ? 0
-                                                                              : 1,
-                                                                      totalSwitches: 2,
-                                                                      labels: const ['OFF', 'ON'],
-                                                                      radiusStyle: true,
-                                                                      onToggle: controller.field1 == '2' || controller.field1 == '1'
-                                                                          ? (index) {
-                                                                              controller.setpump(pumpstatus: !controller.pumpStatus, context: context);
-                                                                            }
-                                                                          : (index) {
-                                                                              controller.automationmodeerrordialog(context: context);
-                                                                            }),
-                                                            ),
+                                                                            activeFgColor: Colors
+                                                                                .white,
+                                                                            inactiveBgColor: const Color.fromARGB(
+                                                                                255,
+                                                                                58,
+                                                                                60,
+                                                                                62),
+                                                                            inactiveFgColor:
+                                                                                Colors.white,
+                                                                            initialLabelIndex: controller.field1 == "0"
+                                                                                ? controller.field8.isEmpty || controller.field8 == '0' || controller.field8 == '2'
+                                                                                    ? 0
+                                                                                    : 1
+                                                                                : controller.field1 == '2' || controller.field1.isEmpty
+                                                                                    ? 0
+                                                                                    : 1,
+                                                                            totalSwitches: 2,
+                                                                            labels: const ['OFF', 'ON'],
+                                                                            radiusStyle: true,
+                                                                            onToggle: controller.field1 == '1'
+                                                                                ? (index) {
+                                                                                    controller.setpump(pumpstatus: false, context: context, ispumboffff: true);
+                                                                                  }
+                                                                                : (index) {
+                                                                                    controller.automationmodeerrordialog(context: context);
+                                                                                  })
+                                                                    : controller.pumpStatus
+                                                                        ? controller.field1.isEmpty || controller.field1 == '0' || controller.field1 == '2'
+                                                                            ? const SizedBox(
+                                                                                height: 30,
+                                                                                child: Padding(
+                                                                                  padding: EdgeInsets.symmetric(horizontal: 70),
+                                                                                  child: CircularProgressIndicator(),
+                                                                                ))
+                                                                            :
+
+                                                                            //! using dafault switch
+                                                                            ToggleSwitch(
+                                                                                changeOnTap: true,
+                                                                                minWidth: 55,
+                                                                                minHeight: 40,
+                                                                                cornerRadius: 20.0,
+                                                                                activeBgColors: [
+                                                                                  [
+                                                                                    controller.ismanual ? const Color(0xffdc6c73) : Colors.grey,
+                                                                                  ],
+                                                                                  const [
+                                                                                    Color.fromARGB(255, 60, 205, 130),
+                                                                                  ]
+                                                                                ],
+                                                                                activeFgColor: Colors.white,
+                                                                                inactiveBgColor: const Color.fromARGB(255, 58, 60, 62),
+                                                                                inactiveFgColor: Colors.white,
+                                                                                initialLabelIndex: controller.field1 == "0"
+                                                                                    ? controller.field8.isEmpty || controller.field8 == '0' || controller.field8 == '2'
+                                                                                        ? 0
+                                                                                        : 1
+                                                                                    : controller.field1 == '2' || controller.field1.isEmpty
+                                                                                        ? 0
+                                                                                        : 1,
+                                                                                totalSwitches: 2,
+                                                                                labels: const ['OFF', 'ON'],
+                                                                                radiusStyle: true,
+                                                                                onToggle: controller.field1 == '1'
+                                                                                    ? (index) {
+                                                                                        controller.setpump(pumpstatus: false, context: context, ispumboffff: true);
+                                                                                      }
+                                                                                    : (index) {
+                                                                                        controller.automationmodeerrordialog(context: context);
+                                                                                      })
+                                                                        : ToggleSwitch(
+                                                                            minWidth: 55,
+                                                                            minHeight: 40,
+                                                                            cornerRadius: 20.0,
+                                                                            changeOnTap: true,
+                                                                            activeBgColors: [
+                                                                              [
+                                                                                controller.ismanual ? const Color(0xffdc6c73) : Colors.grey,
+                                                                              ],
+                                                                              const [
+                                                                                Color.fromARGB(255, 60, 205, 130),
+                                                                              ]
+                                                                            ],
+                                                                            activeFgColor: Colors.white,
+                                                                            inactiveBgColor: const Color.fromARGB(255, 58, 60, 62),
+                                                                            inactiveFgColor: Colors.white,
+                                                                            initialLabelIndex: controller.field1 == "0"
+                                                                                ? controller.field8.isEmpty || controller.field8 == '0' || controller.field8 == '2'
+                                                                                    ? 0
+                                                                                    : 1
+                                                                                : controller.field1 == '2' || controller.field1.isEmpty
+                                                                                    ? 0
+                                                                                    : 1,
+                                                                            totalSwitches: 2,
+                                                                            labels: const ['OFF', 'ON'],
+                                                                            radiusStyle: true,
+                                                                            onToggle: controller.field1 == '2' || controller.field1 == '1'
+                                                                                ? (index) {
+                                                                                    controller.setpump(pumpstatus: true, context: context, ispumboffff: false);
+                                                                                  }
+                                                                                : controller.field1 == '0'
+                                                                                    ? (index) {
+                                                                                        controller.automationmodeerrordialog(context: context);
+                                                                                      }
+                                                                                    : (index) {
+                                                                                        controller.manualmodeerrordialog(context: context);
+                                                                                      })),
                                                           ),
                                                         ],
                                                       ),
